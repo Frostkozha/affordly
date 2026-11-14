@@ -58,3 +58,15 @@ export interface AssistantResponse {
   source: 'model' | 'template'; // template = fallback or verifier blocked the model text
   note?: string; // why a template was used instead of model text
 }
+
+// ---------- creators ----------
+// POST /api/creators  body: CreatorApplication -> { ok: true }
+// Creators get a free Plus plan in exchange for a set number of videos a month.
+
+export interface CreatorApplication {
+  name: string; // 1-80 chars
+  platform: 'tiktok' | 'instagram' | 'youtube' | 'other';
+  handle: string; // profile handle or link, 1-120 chars; this is how we contact them
+  followers: 'under-1k' | '1k-10k' | '10k-100k' | 'over-100k';
+  note: string; // 0-500 chars
+}

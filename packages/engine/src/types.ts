@@ -65,7 +65,8 @@ export interface Inputs {
   avoid: string[]; // tags matched against Recipe.contains
   workouts: Workout[]; // empty = training-aware placement off
   excludedProductIds: string[]; // set by "swap"
-  excludedRecipeIds: string[];
+  excludedRecipeIds: string[]; // also holds recipes the user swiped left on in Discover
+  likedRecipeIds?: string[]; // recipes the user swiped right on; the optimizer prefers them
 }
 
 export interface PantryItem {
@@ -145,7 +146,9 @@ export interface VerifyReport {
 //   average.kcal within +-10% of kcalPerDay; every day within +-20%
 //   average.protein >= proteinPerDay; every day >= 85% of proteinPerDay
 //   every recipe cookMinutes <= maxCookMinutes and none of inputs.avoid in recipe.contains
-//   3 meals a day (breakfast, lunch, dinner); a recipe at most 4 times a week
+//   3 meals a day (breakfast, lunch, dinner); a recipe at most 3 times a week;
+//   at most 6 packages of any one product (variety: no week built on 12 cans of tuna)
+//   liked recipes are preferred through the objective only; they never override a hard limit
 //   for every product: gramsNeeded <= gramsFromPantry + packages * packageGrams
 //   with workouts: on each workout day one meal is "pre-workout" 2-3 h before start
 //   (carbs >= 45% of its kcal, fat <= 30%) and the first meal after the session is

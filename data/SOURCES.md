@@ -106,7 +106,7 @@ Same method as above: USDA MyPlate Kitchen pages and photos (public domain) read
 | banana-walnut-oatmeal | Water instead of milk; honey for maple syrup; peanut butter for walnuts. |
 | lentil-tacos | Served over rice instead of corn tortillas; canned tomatoes for tomato paste; raisins dropped. |
 | lentil-stew | Scaled to 5 servings with the full cup of lentils; carrots fresh. |
-| lentil-chili | Dry lentils instead of cooked; two cans tomatoes. |
+| lentil-chili | Dry lentils instead of cooked; two cans tomatoes. Photo is not from MyPlate: "Bowl of chili" by Carstor, Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bowl_of_chili.jpg), CC BY-SA 2.5, cropped and resized to 600x400. |
 | one-pan-potatoes-chicken | Frozen mixed vegetables replace canned corn. |
 | one-pan-taco-rice | Dry rice for cooked; canned tomatoes plus salsa for tomatoes with chiles; chili seasoning mix replaced by spices. |
 | jollof-rice | Scaled to 6 servings; raw chicken thighs; water replaces broth; canned tomatoes replace tomato paste. |

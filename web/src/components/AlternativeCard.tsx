@@ -9,7 +9,7 @@ import { Money } from './Money';
 
 export function AlternativeCard({ alternative, apply }: {
   alternative: Alternative;
-  apply: (inputs: Inputs) => void;
+  apply: (inputs: Inputs, plan: Alternative['plan']) => void;
 }) {
   const { inputs } = useStore();
   return (
@@ -42,7 +42,7 @@ export function AlternativeCard({ alternative, apply }: {
       <p className="meta num diff">{inputDiff(inputs, alternative.inputs)}</p>
       <Button
         primary
-        onClick={() => apply(alternative.inputs)}
+        onClick={() => apply(alternative.inputs, alternative.plan)}
       >
         Use this plan
       </Button>

@@ -105,7 +105,9 @@ describe('meal engine', () => {
     const result = solve({ ...inputs, maxCookMinutes: 5 }, catalog, recipes, []);
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(result.alternatives.some(a => a.kind === 'more-cook-time')).toBe(true);
+      const cook = result.alternatives.find(a => a.kind === 'more-cook-time');
+      expect(cook).toBeDefined();
+      expect([15, 30, 45, 60]).toContain(cook!.inputs.maxCookMinutes);
       for (const a of result.alternatives) expect(verify(a.plan, a.inputs, catalog, recipes, []).ok).toBe(true);
     }
     const protein = solve({ ...inputs, proteinPerDay: 250 }, catalog, recipes, []);

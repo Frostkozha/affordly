@@ -48,6 +48,7 @@ export function InputsForm({ locked, go }: {
   return (
     <div className="input-layout">
       <form
+        noValidate
         onSubmit={e => {
           e.preventDefault();
           if (valid && !solving) {
@@ -113,28 +114,15 @@ export function InputsForm({ locked, go }: {
             </div>
           </fieldset>}
           <div className="target-fields">
-            <label>
-              Calories per day
-              <input
-                className="num"
-                aria-invalid={inputs.kcalPerDay < 1200 || inputs.kcalPerDay > 4000
-                  || !Number.isFinite(inputs.kcalPerDay)}
-                aria-describedby="calorie-hint"
-                type="number"
-                min="1200"
-                max="4000"
-                required
-                value={Number.isNaN(inputs.kcalPerDay) ? '' : inputs.kcalPerDay}
-                onChange={e => setInputs({
-                  ...inputs,
-                  kcalPerDay: e.target.valueAsNumber
-                })}
-              />
-              <small id="calorie-hint">
+            <div>
+              <label htmlFor="kcal">Calories per day</label>
+              <Stepper id="kcal" label="calories" value={inputs.kcalPerDay} min={1200} max={4000}
+                step={50} suffix="kcal" onChange={kcalPerDay => setInputs({ ...inputs, kcalPerDay })} />
+              <p id="kcal-hint" className="meta">
                 {inputs.kcalPerDay < 1200 || inputs.kcalPerDay > 4000 || !Number.isFinite(inputs.kcalPerDay) ?
                   'Enter calories between 1,200 and 4,000.' : 'Average within 10%.'}
-              </small>
-            </label>
+              </p>
+            </div>
             <div>
               <label htmlFor="protein">Protein per day (g)</label>
               <Stepper id="protein" label="protein" value={inputs.proteinPerDay} min={40} max={300}

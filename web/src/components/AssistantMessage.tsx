@@ -14,7 +14,7 @@ export function AssistantMessage({ response, open, apply, suggest, paywall, disa
 }) {
   return (
     <article className={`assistant-message ${response.refused ? 'refusal' : ''}`}>
-      {response.refused && <strong className="badge">Does not fit this request</strong>}
+      {response.refused && response.intent !== 'off-topic' && response.intent !== 'medical' && <strong className="badge">Does not fit this request</strong>}
       <p className="assistant-text">{response.text}</p>
       {response.action === 'compare' && response.results &&
         <div className="assistant-comparison">

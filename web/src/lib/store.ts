@@ -1,6 +1,6 @@
 import { createElement, createContext, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { AccountState, Inputs, PantryItem, SolveResult } from '@affordly/engine';
+import type { AccountState, Inputs, PantryItem, Plan, SolveResult } from '@affordly/engine';
 import { emptyState, loadState, saveState, cacheState } from './account';
 import { solvePlan } from './engine';
 import { defaultInputs } from './config';
@@ -25,7 +25,8 @@ interface Store {
   setInputs: (inputs: Inputs) => void;
   toggleEaten: (key: string) => void;
   /** keepOnFail: when the new inputs do not fit, leave the current plan and inputs as they were. */
-  run: (inputs?: Inputs, pantry?: PantryItem[], week?: number, reveal?: boolean, keepOnFail?: boolean) => Promise<SolveResult>;
+  run: (inputs?: Inputs, pantry?: PantryItem[], week?: number, reveal?: boolean, keepOnFail?: boolean, known?: Plan) => Promise<SolveResult>;
+  /** known: an already solved plan for these inputs (an alternative's); shown at once, no re-solve. */
   setPlus: (plus: boolean) => Promise<void>;
   useSample: () => Promise<void>;
 }
@@ -85,7 +86,7 @@ export function StoreProvider({ children }: {
     return () => clearTimeout(timer);
   }, [state, ready]);
   const run = async (inputs = state.inputs ?? defaultInputs, pantry = state.pantry,
-    week = state.week, reveal = true, keepOnFail = false) => {
+    week = state.week, reveal = true, keepOnFail = false, known?: Plan) => {
     // A second run can start while the first is in flight (result is null then), so remember the last shown result.
     if (result)
       lastShown.current = result;
@@ -97,11 +98,13 @@ export function StoreProvider({ children }: {
       pantry,
       week
     };
-    setSolving(true);
     setSolveError(null);
-    setResult(null);
+    if (!known) {
+      setSolving(true);
+      setResult(null);
+    }
     try {
-      const next = await solvePlan({
+      const next: SolveResult = known ? { ok: true, plan: known } : await solvePlan({
         ...inputs,
         workouts: state.plus ? inputs.workouts : []
       }, pantry);

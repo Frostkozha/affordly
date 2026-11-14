@@ -69,8 +69,13 @@ main :is(.input-layout, .plan-layout, .day-grid, .week-layout, .account-layout, 
 .auto-targets-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); }
 .auto-targets label { margin: 0; }
 .auto-targets input, .auto-targets select { display: block; width: 100%; min-width: 0; margin-top: var(--s-1); }
-.auto-targets-actions { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+.auto-targets-actions { scroll-margin-bottom: calc(var(--s-9) + var(--s-7)); display: flex; flex-wrap: wrap; gap: var(--s-3); }
 @media (max-width: 479px) {
   .auto-targets-grid { grid-template-columns: minmax(0, 1fr); }
 }
 .input-form h2 + .btn, form h2 + .btn { margin-bottom: var(--s-4); }
+
+@media (max-width: 767px) {
+  /* While the auto-calculate panel is open, the sticky Plan bar must not cover its buttons. */
+  form:has(.auto-targets) .form-cta { position: static; }
+}

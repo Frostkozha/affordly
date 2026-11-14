@@ -41,7 +41,7 @@ footer p { font-size: var(--fs-xs); color: var(--ink-2); margin: 0; }
 .top-bar nav { gap: var(--s-3); }
 }
 @media (max-width: 767px) {
-main { padding-top: var(--s-5); padding-bottom: var(--s-7); }
+main { padding-top: var(--s-5); padding-bottom: calc(var(--s-9) + var(--s-7) + env(safe-area-inset-bottom)); }
 }
 @media (max-width: 767px) {
 .top-bar { position: static; }
@@ -115,6 +115,7 @@ footer { margin-bottom: calc(var(--s-8) + env(safe-area-inset-bottom)); align-it
   }
 }
 body:has(.sticky-cta) .ask-float,
+body:has(.rebuild-cta) .ask-float,
 body:has(dialog[open]) .ask-float {
   display: none;
 }

@@ -35,8 +35,8 @@ export function DoesNotFit({ result, go }: {
             <AlternativeCard
               key={alt.kind}
               alternative={alt}
-              apply={inputs => {
-                void run(inputs).then(() => {
+              apply={(inputs, plan) => {
+                void run(inputs, undefined, undefined, undefined, undefined, plan).then(() => {
                   go('plan');
                   window.scrollTo(0, 0);
                 }).catch(() => { });

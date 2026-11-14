@@ -23,7 +23,7 @@ function rebuiltMessage(liked: string[], planned: string[]) {
   const used = liked.filter(id => planned.includes(id)).length;
   if (liked.length === 0 || used === liked.length)
     return 'Week rebuilt with your taste.';
-  return `Week rebuilt. ${used} of ${liked.length} liked meals fit your limits this week.`;
+  return `Week rebuilt. ${used} of ${liked.length} liked meals fit this week. Liked meals are preferred, but kept only when the week still fits your budget and calorie and protein targets.`;
 }
 export function SwipeDeck({ open }: {
   open: (recipe: Recipe) => void

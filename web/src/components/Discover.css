@@ -322,7 +322,7 @@
 @media (max-width: 767px) {
   /* Keep the button labels clear of the sticky Rebuild bar. */
   .swipe-controls:has(+ .rebuild-cta) {
-    padding-bottom: var(--s-6);
+    padding-bottom: var(--s-8);
   }
   .rebuild-cta {
     position: sticky;

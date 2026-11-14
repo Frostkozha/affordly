@@ -19,7 +19,7 @@ function eatenTotals(plan: Plan, day: number, eaten: string[] | undefined, week:
   for (const meal of meals) {
     const recipe = recipes.find(r => r.id === meal.recipeId);
     if (!recipe) continue;
-    for (const key of keys) totals[key] += recipe.perServing[key] * meal.servings;
+    for (const key of keys) totals[key] += Math.round(recipe.perServing[key] * meal.servings); // same rounding as each meal row
   }
   return { totals, count: meals.length };
 }

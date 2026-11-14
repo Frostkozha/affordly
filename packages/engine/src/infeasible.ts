@@ -36,9 +36,10 @@ export function infeasible(
   }
   if (proteinAlternative) alternatives.push(proteinAlternative);
   const cookingExcludesRecipes = recipes.some(r => r.cookMinutes > inputs.maxCookMinutes);
-  for (let cook = Math.floor(inputs.maxCookMinutes / 5) * 5 + 5;
-    cookingExcludesRecipes && cook <= 90; cook += 5) {
-    if (!recipes.some(r => r.cookMinutes > cook - 5 && r.cookMinutes <= cook)) continue;
+  // Only offer cooking limits the form can show (15/30/45/60 minute chips).
+  for (const cook of [15, 30, 45, 60]) {
+    if (!cookingExcludesRecipes || cook <= inputs.maxCookMinutes) continue;
+    if (!recipes.some(r => r.cookMinutes > inputs.maxCookMinutes && r.cookMinutes <= cook)) continue;
     const changed = { ...inputs, maxCookMinutes: cook };
     const plan = findPlan(changed, catalog, recipes, pantry);
     if (plan) {

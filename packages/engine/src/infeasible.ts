@@ -19,6 +19,14 @@ export function infeasible(inputs: Inputs, catalog: Catalog, recipes: Recipe[], 
     const changed = { ...inputs, maxCookMinutes: cook }, plan = findPlan(changed, catalog, recipes, pantry);
     if (plan) { alternatives.push({ kind: 'more-cook-time', headline: `Allow ${cook} minutes of cooking`, inputs: changed, plan }); break; }
   }
+  // Each recipe can appear 4 times a week, so 7 breakfasts need at least 2 breakfast recipes, and so on.
+  const allowed = recipes.filter(r => r.cookMinutes <= inputs.maxCookMinutes && !inputs.excludedRecipeIds.includes(r.id)
+    && !r.contains.some(t => inputs.avoid.includes(t)) && !r.ingredients.some(i => inputs.excludedProductIds.includes(i.productId)));
+  const short = (['breakfast', 'lunch', 'dinner'] as const).find(type => allowed.filter(r => r.mealTypes.includes(type)).length < 2);
+  if (short && !alternatives.length) {
+    const left = allowed.filter(r => r.mealTypes.includes(short)).length;
+    return { ok: false, reason: `Only ${left} ${short} recipe${left === 1 ? ' is' : 's are'} left after your exclusions and cooking limit, and a week needs at least 2. Remove an exclusion or allow more cooking time.`, alternatives };
+  }
   const reason = cheapest && cheapest.basketCost > inputs.budget
     ? `$${inputs.budget.toFixed(2)} a week cannot cover ${inputs.proteinPerDay} g of protein a day with these foods; the cheapest plan that does costs $${cheapest.basketCost.toFixed(2)}.`
     : alternatives.some(a => a.kind === 'more-cook-time') ? `The ${inputs.maxCookMinutes} minute cooking limit prevents a feasible plan with these foods.` : 'The available foods cannot meet the meal, nutrition, and scheduling limits together.';

@@ -1,48 +1,50 @@
 {
   "store": {
-    "name": "Estimated US prices"
+    "name": "Kroger On the Rhine, Cincinnati, OH",
+    "locationId": "01400513",
+    "zip": "45202"
   },
-  "priceSource": "demo",
+  "priceSource": "kroger",
   "pricedAt": "2026-11-14",
   "products": [
     {
       "id": "chicken-breast",
       "name": "Chicken breast, boneless skinless",
       "category": "protein",
-      "packageGrams": 680,
-      "packageLabel": "1.5 lb family pack",
-      "price": 5.99,
+      "packageGrams": 454,
+      "packageLabel": "1 lb tray",
+      "price": 4.49,
       "perishableDays": 3,
       "per100g": {
-        "kcal": 120.0,
+        "kcal": 120,
         "protein": 22.5,
-        "carbs": 0.0,
+        "carbs": 0,
         "fat": 2.62
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger boneless skinless chicken breast",
-        "size": ""
+        "productId": "0026061500000",
+        "description": "Tyson® All Natural Fresh Boneless Skinless Chicken Breasts with Rib Meat",
+        "size": "1 lb"
       }
     },
     {
       "id": "chicken-thighs",
       "name": "Chicken thighs, boneless skinless",
       "category": "protein",
-      "packageGrams": 680,
-      "packageLabel": "1.5 lb pack",
-      "price": 5.49,
+      "packageGrams": 454,
+      "packageLabel": "1 lb pack",
+      "price": 3.49,
       "perishableDays": 3,
       "per100g": {
-        "kcal": 121.0,
+        "kcal": 121,
         "protein": 19.66,
-        "carbs": 0.0,
+        "carbs": 0,
         "fat": 4.12
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger boneless skinless chicken thighs",
-        "size": ""
+        "productId": "0021086500000",
+        "description": "Heritage Farm Boneless Skinless Fresh Chicken Thighs",
+        "size": "1 lb"
       }
     },
     {
@@ -51,18 +53,18 @@
       "category": "protein",
       "packageGrams": 454,
       "packageLabel": "1 lb tray",
-      "price": 5.49,
+      "price": 5.99,
       "perishableDays": 2,
       "per100g": {
-        "kcal": 150.0,
+        "kcal": 150,
         "protein": 18.73,
-        "carbs": 0.0,
+        "carbs": 0,
         "fat": 8.34
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger 93% lean ground turkey",
-        "size": ""
+        "productId": "0007232256501",
+        "description": "Shady Brook Farms 93% Lean Ground Turkey",
+        "size": "1 lb"
       }
     },
     {
@@ -71,18 +73,18 @@
       "category": "protein",
       "packageGrams": 454,
       "packageLabel": "1 lb tray",
-      "price": 6.49,
+      "price": 8.49,
       "perishableDays": 2,
       "per100g": {
-        "kcal": 215.0,
+        "kcal": 215,
         "protein": 18.59,
-        "carbs": 0.0,
-        "fat": 15.0
+        "carbs": 0,
+        "fat": 15
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger 85% lean ground beef",
-        "size": ""
+        "productId": "0001111097973",
+        "description": "Kroger® 85% Lean Ground Beef",
+        "size": "1 lb"
       }
     },
     {
@@ -91,18 +93,18 @@
       "category": "protein",
       "packageGrams": 600,
       "packageLabel": "dozen",
-      "price": 3.79,
+      "price": 1.79,
       "perishableDays": 28,
       "per100g": {
-        "kcal": 143.0,
+        "kcal": 143,
         "protein": 12.56,
         "carbs": 0.72,
         "fat": 9.51
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger large grade A eggs 12 count",
-        "size": ""
+        "productId": "0001111060903",
+        "description": "Kroger® Grade A Large Eggs",
+        "size": "12 ct"
       }
     },
     {
@@ -111,18 +113,18 @@
       "category": "protein",
       "packageGrams": 112,
       "packageLabel": "5 oz can (drained)",
-      "price": 1.29,
+      "price": 0.97,
       "perishableDays": null,
       "per100g": {
-        "kcal": 86.0,
+        "kcal": 86,
         "protein": 19.44,
-        "carbs": 0.0,
+        "carbs": 0,
         "fat": 0.96
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger chunk light tuna in water 5 oz",
-        "size": ""
+        "productId": "0001111089084",
+        "description": "Kroger® Wild Caught Chunk Light Tuna in Water",
+        "size": "5 oz"
       }
     },
     {
@@ -131,18 +133,18 @@
       "category": "protein",
       "packageGrams": 397,
       "packageLabel": "14 oz block",
-      "price": 2.49,
+      "price": 1.99,
       "perishableDays": 14,
       "per100g": {
-        "kcal": 78.0,
+        "kcal": 78,
         "protein": 9.04,
         "carbs": 2.85,
         "fat": 4.17
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger firm tofu 14 oz",
-        "size": ""
+        "productId": "0001111091341",
+        "description": "Simple Truth Organic™ Firm Tofu",
+        "size": "14 oz"
       }
     },
     {
@@ -151,38 +153,38 @@
       "category": "protein",
       "packageGrams": 425,
       "packageLabel": "15 oz can",
-      "price": 1.09,
+      "price": 1.49,
       "perishableDays": null,
       "per100g": {
-        "kcal": 91.0,
+        "kcal": 91,
         "protein": 6.03,
         "carbs": 16.55,
         "fat": 0.29
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger black beans 15 oz can",
-        "size": ""
+        "productId": "0003940001880",
+        "description": "Bush's Best Black Beans",
+        "size": "15 oz"
       }
     },
     {
       "id": "chickpeas",
       "name": "Chickpeas, canned",
       "category": "protein",
-      "packageGrams": 425,
-      "packageLabel": "15 oz can",
-      "price": 1.19,
+      "packageGrams": 454,
+      "packageLabel": "16 oz can",
+      "price": 1.49,
       "perishableDays": null,
       "per100g": {
-        "kcal": 88.0,
+        "kcal": 88,
         "protein": 4.92,
         "carbs": 13.49,
         "fat": 1.95
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger garbanzo beans 15 oz can",
-        "size": ""
+        "productId": "0001111085989",
+        "description": "Kroger® Garbanzo Beans",
+        "size": "16 oz"
       }
     },
     {
@@ -191,38 +193,38 @@
       "category": "protein",
       "packageGrams": 454,
       "packageLabel": "1 lb bag",
-      "price": 1.99,
+      "price": 1.69,
       "perishableDays": null,
       "per100g": {
-        "kcal": 352.0,
+        "kcal": 352,
         "protein": 24.63,
         "carbs": 63.35,
         "fat": 1.06
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger dry brown lentils 1 lb",
-        "size": ""
+        "productId": "0007152401253",
+        "description": "La Preferida Lentils",
+        "size": "16 oz"
       }
     },
     {
       "id": "milk",
       "name": "Milk, 1% lowfat",
       "category": "dairy",
-      "packageGrams": 1890,
+      "packageGrams": 1893,
       "packageLabel": "half gallon",
-      "price": 2.79,
+      "price": 3.99,
       "perishableDays": 7,
       "per100g": {
-        "kcal": 42.0,
+        "kcal": 42,
         "protein": 3.37,
         "carbs": 4.99,
         "fat": 0.97
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger 1% lowfat milk half gallon",
-        "size": ""
+        "productId": "0007273023208",
+        "description": "Prairie Farms 1% Lowfat Milk",
+        "size": "1/2 gal"
       }
     },
     {
@@ -231,38 +233,38 @@
       "category": "dairy",
       "packageGrams": 907,
       "packageLabel": "32 oz tub",
-      "price": 5.29,
+      "price": 4.69,
       "perishableDays": 14,
       "per100g": {
-        "kcal": 59.0,
+        "kcal": 59,
         "protein": 10.19,
         "carbs": 3.6,
         "fat": 0.39
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger plain nonfat greek yogurt 32 oz",
-        "size": ""
+        "productId": "0001111083454",
+        "description": "Simple Truth Organic™ Plain Greek Nonfat Yogurt",
+        "size": "32 oz"
       }
     },
     {
       "id": "cheddar",
       "name": "Cheddar, reduced-fat shredded",
       "category": "dairy",
-      "packageGrams": 227,
-      "packageLabel": "8 oz bag",
-      "price": 3.29,
+      "packageGrams": 198,
+      "packageLabel": "7 oz bag",
+      "price": 3.49,
       "perishableDays": 21,
       "per100g": {
-        "kcal": 316.0,
+        "kcal": 316,
         "protein": 27.35,
         "carbs": 2.67,
         "fat": 20.41
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger reduced fat shredded cheddar cheese 8 oz",
-        "size": ""
+        "productId": "0002100005439",
+        "description": "Kraft Sharp Cheddar Finely Shredded Cheese with 2% Milk",
+        "size": "7 oz"
       }
     },
     {
@@ -271,18 +273,18 @@
       "category": "dairy",
       "packageGrams": 454,
       "packageLabel": "16 oz tub",
-      "price": 3.19,
+      "price": 4.79,
       "perishableDays": 10,
       "per100g": {
-        "kcal": 72.0,
+        "kcal": 72,
         "protein": 12.39,
         "carbs": 2.72,
         "fat": 1.02
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger lowfat cottage cheese 16 oz",
-        "size": ""
+        "productId": "0007342051620",
+        "description": "Daisy Low Fat Cottage Cheese",
+        "size": "16 oz"
       }
     },
     {
@@ -291,18 +293,18 @@
       "category": "grain",
       "packageGrams": 907,
       "packageLabel": "2 lb bag",
-      "price": 1.99,
+      "price": 2.19,
       "perishableDays": null,
       "per100g": {
-        "kcal": 365.0,
+        "kcal": 365,
         "protein": 7.13,
         "carbs": 79.95,
         "fat": 0.66
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger long grain white rice 2 lb",
-        "size": ""
+        "productId": "0003520005512",
+        "description": "Riceland Extra Long Grain White Rice",
+        "size": "2 lb"
       }
     },
     {
@@ -311,18 +313,18 @@
       "category": "grain",
       "packageGrams": 510,
       "packageLabel": "18 oz canister",
-      "price": 3.29,
+      "price": 2.79,
       "perishableDays": null,
       "per100g": {
-        "kcal": 379.0,
+        "kcal": 379,
         "protein": 13.15,
         "carbs": 67.7,
         "fat": 6.52
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger old fashioned rolled oats 18 oz",
-        "size": ""
+        "productId": "0001111076654",
+        "description": "Kroger® Old Fashioned Whole Grain Oats",
+        "size": "18 oz"
       }
     },
     {
@@ -331,118 +333,118 @@
       "category": "grain",
       "packageGrams": 454,
       "packageLabel": "16 oz box",
-      "price": 1.49,
+      "price": 1.33,
       "perishableDays": null,
       "per100g": {
-        "kcal": 371.0,
+        "kcal": 371,
         "protein": 13.04,
         "carbs": 74.67,
         "fat": 1.51
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger spaghetti pasta 16 oz",
-        "size": ""
+        "productId": "0001111085004",
+        "description": "Kroger® Spaghetti",
+        "size": "16 oz"
       }
     },
     {
       "id": "bread",
       "name": "Whole wheat bread",
       "category": "grain",
-      "packageGrams": 567,
-      "packageLabel": "20 oz loaf",
-      "price": 2.79,
+      "packageGrams": 680,
+      "packageLabel": "24 oz loaf",
+      "price": 2.49,
       "perishableDays": 7,
       "per100g": {
-        "kcal": 252.0,
+        "kcal": 252,
         "protein": 12.45,
         "carbs": 42.71,
         "fat": 3.5
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger 100% whole wheat bread",
-        "size": ""
+        "productId": "0001111008480",
+        "description": "Kroger® 100% Whole Wheat Bread",
+        "size": "24 oz"
       }
     },
     {
       "id": "tortillas",
       "name": "Flour tortillas, 8 inch",
       "category": "grain",
-      "packageGrams": 411,
+      "packageGrams": 496,
       "packageLabel": "10 count",
-      "price": 2.49,
+      "price": 1.99,
       "perishableDays": 14,
       "per100g": {
-        "kcal": 297.0,
+        "kcal": 297,
         "protein": 8.01,
         "carbs": 49.27,
         "fat": 7.58
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger flour tortillas soft taco 10 count",
-        "size": ""
+        "productId": "0001111005265",
+        "description": "Kroger® Soft Taco Size Flour Tortillas",
+        "size": "10 ct / 17.5 oz"
       }
     },
     {
       "id": "bananas",
       "name": "Bananas",
       "category": "produce",
-      "packageGrams": 590,
-      "packageLabel": "bunch (about 5)",
-      "price": 1.99,
+      "packageGrams": 454,
+      "packageLabel": "per lb",
+      "price": 0.55,
       "perishableDays": 5,
       "per100g": {
-        "kcal": 89.0,
+        "kcal": 89,
         "protein": 1.09,
         "carbs": 22.84,
         "fat": 0.33
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger bananas",
-        "size": ""
+        "productId": "0000000004011",
+        "description": "Fresh Banana Bunch - About 5-7 per Bunch",
+        "size": "1 lb"
       }
     },
     {
       "id": "apples",
       "name": "Apples",
       "category": "produce",
-      "packageGrams": 1360,
+      "packageGrams": 1361,
       "packageLabel": "3 lb bag",
-      "price": 4.49,
+      "price": 3.99,
       "perishableDays": 21,
       "per100g": {
-        "kcal": 52.0,
+        "kcal": 52,
         "protein": 0.26,
         "carbs": 13.81,
         "fat": 0.17
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger gala apples 3 lb bag",
-        "size": ""
+        "productId": "0001111091825",
+        "description": "Kroger® Gala Apples Bag",
+        "size": "3 lb"
       }
     },
     {
       "id": "spinach",
       "name": "Spinach, fresh",
       "category": "produce",
-      "packageGrams": 283,
-      "packageLabel": "10 oz bag",
-      "price": 2.99,
+      "packageGrams": 227,
+      "packageLabel": "8 oz bag",
+      "price": 2.29,
       "perishableDays": 5,
       "per100g": {
-        "kcal": 23.0,
+        "kcal": 23,
         "protein": 2.86,
         "carbs": 3.63,
         "fat": 0.39
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger fresh baby spinach 10 oz",
-        "size": ""
+        "productId": "0007143000976",
+        "description": "Dole Spinach",
+        "size": "8 oz"
       }
     },
     {
@@ -451,58 +453,58 @@
       "category": "produce",
       "packageGrams": 454,
       "packageLabel": "1 lb",
-      "price": 2.29,
+      "price": 2.39,
       "perishableDays": 6,
       "per100g": {
-        "kcal": 34.0,
+        "kcal": 34,
         "protein": 2.82,
         "carbs": 6.64,
         "fat": 0.37
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger broccoli crowns",
-        "size": ""
+        "productId": "0000000003082",
+        "description": "Broccoli Crowns",
+        "size": "1 lb"
       }
     },
     {
       "id": "bell-peppers",
       "name": "Bell peppers",
       "category": "produce",
-      "packageGrams": 500,
-      "packageLabel": "3-pack",
-      "price": 3.99,
+      "packageGrams": 164,
+      "packageLabel": "1 large pepper",
+      "price": 0.89,
       "perishableDays": 7,
       "per100g": {
-        "kcal": 26.0,
+        "kcal": 26,
         "protein": 0.99,
         "carbs": 6.03,
         "fat": 0.3
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger bell peppers 3 pack",
-        "size": ""
+        "productId": "0000000004065",
+        "description": "Fresh Large Green Bell Pepper",
+        "size": "1 ct"
       }
     },
     {
       "id": "onions",
       "name": "Yellow onions",
       "category": "produce",
-      "packageGrams": 1360,
+      "packageGrams": 1361,
       "packageLabel": "3 lb bag",
-      "price": 3.29,
+      "price": 3.39,
       "perishableDays": 30,
       "per100g": {
-        "kcal": 40.0,
+        "kcal": 40,
         "protein": 1.1,
         "carbs": 9.34,
         "fat": 0.1
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger yellow onions 3 lb bag",
-        "size": ""
+        "productId": "0001111091682",
+        "description": "Kroger® Yellow Onion 3 lb Bag",
+        "size": "3 lb"
       }
     },
     {
@@ -514,15 +516,15 @@
       "price": 2.29,
       "perishableDays": 21,
       "per100g": {
-        "kcal": 41.0,
+        "kcal": 41,
         "protein": 0.93,
         "carbs": 9.58,
         "fat": 0.24
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger carrots 2 lb bag",
-        "size": ""
+        "productId": "0001111091622",
+        "description": "Whole Carrots Bag",
+        "size": "2 lb"
       }
     },
     {
@@ -531,38 +533,38 @@
       "category": "produce",
       "packageGrams": 2268,
       "packageLabel": "5 lb bag",
-      "price": 4.49,
+      "price": 3.49,
       "perishableDays": 30,
       "per100g": {
-        "kcal": 79.0,
+        "kcal": 79,
         "protein": 2.14,
         "carbs": 18.07,
         "fat": 0.08
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger russet potatoes 5 lb bag",
-        "size": ""
+        "productId": "0001111091760",
+        "description": "Kroger® Russet Potatoes",
+        "size": "5 lb"
       }
     },
     {
       "id": "sweet-potatoes",
       "name": "Sweet potatoes",
       "category": "produce",
-      "packageGrams": 1360,
-      "packageLabel": "3 lb bag",
-      "price": 4.29,
+      "packageGrams": 454,
+      "packageLabel": "per lb",
+      "price": 1.49,
       "perishableDays": 21,
       "per100g": {
-        "kcal": 86.0,
+        "kcal": 86,
         "protein": 1.57,
         "carbs": 20.12,
         "fat": 0.05
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger sweet potatoes 3 lb bag",
-        "size": ""
+        "productId": "0000000004816",
+        "description": "Potatoes - Sweet - Jewel Yams",
+        "size": "1 lb"
       }
     },
     {
@@ -571,18 +573,18 @@
       "category": "produce",
       "packageGrams": 150,
       "packageLabel": "3 bulbs",
-      "price": 1.49,
+      "price": 1.99,
       "perishableDays": 30,
       "per100g": {
-        "kcal": 149.0,
+        "kcal": 149,
         "protein": 6.36,
         "carbs": 33.06,
         "fat": 0.5
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger fresh garlic",
-        "size": ""
+        "productId": "0001111002882",
+        "description": "Simple Truth Organic® Garlic Bulbs 3 Count",
+        "size": "3 ct"
       }
     },
     {
@@ -591,18 +593,18 @@
       "category": "produce",
       "packageGrams": 450,
       "packageLabel": "bunch",
-      "price": 2.29,
+      "price": 2.59,
       "perishableDays": 14,
       "per100g": {
-        "kcal": 14.0,
+        "kcal": 14,
         "protein": 0.69,
         "carbs": 2.97,
         "fat": 0.17
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger celery bunch",
-        "size": ""
+        "productId": "0000000004070",
+        "description": "Celery",
+        "size": "1 ct"
       }
     },
     {
@@ -614,7 +616,7 @@
       "price": 3.49,
       "perishableDays": 7,
       "per100g": {
-        "kcal": 17.0,
+        "kcal": 17,
         "protein": 1.23,
         "carbs": 3.29,
         "fat": 0.3
@@ -623,7 +625,8 @@
         "productId": "",
         "description": "Kroger romaine hearts 3 count",
         "size": ""
-      }
+      },
+      "priceEstimated": true
     },
     {
       "id": "tomatoes-canned",
@@ -631,18 +634,18 @@
       "category": "pantry",
       "packageGrams": 411,
       "packageLabel": "14.5 oz can",
-      "price": 1.19,
+      "price": 1.49,
       "perishableDays": null,
       "per100g": {
-        "kcal": 16.0,
+        "kcal": 16,
         "protein": 0.79,
         "carbs": 3.47,
         "fat": 0.25
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger no salt added diced tomatoes 14.5 oz",
-        "size": ""
+        "productId": "0007294016216",
+        "description": "Red Gold Diced Tomatoes",
+        "size": "14.5 oz"
       }
     },
     {
@@ -651,38 +654,38 @@
       "category": "pantry",
       "packageGrams": 454,
       "packageLabel": "16 oz jar",
-      "price": 2.99,
+      "price": 3.29,
       "perishableDays": null,
       "per100g": {
-        "kcal": 588.0,
+        "kcal": 588,
         "protein": 21.93,
         "carbs": 23.98,
         "fat": 49.54
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger creamy peanut butter 16 oz",
-        "size": ""
+        "productId": "0005150025516",
+        "description": "Jif Creamy Peanut Butter Spread",
+        "size": "16 oz"
       }
     },
     {
       "id": "olive-oil",
       "name": "Olive oil",
       "category": "pantry",
-      "packageGrams": 455,
-      "packageLabel": "16.9 fl oz bottle",
-      "price": 7.49,
+      "packageGrams": 503,
+      "packageLabel": "17 fl oz bottle",
+      "price": 8.49,
       "perishableDays": null,
       "per100g": {
-        "kcal": 884.0,
-        "protein": 0.0,
-        "carbs": 0.0,
-        "fat": 100.0
+        "kcal": 884,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 100
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger extra virgin olive oil 16.9 oz",
-        "size": ""
+        "productId": "0001111085645",
+        "description": "Kroger Pure Olive Oil",
+        "size": "17 fl oz"
       }
     },
     {
@@ -694,15 +697,15 @@
       "price": 2.99,
       "perishableDays": null,
       "per100g": {
-        "kcal": 29.0,
+        "kcal": 29,
         "protein": 1.52,
         "carbs": 6.64,
         "fat": 0.17
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger medium chunky salsa 16 oz",
-        "size": ""
+        "productId": "0001111002270",
+        "description": "Kroger® Thick & Chunky Medium Salsa",
+        "size": "16 oz"
       }
     },
     {
@@ -710,19 +713,19 @@
       "name": "Soy sauce",
       "category": "pantry",
       "packageGrams": 296,
-      "packageLabel": "10 oz bottle",
+      "packageLabel": "10 fl oz bottle",
       "price": 2.49,
       "perishableDays": null,
       "per100g": {
-        "kcal": 53.0,
+        "kcal": 53,
         "protein": 8.14,
         "carbs": 4.93,
         "fat": 0.57
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger soy sauce 10 oz",
-        "size": ""
+        "productId": "0004430012513",
+        "description": "La Choy Soy Sauce",
+        "size": "10 fl oz"
       }
     },
     {
@@ -731,58 +734,58 @@
       "category": "pantry",
       "packageGrams": 340,
       "packageLabel": "12 oz bottle",
-      "price": 4.49,
+      "price": 4,
       "perishableDays": null,
       "per100g": {
-        "kcal": 304.0,
+        "kcal": 304,
         "protein": 0.3,
         "carbs": 82.4,
-        "fat": 0.0
+        "fat": 0
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger pure honey 12 oz",
-        "size": ""
+        "productId": "0001111086170",
+        "description": "Kroger® Clover Honey Bear",
+        "size": "12 oz"
       }
     },
     {
       "id": "frozen-mixed-vegetables",
       "name": "Frozen mixed vegetables",
       "category": "frozen",
-      "packageGrams": 454,
-      "packageLabel": "16 oz bag",
-      "price": 1.79,
+      "packageGrams": 907,
+      "packageLabel": "32 oz bag",
+      "price": 2.99,
       "perishableDays": 90,
       "per100g": {
-        "kcal": 72.0,
+        "kcal": 72,
         "protein": 3.33,
         "carbs": 13.47,
         "fat": 0.52
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger frozen mixed vegetables 16 oz",
-        "size": ""
+        "productId": "0001111086585",
+        "description": "Kroger® Mixed Vegetables Meal-Ready Sides",
+        "size": "32 oz"
       }
     },
     {
       "id": "frozen-berries",
       "name": "Frozen blueberries",
       "category": "frozen",
-      "packageGrams": 340,
-      "packageLabel": "12 oz bag",
-      "price": 4.29,
+      "packageGrams": 454,
+      "packageLabel": "16 oz bag",
+      "price": 4.49,
       "perishableDays": 90,
       "per100g": {
-        "kcal": 51.0,
+        "kcal": 51,
         "protein": 0.42,
         "carbs": 12.17,
         "fat": 0.64
       },
       "kroger": {
-        "productId": "",
-        "description": "Kroger frozen blueberries 12 oz",
-        "size": ""
+        "productId": "0001111079298",
+        "description": "Private Selection™ Frozen Wild Blueberries",
+        "size": "16 oz"
       }
     }
   ]

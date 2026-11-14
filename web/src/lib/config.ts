@@ -1,7 +1,7 @@
 // Product settings shared by the screens. Plans and prices never live here: they come from the engine.
 import type { Inputs } from '@affordly/engine';
 export const defaultInputs: Inputs = {
-  budget: 95,
+  budget: 90,
   kcalPerDay: 2200,
   proteinPerDay: 150,
   maxCookMinutes: 30,

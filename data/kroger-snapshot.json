@@ -1,0 +1,396 @@
+{
+  "store": {
+    "name": "Kroger On the Rhine, Cincinnati, OH",
+    "locationId": "01400513",
+    "zip": "45202"
+  },
+  "pricedAt": "2026-11-14",
+  "matches": [
+    {
+      "productId": "chicken-breast",
+      "krogerProductId": "0026061500000",
+      "description": "Tyson® All Natural Fresh Boneless Skinless Chicken Breasts with Rib Meat",
+      "size": "1 lb",
+      "price": 4.49,
+      "packageGrams": 454,
+      "searchTerm": "boneless skinless chicken breast",
+      "why": "Cheapest mainstream 1 lb fresh boneless skinless breast; Kroger store pack is 3 lb"
+    },
+    {
+      "productId": "chicken-thighs",
+      "krogerProductId": "0021086500000",
+      "description": "Heritage Farm Boneless Skinless Fresh Chicken Thighs",
+      "size": "1 lb",
+      "price": 3.49,
+      "packageGrams": 454,
+      "searchTerm": "boneless skinless chicken thighs",
+      "why": "Cheapest plain 1 lb boneless skinless thighs"
+    },
+    {
+      "productId": "ground-turkey",
+      "krogerProductId": "0007232256501",
+      "description": "Shady Brook Farms 93% Lean Ground Turkey",
+      "size": "1 lb",
+      "price": 5.99,
+      "packageGrams": 454,
+      "searchTerm": "93% lean ground turkey",
+      "why": "Cheapest plain 93% lean raw ground turkey, 1 lb"
+    },
+    {
+      "productId": "ground-beef",
+      "krogerProductId": "0001111097973",
+      "description": "Kroger® 85% Lean Ground Beef",
+      "size": "1 lb",
+      "price": 8.49,
+      "packageGrams": 454,
+      "searchTerm": "85% lean ground beef",
+      "why": "Kroger store brand 85% lean, 1 lb"
+    },
+    {
+      "productId": "eggs",
+      "krogerProductId": "0001111060903",
+      "description": "Kroger® Grade A Large Eggs",
+      "size": "12 ct",
+      "price": 1.79,
+      "packageGrams": 600,
+      "searchTerm": "large eggs",
+      "why": "Kroger store brand large eggs, dozen; 12 x 50 g"
+    },
+    {
+      "productId": "canned-tuna",
+      "krogerProductId": "0001111089084",
+      "description": "Kroger® Wild Caught Chunk Light Tuna in Water",
+      "size": "5 oz",
+      "price": 0.97,
+      "packageGrams": 112,
+      "searchTerm": "chunk light tuna in water 5 oz",
+      "why": "Kroger chunk light in water; drained weight kept at 112 g"
+    },
+    {
+      "productId": "tofu",
+      "krogerProductId": "0001111091341",
+      "description": "Simple Truth Organic™ Firm Tofu",
+      "size": "14 oz",
+      "price": 1.99,
+      "packageGrams": 397,
+      "searchTerm": "tofu",
+      "why": "Only plain firm block tofu found; store brand, organic but cheapest"
+    },
+    {
+      "productId": "black-beans",
+      "krogerProductId": "0003940001880",
+      "description": "Bush's Best Black Beans",
+      "size": "15 oz",
+      "price": 1.49,
+      "packageGrams": 425,
+      "searchTerm": "black beans 15 oz can",
+      "why": "Plain canned black beans; whole-can convention (425 g) unchanged"
+    },
+    {
+      "productId": "chickpeas",
+      "krogerProductId": "0001111085989",
+      "description": "Kroger® Garbanzo Beans",
+      "size": "16 oz",
+      "price": 1.49,
+      "packageGrams": 454,
+      "searchTerm": "kroger garbanzo beans",
+      "why": "Kroger store brand canned garbanzo; whole-can convention, 16 oz = 454 g"
+    },
+    {
+      "productId": "lentils",
+      "krogerProductId": "0007152401253",
+      "description": "La Preferida Lentils",
+      "size": "16 oz",
+      "price": 1.69,
+      "packageGrams": 454,
+      "searchTerm": "lentils",
+      "why": "Only plain lentils found (assumed dry 1 lb bag; description gives no form)"
+    },
+    {
+      "productId": "milk",
+      "krogerProductId": "0007273023208",
+      "description": "Prairie Farms 1% Lowfat Milk",
+      "size": "1/2 gal",
+      "price": 3.99,
+      "packageGrams": 1893,
+      "searchTerm": "1% lowfat milk half gallon",
+      "why": "Only plain 1% milk found (no Kroger 1% half gallon in results)"
+    },
+    {
+      "productId": "greek-yogurt",
+      "krogerProductId": "0001111083454",
+      "description": "Simple Truth Organic™ Plain Greek Nonfat Yogurt",
+      "size": "32 oz",
+      "price": 4.69,
+      "packageGrams": 907,
+      "searchTerm": "plain nonfat greek yogurt 32 oz",
+      "why": "Cheapest plain nonfat Greek 32 oz; store brand though organic"
+    },
+    {
+      "productId": "cheddar",
+      "krogerProductId": "0002100005439",
+      "description": "Kraft Sharp Cheddar Finely Shredded Cheese with 2% Milk",
+      "size": "7 oz",
+      "price": 3.49,
+      "packageGrams": 198,
+      "searchTerm": "2% milk shredded cheddar",
+      "why": "Only reduced-fat shredded cheddar found; plain full-fat Kroger 8 oz (2.00) rejected as a different nutrition profile"
+    },
+    {
+      "productId": "cottage-cheese",
+      "krogerProductId": "0007342051620",
+      "description": "Daisy Low Fat Cottage Cheese",
+      "size": "16 oz",
+      "price": 4.79,
+      "packageGrams": 454,
+      "searchTerm": "cottage cheese",
+      "why": "Only priced lowfat cottage cheese 16 oz (Borden null price)"
+    },
+    {
+      "productId": "rice",
+      "krogerProductId": "0003520005512",
+      "description": "Riceland Extra Long Grain White Rice",
+      "size": "2 lb",
+      "price": 2.19,
+      "packageGrams": 907,
+      "searchTerm": "long grain white rice",
+      "why": "Plain long grain white rice 2 lb, cheapest mainstream"
+    },
+    {
+      "productId": "oats",
+      "krogerProductId": "0001111076654",
+      "description": "Kroger® Old Fashioned Whole Grain Oats",
+      "size": "18 oz",
+      "price": 2.79,
+      "packageGrams": 510,
+      "searchTerm": "kroger old fashioned oats",
+      "why": "Kroger store brand old fashioned oats"
+    },
+    {
+      "productId": "pasta",
+      "krogerProductId": "0001111085004",
+      "description": "Kroger® Spaghetti",
+      "size": "16 oz",
+      "price": 1.33,
+      "packageGrams": 454,
+      "searchTerm": "spaghetti pasta 16 oz",
+      "why": "Kroger store brand spaghetti"
+    },
+    {
+      "productId": "bread",
+      "krogerProductId": "0001111008480",
+      "description": "Kroger® 100% Whole Wheat Bread",
+      "size": "24 oz",
+      "price": 2.49,
+      "packageGrams": 680,
+      "searchTerm": "100% whole wheat bread",
+      "why": "Kroger store brand whole wheat; 24 oz loaf (20 oz not available at Kroger)"
+    },
+    {
+      "productId": "tortillas",
+      "krogerProductId": "0001111005265",
+      "description": "Kroger® Soft Taco Size Flour Tortillas",
+      "size": "10 ct / 17.5 oz",
+      "price": 1.99,
+      "packageGrams": 496,
+      "searchTerm": "flour tortillas 10 count",
+      "why": "Kroger store brand; 17.5 oz is the whole pack (NOT 10 x 17.5)"
+    },
+    {
+      "productId": "bananas",
+      "krogerProductId": "0000000004011",
+      "description": "Fresh Banana Bunch - About 5-7 per Bunch",
+      "size": "1 lb",
+      "price": 0.55,
+      "packageGrams": 454,
+      "searchTerm": "bananas",
+      "why": "Priced per lb; package = 1 lb"
+    },
+    {
+      "productId": "apples",
+      "krogerProductId": "0001111091825",
+      "description": "Kroger® Gala Apples Bag",
+      "size": "3 lb",
+      "price": 3.99,
+      "packageGrams": 1361,
+      "searchTerm": "gala apples 3 lb bag",
+      "why": "Kroger 3 lb gala bag"
+    },
+    {
+      "productId": "spinach",
+      "krogerProductId": "0007143000976",
+      "description": "Dole Spinach",
+      "size": "8 oz",
+      "price": 2.29,
+      "packageGrams": 227,
+      "searchTerm": "spinach",
+      "why": "Plain fresh bagged spinach 8 oz (assumed fresh; no Kroger 10 oz bag)"
+    },
+    {
+      "productId": "broccoli",
+      "krogerProductId": "0000000003082",
+      "description": "Broccoli Crowns",
+      "size": "1 lb",
+      "price": 2.39,
+      "packageGrams": 454,
+      "searchTerm": "broccoli crowns",
+      "why": "Conventional broccoli crowns priced per lb"
+    },
+    {
+      "productId": "bell-peppers",
+      "krogerProductId": "0000000004065",
+      "description": "Fresh Large Green Bell Pepper",
+      "size": "1 ct",
+      "price": 0.89,
+      "packageGrams": 164,
+      "searchTerm": "bell peppers",
+      "why": "Sold each; weight 164 g = USDA large bell pepper (assumed)"
+    },
+    {
+      "productId": "onions",
+      "krogerProductId": "0001111091682",
+      "description": "Kroger® Yellow Onion 3 lb Bag",
+      "size": "3 lb",
+      "price": 3.39,
+      "packageGrams": 1361,
+      "searchTerm": "yellow onions 3 lb bag",
+      "why": "Kroger 3 lb yellow onions"
+    },
+    {
+      "productId": "carrots",
+      "krogerProductId": "0001111091622",
+      "description": "Whole Carrots Bag",
+      "size": "2 lb",
+      "price": 2.29,
+      "packageGrams": 907,
+      "searchTerm": "carrots 2 lb bag",
+      "why": "Plain whole carrots 2 lb"
+    },
+    {
+      "productId": "potatoes",
+      "krogerProductId": "0001111091760",
+      "description": "Kroger® Russet Potatoes",
+      "size": "5 lb",
+      "price": 3.49,
+      "packageGrams": 2268,
+      "searchTerm": "russet potatoes",
+      "why": "Kroger 5 lb russet bag"
+    },
+    {
+      "productId": "sweet-potatoes",
+      "krogerProductId": "0000000004816",
+      "description": "Potatoes - Sweet - Jewel Yams",
+      "size": "1 lb",
+      "price": 1.49,
+      "packageGrams": 454,
+      "searchTerm": "sweet potatoes",
+      "why": "Loose orange sweet potato priced per lb; cheapest plain (Kroger 28 oz bag is 3.99)"
+    },
+    {
+      "productId": "garlic",
+      "krogerProductId": "0001111002882",
+      "description": "Simple Truth Organic® Garlic Bulbs 3 Count",
+      "size": "3 ct",
+      "price": 1.99,
+      "packageGrams": 150,
+      "searchTerm": "garlic bulb 3 count",
+      "why": "Only 3-count garlic; single bulb (~50 g) is below 100 g minimum; 150 g = 3 x 50 g assumed"
+    },
+    {
+      "productId": "celery",
+      "krogerProductId": "0000000004070",
+      "description": "Celery",
+      "size": "1 ct",
+      "price": 2.59,
+      "packageGrams": 450,
+      "searchTerm": "celery",
+      "why": "Sold each; 450 g bunch kept from catalog (assumed)"
+    },
+    {
+      "productId": "tomatoes-canned",
+      "krogerProductId": "0007294016216",
+      "description": "Red Gold Diced Tomatoes",
+      "size": "14.5 oz",
+      "price": 1.49,
+      "packageGrams": 411,
+      "searchTerm": "diced tomatoes 14.5 oz",
+      "why": "Plain diced tomatoes, cheapest mainstream 14.5 oz"
+    },
+    {
+      "productId": "peanut-butter",
+      "krogerProductId": "0005150025516",
+      "description": "Jif Creamy Peanut Butter Spread",
+      "size": "16 oz",
+      "price": 3.29,
+      "packageGrams": 454,
+      "searchTerm": "creamy peanut butter 16 oz",
+      "why": "Plain creamy mainstream peanut butter 16 oz"
+    },
+    {
+      "productId": "olive-oil",
+      "krogerProductId": "0001111085645",
+      "description": "Kroger Pure Olive Oil",
+      "size": "17 fl oz",
+      "price": 8.49,
+      "packageGrams": 503,
+      "searchTerm": "kroger olive oil",
+      "why": "Kroger store brand olive oil; 17 fl oz x 29.57 = 503 g (real mass ~455 g)"
+    },
+    {
+      "productId": "salsa",
+      "krogerProductId": "0001111002270",
+      "description": "Kroger® Thick & Chunky Medium Salsa",
+      "size": "16 oz",
+      "price": 2.99,
+      "packageGrams": 454,
+      "searchTerm": "chunky salsa medium",
+      "why": "Kroger store brand medium salsa 16 oz (weight oz)"
+    },
+    {
+      "productId": "soy-sauce",
+      "krogerProductId": "0004430012513",
+      "description": "La Choy Soy Sauce",
+      "size": "10 fl oz",
+      "price": 2.49,
+      "packageGrams": 296,
+      "searchTerm": "soy sauce",
+      "why": "Plain regular soy sauce 10 fl oz (Kroger one is Lite)"
+    },
+    {
+      "productId": "honey",
+      "krogerProductId": "0001111086170",
+      "description": "Kroger® Clover Honey Bear",
+      "size": "12 oz",
+      "price": 4,
+      "packageGrams": 340,
+      "searchTerm": "honey 12 oz",
+      "why": "Kroger store brand clover honey 12 oz"
+    },
+    {
+      "productId": "frozen-mixed-vegetables",
+      "krogerProductId": "0001111086585",
+      "description": "Kroger® Mixed Vegetables Meal-Ready Sides",
+      "size": "32 oz",
+      "price": 2.99,
+      "packageGrams": 907,
+      "searchTerm": "mixed vegetables frozen",
+      "why": "Kroger frozen plain mixed vegetables; 32 oz bag (only size)"
+    },
+    {
+      "productId": "frozen-berries",
+      "krogerProductId": "0001111079298",
+      "description": "Private Selection™ Frozen Wild Blueberries",
+      "size": "16 oz",
+      "price": 4.49,
+      "packageGrams": 454,
+      "searchTerm": "frozen blueberries",
+      "why": "Only plain frozen blueberries found; wild, store premium line"
+    }
+  ],
+  "unmatched": [
+    {
+      "productId": "romaine",
+      "reason": "No romaine hearts 3-count at Kroger; only a loose head priced per \"1 ct\" with no weight, so package size cannot be converted with confidence"
+    }
+  ]
+}

@@ -21,6 +21,7 @@ export interface Product {
   perishableDays: number | null; // days it keeps once bought; null = shelf stable
   per100g: Macros;
   kroger?: { productId: string; description: string; size: string };
+  priceEstimated?: boolean; // true when no store item matched and the price is our estimate
 }
 
 export interface Catalog {

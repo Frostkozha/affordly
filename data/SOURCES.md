@@ -81,3 +81,11 @@ Prices are estimates (priceSource `demo`, store 'Estimated US prices', priced 20
 | honey | 169640 | Honey |
 | frozen-mixed-vegetables | 170471 | Vegetables, mixed, frozen, unprepared |
 | frozen-berries | 173950 | Blueberries, frozen, unsweetened (Includes foods for USDA's Food Distribution Pr |
+
+## Kroger prices
+
+- Store: Kroger On the Rhine, Cincinnati, OH (locationId 01400513, zip 45202).
+- Date: 2026-11-14. API environment: Kroger Developer API, Certification environment (via the Affordly proxy).
+- Matched 38 of 39 products; 1 unmatched (romaine, kept as estimated price with `priceEstimated: true`). Details in `kroger-snapshot.json`.
+- Item choice: plain, raw, unflavoured; Kroger store brand or cheapest mainstream brand; regular (non-promo) price; household size near the old package size.
+- Size conversion: 1 lb = 453.6 g, 1 oz = 28.35 g, 1 fl oz = 29.57 g (oil, soy sauce; approximation), 12 ct eggs = 600 g, 1/2 gal = 1893 g. Canned beans keep whole-can contents (15 oz = 425 g, 16 oz = 454 g); tuna keeps 112 g drained. Items priced per lb use 453.6 g. "N ct / X oz" is read as X oz for the whole pack when X is clearly the pack total (tortillas 17.5 oz). Items sold each use an assumed weight: bell pepper 164 g, celery bunch 450 g, garlic 3 bulbs 150 g.

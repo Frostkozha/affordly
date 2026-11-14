@@ -14,7 +14,7 @@ export async function classify(message: string, env?: Env): Promise<AssistantInt
   if (rule) return rule;
   if (!env) return 'off-topic';
   try {
-    const output = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', { messages: [
+    const output = await env.AI.run('@cf/meta/llama-3.1-8b-instruct-fp8', { messages: [
       { role: 'system', content: 'Classify the user message. Reply with exactly one label: budget, plan-change, recipe, off-topic, medical.' },
       { role: 'user', content: message },
     ], max_tokens: 12, temperature: 0 });

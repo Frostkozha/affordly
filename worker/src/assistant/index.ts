@@ -70,11 +70,16 @@ export async function assistant(request: Request, env: Env, url: URL): Promise<R
   if ((intent === 'budget' || intent === 'plan-change') && !body.result) return json(template(intent, asked));
   const recipes = intent === 'medical' || intent === 'off-topic' ? [] : await retrieve(body.message, asked, ai);
   const fallback = template(intent, asked, body.result, recipes);
-  if (!allowed || intent === 'medical' || intent === 'off-topic') return json(fallback);
+  if (intent === 'medical' || intent === 'off-topic') return json(fallback);
+  if (!allowed) return json({ ...fallback, note: 'AI text is off for this session; this is the checked template answer.' });
   const data = facts(asked, body.result, recipes);
   try {
-    const text = await generate(body.message, data, env);
-    if (verify(text, data, body.result?.ok === false)) return json({ ...fallback, text, source: 'model' });
-  } catch { /* Keep the deterministic answer when generation is unavailable. */ }
-  return json(fallback);
+    const kind = !body.result ? 'recipe' : body.result.ok ? 'fits' : 'does-not-fit';
+    const text = await generate(body.message, data, kind, env);
+    if (verify(text, data, kind, recipes.map(r => r.name))) return json({ ...fallback, text, source: 'model' });
+    // The model wrote a number or a "yes" that the solver result does not support.
+    return json({ ...fallback, note: 'The AI draft failed the number check, so this is the checked template answer.' });
+  } catch {
+    return json({ ...fallback, note: 'The AI model was unavailable, so this is the checked template answer.' });
+  }
 }

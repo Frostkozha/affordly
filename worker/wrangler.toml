@@ -5,7 +5,7 @@ compatibility_date = "2026-11-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "affordly"
-database_id = "REPLACE_WITH_D1_ID"
+database_id = "d247df18-110a-4e01-adb7-96880a306548"
 
 [ai]
 binding = "AI"

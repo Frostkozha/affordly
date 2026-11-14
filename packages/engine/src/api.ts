@@ -56,4 +56,5 @@ export interface AssistantResponse {
   proposedInputs?: Inputs; // "apply this" button
   result?: SolveResult; // solver output the text is based on
   source: 'model' | 'template'; // template = fallback or verifier blocked the model text
+  note?: string; // why a template was used instead of model text
 }

@@ -50,7 +50,7 @@ describe('templates and verifier', () => {
     expect(reply.text).toBe('Yes: this fits. Receipt $71.40 of $80.00 budget; recipe price $60.00; Checkout Gap $11.40; 123 g protein and 2001 kcal a day on average.');
     expect(reply.proposedInputs).toEqual(inputs);
     expect(reply.refused).toBe(false);
-    expect(verify(reply.text, facts(inputs, feasible, []), false)).toBe(true);
+    expect(verify(reply.text, facts(inputs, feasible, []), 'fits')).toBe(true);
   });
   it('reports solver reason and alternatives with the minimum budget', () => {
     const reply = template('budget', inputs, infeasible);
@@ -59,9 +59,9 @@ describe('templates and verifier', () => {
     expect(reply.proposedInputs?.budget).toBe(71.4);
   });
   it('rejects changed dollars and affirmative infeasible answers', () => {
-    expect(verify('Receipt $71.41.', facts(inputs, feasible, []), false)).toBe(false);
-    expect(verify('Yes, you can do it for $60.', facts(inputs, infeasible, []), true)).toBe(false);
-    expect(verify('Average 2,001 kcal.', facts(inputs, feasible, []), false)).toBe(true);
+    expect(verify('Receipt $71.41.', facts(inputs, feasible, []), 'fits')).toBe(false);
+    expect(verify('Yes, you can do it for $60.', facts(inputs, infeasible, []), 'does-not-fit')).toBe(false);
+    expect(verify('Average 2,001 kcal.', facts(inputs, feasible, []), 'fits')).toBe(true);
   });
 });
 

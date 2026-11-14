@@ -5,6 +5,8 @@ import type { Catalog, Inputs, PantryItem, Plan, Recipe, SolveResult } from '@af
 import catalogJson from '../../../data/catalog.json';
 import recipesJson from '../../../data/recipes.json';
 import type { SolveReply, SolveRequest } from './solver.worker';
+import sampleJson from '../../../data/sample-plan.json';
+import { defaultInputs } from './config';
 
 const catalog = structuredClone(catalogJson) as Catalog;
 const recipes = recipesJson as Recipe[];
@@ -26,7 +28,14 @@ worker.onmessage = (event: MessageEvent<SolveReply>) => {
   else pending.reject(new Error(error ?? 'Solver failed'));
 };
 
+// The default inputs at shipped prices are solved ahead of time (data/sample-plan.json, kept honest by
+// packages/engine/src/sample.test.ts), so the landing page and the sample week do not wait for the solver.
+const sampleKey = JSON.stringify(defaultInputs);
+let pricesEdited = false;
+
 export function solvePlan(inputs: Inputs, pantry: PantryItem[]): Promise<SolveResult> {
+  if (!pricesEdited && !pantry.length && JSON.stringify(inputs) === sampleKey)
+    return Promise.resolve(structuredClone(sampleJson) as SolveResult);
   return new Promise((resolve, reject) => {
     const id = nextId++;
     waiting.set(id, { resolve, reject });
@@ -40,7 +49,10 @@ export function getRecipes(): Recipe[] { return recipes; }
 export function setPrice(productId: string, price: number): void {
   if (!Number.isFinite(price) || price < 0) throw new Error('Enter a valid price.');
   const product = catalog.products.find(p => p.id === productId);
-  if (product) product.price = price;
+  if (product) {
+    product.price = price;
+    pricesEdited = true;
+  }
 }
 
 export function swapProduct(inputs: Inputs, productId: string): Inputs { return excludeProduct(inputs, productId); }

@@ -1,5 +1,5 @@
-/* Affordly design tokens. Light theme only. Receipt-on-paper look.
-   Contrast (text on --paper): ink 15.8, ink-2 7.0, ink-3 5.1, save 6.1, over 5.6, all AA. */
+/* Affordly design tokens. Light theme is the default; the dark "night receipt" overrides sit at the end.
+   Receipt-on-paper look. Run web/scripts/contrast.mjs for the WCAG table of both themes. */
 :root {
   color-scheme: light;
 
@@ -207,6 +207,10 @@ td.num, th.num { text-align: right; }
 
   /* on-photo text (always over --scrim-photo) */
   --on-photo: #ffffff;
+  --scrim-base: #1b1a17;           /* fixed dark for chips and gradients laid over photos, both themes */
+  --backdrop: rgba(27, 26, 23, 0.4);   /* dialog and drawer backdrop */
+  --ring-surface: #1b1a17;         /* daily rings card, a dark card in both themes */
+  --ring-border: transparent;
   --scrim-photo: linear-gradient(to top, rgba(27, 26, 23, 0.86) 0%, rgba(27, 26, 23, 0.55) 45%, rgba(27, 26, 23, 0) 100%);
 
   /* swipe deck */
@@ -264,7 +268,8 @@ td.num, th.num { text-align: right; }
 .btn[aria-busy="true"] { cursor: progress; color: transparent; pointer-events: none; }
 .btn[aria-busy="true"]::after { content: ""; position: absolute; width: 18px; height: 18px; inset: 0; margin: auto;
   border: 2px solid var(--ink); border-right-color: transparent; border-radius: 50%; animation: a-spin 700ms var(--ease-linear) infinite; }
-.btn--primary[aria-busy="true"]::after, .btn--danger[aria-busy="true"]::after { border-color: #fff; border-right-color: transparent; }
+.btn--primary[aria-busy="true"]::after { border-color: var(--save-ink); border-right-color: transparent; }
+.btn--danger[aria-busy="true"]::after { border-color: var(--over-ink); border-right-color: transparent; }
 /* round action buttons (swipe deck, reel rail): 56 / 44 px circles */
 .btn-round { display: inline-grid; place-items: center; width: var(--btn-h-lg); height: var(--btn-h-lg); border-radius: 50%;
   border: 1.5px solid var(--ink); background: var(--card); color: var(--ink); box-shadow: var(--elev-1);
@@ -286,12 +291,12 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--
 .stepper input { border: 0; border-radius: 0; width: 7ch; text-align: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; }
 .stepper button { min-width: var(--tap); min-height: var(--tap); border: 0; background: var(--sunk); font-size: var(--fs-lg); transition: background var(--dur-fast) var(--ease-out); }
 .stepper button:hover { background: var(--rule); }
-.stepper button:active { background: var(--ink-3); color: #fff; }
+.stepper button:active { background: var(--ink-3); color: var(--paper); }
 .stepper button[disabled] { opacity: var(--btn-disabled-opacity); cursor: not-allowed; }
 .toast { position: fixed; left: 50%; bottom: calc(var(--s-8) + var(--s-7) + env(safe-area-inset-bottom)); transform: translateX(-50%);
   z-index: var(--z-toast); max-width: min(92vw, 420px); padding: var(--s-3) var(--s-4); border-radius: var(--r-md);
   background: var(--ink); color: var(--paper); font-size: var(--fs-sm); box-shadow: var(--elev-3); animation: a-rise var(--dur-base) var(--ease-out) both; }
-.toast--over { background: var(--over-deep); color: #fff; }
+.toast--over { background: var(--over-deep); color: var(--over-ink); }
 @media (min-width: 768px) { .toast { bottom: var(--s-6); } }
 
 /* ---- receipt details ---- */
@@ -308,4 +313,77 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--
   .reveal, .reveal-stagger > *, .page-enter, .print-in, .toast { animation: none !important; }
   .btn:active, .btn-round:active, .chip:active { transform: none; }
   .btn[aria-busy="true"]::after { animation: none; border-right-color: var(--ink); } /* static ring, label stays hidden */
+}
+
+/* ==========================================================================
+   Dark theme: warm near-black "night receipt". Same token names as above.
+   Applies when the user chose dark, or when they chose nothing and the device is dark.
+   Keep the two blocks identical.
+   ========================================================================== */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #16140f;
+  --card: #201d17;
+  --sunk: #2a261e;
+  --rule: #413b2f;
+  --ink: #f1ebde;
+  --ink-2: #c9c1ae;
+  --ink-3: #a39b88;
+  --save: #5fbf8c;
+  --save-ink: #0e1f15;
+  --save-tint: #1d3425;
+  --save-deep: #8fd9b0;
+  --over: #f0846a;
+  --over-ink: #1d0a04;
+  --over-tint: #3b1f17;
+  --over-deep: #ffb09c;
+  --focus: #f1ebde;
+  --shadow-1: 0 1px 0 rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px rgba(0, 0, 0, 0.55);
+  --elev-2: 0 1px 0 rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.5);
+  --elev-inset: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  --btn-primary-bg-active: #b3e8cb;
+  --btn-danger-bg-active: #ffc9ba;
+  --backdrop: rgba(0, 0, 0, 0.62);
+  --ring-surface: #2c2921;
+  --ring-border: #4d4738;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #16140f;
+    --card: #201d17;
+    --sunk: #2a261e;
+    --rule: #413b2f;
+    --ink: #f1ebde;
+    --ink-2: #c9c1ae;
+    --ink-3: #a39b88;
+    --save: #5fbf8c;
+    --save-ink: #0e1f15;
+    --save-tint: #1d3425;
+    --save-deep: #8fd9b0;
+    --over: #f0846a;
+    --over-ink: #1d0a04;
+    --over-tint: #3b1f17;
+    --over-deep: #ffb09c;
+    --focus: #f1ebde;
+    --shadow-1: 0 1px 0 rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px rgba(0, 0, 0, 0.55);
+    --elev-2: 0 1px 0 rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.5);
+    --elev-inset: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    --btn-primary-bg-active: #b3e8cb;
+    --btn-danger-bg-active: #ffc9ba;
+    --backdrop: rgba(0, 0, 0, 0.62);
+    --ring-surface: #2c2921;
+    --ring-border: #4d4738;
+  }
+}
+
+/* Short colour fade on toggle only (class set by lib/theme.ts); never on first load. */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease,
+      fill 150ms ease, stroke 150ms ease !important;
+  }
 }

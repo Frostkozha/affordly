@@ -13,12 +13,13 @@
   align-items: center;
   gap: var(--s-5);
   padding: var(--s-5);
-  background: var(--ink);
-  color: #fff;
+  background: var(--ring-surface);
+  box-shadow: 0 0 0 1px var(--ring-border);
+  color: var(--on-photo);
   border-radius: var(--r-lg);
 }
 .ring-svg { width: 220px; height: 220px; }
-.ring-track { fill: none; stroke: #fff; stroke-opacity: 0.16; stroke-width: 14; transition: stroke-width 400ms var(--ease); }
+.ring-track { fill: none; stroke: var(--on-photo); stroke-opacity: 0.16; stroke-width: 14; transition: stroke-width 400ms var(--ease); }
 .ring[data-empty="true"] .ring-track { stroke-width: 3; }
 .ring-arc {
   fill: none;
@@ -32,7 +33,7 @@
 .ring-1 .ring-arc { stroke: var(--ring-1); }
 .ring-2 .ring-arc { stroke: var(--ring-2); }
 .ring-3 .ring-arc { stroke: var(--ring-3); }
-.ring-arc--lap2 { filter: brightness(0.78) drop-shadow(0 0 3px rgba(0, 0, 0, 0.7)); }
+.ring-arc--lap2 { filter: brightness(0.78) drop-shadow(0 0 3px color-mix(in srgb, var(--scrim-base) 70%, transparent)); }
 .ring-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); font-size: var(--fs-sm); max-width: 380px; }
 .ring-legend li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-2); }
 .ring-dot { width: 12px; height: 12px; border-radius: 50%; background: currentColor; }
@@ -40,7 +41,7 @@
 .ring-key-1 .ring-dot { color: var(--ring-1); }
 .ring-key-2 .ring-dot { color: var(--ring-2); }
 .ring-key-3 .ring-dot { color: var(--ring-3); }
-.ring-empty { grid-column: 1 / -1; margin: 0; max-width: none; color: rgba(255, 255, 255, 0.78); font-size: var(--fs-sm); }
+.ring-empty { grid-column: 1 / -1; margin: 0; max-width: none; color: color-mix(in srgb, var(--on-photo) 78%, transparent); font-size: var(--fs-sm); }
 @media (max-width: 767px) {
   .ring-card { grid-template-columns: minmax(0, 1fr); justify-items: center; padding: var(--s-4); gap: var(--s-4); }
   .ring-svg { width: 180px; height: 180px; }

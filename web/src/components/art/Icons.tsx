@@ -15,6 +15,8 @@ const paths = {
   box: 'm3 7 9-5 9 5v12l-9 4-9-4V7Zm0 0 9 5 9-5M12 12v11',
   no: 'M5 5 19 19M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z',
   tag: 'M2 3h10l10 10-9 9L2 11V3Zm5 4h.01',
+  sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4',
+  moon: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z',
 };
 export function Icon({ name, size = 20 }: {
   name: keyof typeof paths;

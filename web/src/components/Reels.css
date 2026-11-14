@@ -186,7 +186,7 @@
   margin-top: auto;
   padding: var(--s-3);
   border-radius: var(--r-md);
-  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  background: color-mix(in srgb, var(--scrim-base) 55%, transparent);
   font-size: var(--fs-lg);
   max-height: 50%;
   overflow-y: auto;
@@ -315,7 +315,7 @@
 }
 
 .cook-copy {
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--ink) 75%, transparent),
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--scrim-base) 75%, transparent),
     transparent 45%), var(--scrim-photo);
 }
 

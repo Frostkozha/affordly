@@ -1,5 +1,5 @@
 .overlay { border: 1px solid var(--rule); border-radius: var(--r-lg); padding: var(--s-5); width: min(640px, calc(100% - var(--s-6))); max-height: 90dvh; background: var(--card); color: var(--ink); box-shadow: var(--shadow-2); overscroll-behavior: contain; }
-.overlay::backdrop { background: color-mix(in srgb, var(--ink) 40%, transparent); }
+.overlay::backdrop { background: var(--backdrop); }
 body:has(dialog[open]) { overflow: hidden; }
 .overlay-heading { display: flex; justify-content: space-between; align-items: start; gap: var(--s-3); margin-bottom: var(--s-4); }
 .overlay-heading { position: sticky; top: calc(-1 * var(--s-5)); z-index: 1; margin: calc(-1 * var(--s-5)) calc(-1 * var(--s-5)) var(--s-4); padding: var(--s-5) var(--s-5) var(--s-2); background: var(--card); }

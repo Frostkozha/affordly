@@ -18,7 +18,7 @@
 .sc-axis, .sc-label { font-family: var(--font-num); font-size: 11px; fill: var(--ink-2); }
 .sc-label { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--card); stroke-width: 3px; }
 .sc-label--save { fill: var(--save-deep); }
-.sc-label--on-spent { fill: #fff; stroke: none; }
+.sc-label--on-spent { fill: var(--over-ink); stroke: none; }
 .sc-week { font-size: 12px; fill: var(--ink-3); }
 .sc-budget { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 4 3; }
 .sc-legend { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); list-style: none; margin: var(--s-3) 0; padding: 0; font-size: var(--fs-sm); }

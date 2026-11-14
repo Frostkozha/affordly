@@ -95,7 +95,7 @@
   position: absolute;
   top: var(--s-3);
   right: var(--s-3);
-  background: color-mix(in srgb, var(--ink) 60%, transparent);
+  background: color-mix(in srgb, var(--scrim-base) 60%, transparent);
   color: var(--on-photo);
 }
 .meal-initial {
@@ -287,7 +287,7 @@
   }
 }
 .meal-details:hover {
-  background: var(--ink);
+  background: var(--scrim-base);
 }
 
 .swipe-top {

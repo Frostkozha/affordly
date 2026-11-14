@@ -95,7 +95,7 @@ progress::-webkit-progress-value { background: var(--save); }
   background: transparent;
   transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
-.eaten-check svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.eaten-check svg { width: 22px; height: 22px; fill: none; stroke: var(--save-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
 .eaten-check[aria-checked="true"] { background: var(--save); border-color: var(--save); }
 .eaten-check[aria-checked="true"] svg { opacity: 1; }
 

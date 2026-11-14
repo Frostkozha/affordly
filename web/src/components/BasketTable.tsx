@@ -20,7 +20,9 @@ export function BasketTable({ plan, locked }: {
     return (
       <EmptyState>No basket until there is a plan.</EmptyState>);
   const changed = async () => {
-    await reprice();
+    const result = await reprice();
+    if (!result.ok)
+      notify(`At this price no plan fits ${fmtMoney(inputs.budget)}. Pick an option below or change the price back.`);
   };
   const swap = async (id: string) => {
     if (!state.plus && swaps >= demoTerms.freeSwaps) {

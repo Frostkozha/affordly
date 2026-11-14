@@ -56,6 +56,7 @@ export function StoreProvider({ children }: {
     setSolveError(null);
     setSolving(false);
   };
+  const lastShown = useRef<SolveResult | null>(null);
   const [swaps, setSwaps] = useState(0);
   useEffect(() => {
     let active = true;
@@ -85,7 +86,10 @@ export function StoreProvider({ children }: {
   }, [state, ready]);
   const run = async (inputs = state.inputs ?? defaultInputs, pantry = state.pantry,
     week = state.week, reveal = true, keepOnFail = false) => {
-    const previous = result;
+    // A second run can start while the first is in flight (result is null then), so remember the last shown result.
+    if (result)
+      lastShown.current = result;
+    const previous = lastShown.current;
     setRevealPlan(reveal);
     const version = ++generation.current;
     lastRun.current = {

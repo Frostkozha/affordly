@@ -30,7 +30,8 @@ export function LeftoverList({ items, title = 'Pantry preview', spoiled = false 
                 <span className="leftover-name">
                   {p.name}
                   <span className="meta">
-                    {item.daysLeft === null ? 'shelf stable' : `keeps ${item.daysLeft} more days`}
+                    {spoiled ? 'past its keeping time' :
+                      item.daysLeft === null ? 'shelf stable' : `keeps ${item.daysLeft} more days`}
                   </span>
                 </span>
                 <span className="leftover-amount num">

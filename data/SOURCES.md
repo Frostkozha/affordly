@@ -89,3 +89,27 @@ Prices are estimates (priceSource `demo`, store 'Estimated US prices', priced 20
 - Matched 38 of 39 products; 1 unmatched (romaine, kept as estimated price with `priceEstimated: true`). Details in `kroger-snapshot.json`.
 - Item choice: plain, raw, unflavoured; Kroger store brand or cheapest mainstream brand; regular (non-promo) price; household size near the old package size.
 - Size conversion: 1 lb = 453.6 g, 1 oz = 28.35 g, 1 fl oz = 29.57 g (oil, soy sauce; approximation), 12 ct eggs = 600 g, 1/2 gal = 1893 g. Canned beans keep whole-can contents (15 oz = 425 g, 16 oz = 454 g); tuna keeps 112 g drained. Items priced per lb use 453.6 g. "N ct / X oz" is read as X oz for the whole pack when X is clearly the pack total (tortillas 17.5 oz). Items sold each use an assumed weight: bell pepper 164 g, celery bunch 450 g, garlic 3 bulbs 150 g.
+
+## Recipes 26 to 40 (added 14 Nov 2026)
+
+Same method as above: USDA MyPlate Kitchen pages and photos (public domain) read from Internet Archive snapshots (web.archive.org, 2025 captures) because myplate.gov does not resolve here. `source.url` is the live myplate.gov address `https://www.myplate.gov/recipes/<id>`. Photos: the recipe's own MyPlate image, resized to 600x400 JPEG (under 200 KB); for garden-frittata, sweet-potato-hash-egg, lentil-stew and lentil-chili only the archived `large` image style existed. `perServing` computed from catalog `per100g`. No new catalog products (corn tortillas were skipped: their USDA nutrition values could not be verified from this machine, so rice replaces tortillas).
+
+| Recipe id | What I changed |
+|---|---|
+| huevos-rancheros-fresh-salsa | Rice and black beans replace corn tortillas; cheese dropped; whole eggs only. |
+| garden-frittata | Spinach replaces kale. |
+| green-onion-omelet | Fresh potatoes for canned; ham and milk dropped; whole eggs. |
+| huevos-motulenos | Rice instead of tortillas; canned black beans for pinto; mixed vegetables for peas; ham dropped; whole eggs. |
+| scrambled-tofu | Olive oil for butter; spinach and pepper for bean sprouts. |
+| sweet-potato-hash-egg | Chicken sausage dropped, black beans added; sweet potatoes cubed small to cook in about 35 min. |
+| fruity-homemade-oatmeal | Raisins dropped. |
+| banana-walnut-oatmeal | Water instead of milk; honey for maple syrup; peanut butter for walnuts. |
+| lentil-tacos | Served over rice instead of corn tortillas; canned tomatoes for tomato paste; raisins dropped. |
+| lentil-stew | Scaled to 5 servings with the full cup of lentils; carrots fresh. |
+| lentil-chili | Dry lentils instead of cooked; two cans tomatoes. |
+| one-pan-potatoes-chicken | Frozen mixed vegetables replace canned corn. |
+| one-pan-taco-rice | Dry rice for cooked; canned tomatoes plus salsa for tomatoes with chiles; chili seasoning mix replaced by spices. |
+| jollof-rice | Scaled to 6 servings; raw chicken thighs; water replaces broth; canned tomatoes replace tomato paste. |
+| taco-soup | Scaled to 5 servings; black beans for kidney; frozen vegetables for corn. |
+
+Oats are tagged gluten (not certified gluten-free).

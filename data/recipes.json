@@ -97,7 +97,7 @@
       "kcal": 320.5,
       "protein": 28.5,
       "carbs": 11.2,
-      "fat": 18.0
+      "fat": 18
     },
     "contains": [
       "egg",
@@ -150,7 +150,7 @@
     "perServing": {
       "kcal": 319.3,
       "protein": 16.3,
-      "carbs": 55.0,
+      "carbs": 55,
       "fat": 4.6
     },
     "contains": [
@@ -220,9 +220,9 @@
     ],
     "perServing": {
       "kcal": 324.3,
-      "protein": 14.0,
+      "protein": 14,
       "carbs": 40.6,
-      "fat": 12.0
+      "fat": 12
     },
     "contains": [
       "egg",
@@ -608,7 +608,7 @@
       "kcal": 608.8,
       "protein": 45.1,
       "carbs": 55.9,
-      "fat": 23.0
+      "fat": 23
     },
     "contains": [
       "poultry",
@@ -871,7 +871,7 @@
     "perServing": {
       "kcal": 425.2,
       "protein": 31.9,
-      "carbs": 54.0,
+      "carbs": 54,
       "fat": 8.7
     },
     "contains": [
@@ -942,7 +942,7 @@
     "perServing": {
       "kcal": 405.5,
       "protein": 30.8,
-      "carbs": 45.0,
+      "carbs": 45,
       "fat": 10.6
     },
     "contains": [
@@ -1185,10 +1185,10 @@
       }
     ],
     "perServing": {
-      "kcal": 416.0,
-      "protein": 25.0,
-      "carbs": 52.0,
-      "fat": 14.0
+      "kcal": 416,
+      "protein": 25,
+      "carbs": 52,
+      "fat": 14
     },
     "contains": [
       "soy",
@@ -1356,7 +1356,7 @@
       }
     ],
     "perServing": {
-      "kcal": 613.0,
+      "kcal": 613,
       "protein": 38.4,
       "carbs": 71.7,
       "fat": 18.5
@@ -1478,7 +1478,7 @@
     ],
     "perServing": {
       "kcal": 350.6,
-      "protein": 12.0,
+      "protein": 12,
       "carbs": 63.1,
       "fat": 6.5
     },
@@ -1493,6 +1493,805 @@
     "source": {
       "name": "Adapted from USDA MyPlate Kitchen: Chickpeas and Spinach Saute",
       "url": "https://www.myplate.gov/recipes/chickpeas-and-spinach-saute",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "huevos-rancheros-fresh-salsa",
+    "name": "Huevos rancheros rice bowls",
+    "description": "Fried eggs on rice and black beans with fresh salsa.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "eggs",
+        "grams": 300
+      },
+      {
+        "productId": "rice",
+        "grams": 150
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "salsa",
+        "grams": 240
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 7
+      }
+    ],
+    "perServing": {
+      "kcal": 373.7,
+      "protein": 19.4,
+      "carbs": 52.1,
+      "fat": 9.5
+    },
+    "contains": [
+      "egg"
+    ],
+    "steps": [
+      "Cook the rice in water until tender, about 15 minutes, and warm the beans.",
+      "Fry the eggs in the oil in a nonstick pan, 2 to 3 minutes a side.",
+      "Spoon rice and beans into four bowls, top with eggs and salsa."
+    ],
+    "photo": "/recipes/huevos-rancheros-fresh-salsa.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/huevos-rancheros-fresh-salsa",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "garden-frittata",
+    "name": "Potato and spinach frittata",
+    "description": "Eggs baked with potato, spinach, onion and pepper in one skillet.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "eggs",
+        "grams": 200
+      },
+      {
+        "productId": "potatoes",
+        "grams": 300
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 7
+      },
+      {
+        "productId": "spinach",
+        "grams": 150
+      },
+      {
+        "productId": "onions",
+        "grams": 50
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 82
+      }
+    ],
+    "perServing": {
+      "kcal": 165.2,
+      "protein": 9.3,
+      "carbs": 17.7,
+      "fat": 6.8
+    },
+    "contains": [
+      "egg"
+    ],
+    "steps": [
+      "Cube the potatoes, microwave or boil them until just soft, and let them cool.",
+      "Saute the onion, pepper, spinach and potato in the oil for 5 to 8 minutes.",
+      "Beat the eggs with salt and pepper, stir in the vegetables and pour into the skillet.",
+      "Cook on low heat until almost set, cover and rest 5 minutes."
+    ],
+    "photo": "/recipes/garden-frittata.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/garden-frittata",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "green-onion-omelet",
+    "name": "Potato and tomato skillet omelet",
+    "description": "A thick potato omelet with tomato and onion, cut into wedges.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "potatoes",
+        "grams": 350
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 14
+      },
+      {
+        "productId": "eggs",
+        "grams": 250
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 200
+      },
+      {
+        "productId": "onions",
+        "grams": 60
+      }
+    ],
+    "perServing": {
+      "kcal": 203.4,
+      "protein": 10.3,
+      "carbs": 19.4,
+      "fat": 9.7
+    },
+    "contains": [
+      "egg"
+    ],
+    "steps": [
+      "Cut the potatoes into thin strips and brown them in the oil for 8 to 10 minutes.",
+      "Beat the eggs with salt, then stir in drained tomatoes and chopped onion.",
+      "Pour over the potatoes, cover and cook on medium heat about 8 minutes until firm.",
+      "Cut into four wedges."
+    ],
+    "photo": "/recipes/green-onion-omelet.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/green-onion-omelet",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "huevos-motulenos",
+    "name": "Bean and egg rice plates",
+    "description": "Rice, mashed black beans and peas topped with egg and salsa.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "rice",
+        "grams": 150
+      },
+      {
+        "productId": "frozen-mixed-vegetables",
+        "grams": 200
+      },
+      {
+        "productId": "eggs",
+        "grams": 200
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 10
+      },
+      {
+        "productId": "salsa",
+        "grams": 120
+      }
+    ],
+    "perServing": {
+      "kcal": 371.9,
+      "protein": 17.5,
+      "carbs": 56.7,
+      "fat": 8.1
+    },
+    "contains": [
+      "egg"
+    ],
+    "steps": [
+      "Cook the rice in water until tender.",
+      "Mash the beans with a fork and warm them with the vegetables.",
+      "Scramble the eggs in the oil until firm and cut into pieces.",
+      "Layer rice, beans and vegetables on plates, top with egg and salsa."
+    ],
+    "photo": "/recipes/huevos-motulenos.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/huevos-motulenos",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "scrambled-tofu",
+    "name": "Tofu and egg scramble",
+    "description": "Crumbled tofu browned with spinach and pepper, finished with egg.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 15,
+    "ingredients": [
+      {
+        "productId": "tofu",
+        "grams": 397
+      },
+      {
+        "productId": "eggs",
+        "grams": 100
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 10
+      },
+      {
+        "productId": "spinach",
+        "grams": 100
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 82
+      }
+    ],
+    "perServing": {
+      "kcal": 146.3,
+      "protein": 13,
+      "carbs": 5.2,
+      "fat": 9.2
+    },
+    "contains": [
+      "soy",
+      "egg"
+    ],
+    "steps": [
+      "Drain the tofu and crumble it with a fork.",
+      "Saute the tofu, chopped pepper and spinach in the oil until lightly browned.",
+      "Beat the eggs, stir them in and cook until firm. Season with salt and pepper."
+    ],
+    "photo": "/recipes/scrambled-tofu.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/scrambled-tofu",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "sweet-potato-hash-egg",
+    "name": "Sweet potato and bean hash with eggs",
+    "description": "Sweet potato, pepper and black beans pan-cooked and topped with fried egg.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 35,
+    "ingredients": [
+      {
+        "productId": "sweet-potatoes",
+        "grams": 450
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 15
+      },
+      {
+        "productId": "onions",
+        "grams": 100
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 164
+      },
+      {
+        "productId": "garlic",
+        "grams": 6
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "eggs",
+        "grams": 200
+      }
+    ],
+    "perServing": {
+      "kcal": 321,
+      "protein": 15.2,
+      "carbs": 45.9,
+      "fat": 9
+    },
+    "contains": [
+      "egg"
+    ],
+    "steps": [
+      "Cube the sweet potatoes small and cook them in a covered skillet with a splash of water for about 15 minutes.",
+      "Add most of the oil, onion, pepper and garlic and cook 10 minutes until browned.",
+      "Stir in the beans to heat through.",
+      "Fry the eggs in the remaining oil and top each portion."
+    ],
+    "photo": "/recipes/sweet-potato-hash-egg.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/sweet-potato-hash-egg",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "fruity-homemade-oatmeal",
+    "name": "Apple cinnamon oatmeal",
+    "description": "Rolled oats cooked with chopped apple and cinnamon.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 2,
+    "cookMinutes": 10,
+    "ingredients": [
+      {
+        "productId": "apples",
+        "grams": 200
+      },
+      {
+        "productId": "oats",
+        "grams": 61
+      }
+    ],
+    "perServing": {
+      "kcal": 167.6,
+      "protein": 4.3,
+      "carbs": 34.5,
+      "fat": 2.2
+    },
+    "contains": [
+      "gluten"
+    ],
+    "steps": [
+      "Peel, core and chop the apple.",
+      "Bring the water to a boil, stir in oats, apple and cinnamon.",
+      "Cook on low for 5 minutes, stirring often."
+    ],
+    "photo": "/recipes/fruity-homemade-oatmeal.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/fruity-homemade-oatmeal",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "banana-walnut-oatmeal",
+    "name": "Banana peanut butter oatmeal",
+    "description": "Creamy oatmeal stirred with mashed banana, honey and peanut butter.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 4,
+    "cookMinutes": 10,
+    "ingredients": [
+      {
+        "productId": "oats",
+        "grams": 160
+      },
+      {
+        "productId": "bananas",
+        "grams": 240
+      },
+      {
+        "productId": "honey",
+        "grams": 42
+      },
+      {
+        "productId": "peanut-butter",
+        "grams": 32
+      }
+    ],
+    "perServing": {
+      "kcal": 284,
+      "protein": 7.7,
+      "carbs": 51.4,
+      "fat": 6.8
+    },
+    "contains": [
+      "gluten",
+      "nuts"
+    ],
+    "steps": [
+      "Heat about 3 cups of water until steaming and stir in the oats for 1 to 2 minutes.",
+      "Off the heat, stir in mashed banana and honey.",
+      "Divide into bowls and swirl in the peanut butter."
+    ],
+    "photo": "/recipes/banana-walnut-oatmeal.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/banana-walnut-oatmeal",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "lentil-tacos",
+    "name": "Lentil taco rice bowls",
+    "description": "Spiced lentils and peppers in tomato, served over rice.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 6,
+    "cookMinutes": 40,
+    "ingredients": [
+      {
+        "productId": "lentils",
+        "grams": 288
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 82
+      },
+      {
+        "productId": "garlic",
+        "grams": 12
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 411
+      },
+      {
+        "productId": "rice",
+        "grams": 220
+      }
+    ],
+    "perServing": {
+      "kcal": 320.3,
+      "protein": 15.2,
+      "carbs": 63.6,
+      "fat": 1
+    },
+    "contains": [],
+    "steps": [
+      "Simmer the lentils in 3 cups of water for 10 minutes.",
+      "Add chopped pepper, garlic, tomatoes, chili powder, cumin and basil with a little water.",
+      "Simmer 30 minutes, adding water if it dries out.",
+      "Cook the rice and serve the lentils over it."
+    ],
+    "photo": "/recipes/lentil-tacos.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/lentil-tacos",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "lentil-stew",
+    "name": "Lentil carrot stew",
+    "description": "Lentils, carrots and tomatoes simmered into a thick stew.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 5,
+    "cookMinutes": 35,
+    "ingredients": [
+      {
+        "productId": "lentils",
+        "grams": 192
+      },
+      {
+        "productId": "carrots",
+        "grams": 212
+      },
+      {
+        "productId": "onions",
+        "grams": 150
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 617
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 10
+      }
+    ],
+    "perServing": {
+      "kcal": 202,
+      "protein": 11.2,
+      "carbs": 35.5,
+      "fat": 2.8
+    },
+    "contains": [],
+    "steps": [
+      "Soften the chopped onion in the oil for 3 minutes.",
+      "Add the lentils, sliced carrots, tomatoes, 3 cups of water, garlic powder and chili powder.",
+      "Simmer uncovered about 25 minutes until the lentils are tender."
+    ],
+    "photo": "/recipes/lentil-stew.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/lentil-stew",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "lentil-chili",
+    "name": "Beef and lentil chili",
+    "description": "Ground beef, lentils and tomatoes in a quick chili.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 6,
+    "cookMinutes": 45,
+    "ingredients": [
+      {
+        "productId": "ground-beef",
+        "grams": 227
+      },
+      {
+        "productId": "onions",
+        "grams": 200
+      },
+      {
+        "productId": "garlic",
+        "grams": 6
+      },
+      {
+        "productId": "lentils",
+        "grams": 170
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 822
+      }
+    ],
+    "perServing": {
+      "kcal": 217.8,
+      "protein": 15.5,
+      "carbs": 26.1,
+      "fat": 6.4
+    },
+    "contains": [
+      "meat"
+    ],
+    "steps": [
+      "Brown the beef in a large pot, breaking it up, and drain the fat.",
+      "Add chopped onion and garlic and cook until soft.",
+      "Add rinsed lentils, tomatoes, 2 cups of water, chili powder and cumin.",
+      "Simmer about 35 minutes until the lentils are tender."
+    ],
+    "photo": "/recipes/lentil-chili.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/lentil-chili",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "one-pan-potatoes-chicken",
+    "name": "One-pan chicken, potatoes and corn",
+    "description": "Browned chicken and potatoes finished with salsa and vegetables.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 6,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "potatoes",
+        "grams": 600
+      },
+      {
+        "productId": "chicken-breast",
+        "grams": 454
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 28
+      },
+      {
+        "productId": "salsa",
+        "grams": 240
+      },
+      {
+        "productId": "frozen-mixed-vegetables",
+        "grams": 430
+      }
+    ],
+    "perServing": {
+      "kcal": 274.3,
+      "protein": 22.2,
+      "carbs": 30.4,
+      "fat": 7.2
+    },
+    "contains": [
+      "poultry"
+    ],
+    "steps": [
+      "Cube the potatoes and microwave or boil them until tender.",
+      "Cube the chicken and brown it in the oil on high heat for 5 minutes.",
+      "Add the potatoes and cook until lightly browned.",
+      "Stir in the salsa and frozen vegetables and heat through."
+    ],
+    "photo": "/recipes/one-pan-potatoes-chicken.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/one-pan-potatoes-chicken",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "one-pan-taco-rice",
+    "name": "One-pan turkey taco rice",
+    "description": "Ground turkey, rice and tomatoes with cheese on top.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 6,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "ground-turkey",
+        "grams": 454
+      },
+      {
+        "productId": "onions",
+        "grams": 150
+      },
+      {
+        "productId": "rice",
+        "grams": 250
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 411
+      },
+      {
+        "productId": "salsa",
+        "grams": 150
+      },
+      {
+        "productId": "cheddar",
+        "grams": 56
+      }
+    ],
+    "perServing": {
+      "kcal": 323.3,
+      "protein": 20.9,
+      "carbs": 39.9,
+      "fat": 8.7
+    },
+    "contains": [
+      "poultry",
+      "dairy"
+    ],
+    "steps": [
+      "Brown the turkey with the chopped onion and blot up any grease.",
+      "Add the rice, tomatoes, salsa, chili powder, cumin and 3 cups of water.",
+      "Cover and simmer about 20 minutes until the rice is tender.",
+      "Top with the cheese and cover until melted."
+    ],
+    "photo": "/recipes/one-pan-taco-rice.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/one-pan-taco-rice",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "jollof-rice",
+    "name": "Chicken jollof rice",
+    "description": "Chicken thighs and rice cooked in a spiced tomato sauce.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 6,
+    "cookMinutes": 45,
+    "ingredients": [
+      {
+        "productId": "chicken-thighs",
+        "grams": 454
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 7
+      },
+      {
+        "productId": "onions",
+        "grams": 60
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 80
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 822
+      },
+      {
+        "productId": "rice",
+        "grams": 190
+      }
+    ],
+    "perServing": {
+      "kcal": 246.8,
+      "protein": 18.5,
+      "carbs": 31.8,
+      "fat": 4.9
+    },
+    "contains": [
+      "poultry"
+    ],
+    "steps": [
+      "Cube the chicken and brown it in the oil.",
+      "Add chopped onion and pepper and cook until soft.",
+      "Add the tomatoes, thyme, black pepper and crushed red pepper and simmer 15 minutes.",
+      "Add the rice and 2 cups of water, cover and cook about 20 minutes until tender."
+    ],
+    "photo": "/recipes/jollof-rice.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/jollof-rice",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "taco-soup",
+    "name": "Beef and bean taco soup",
+    "description": "Ground beef, black beans, tomatoes and vegetables simmered together.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 5,
+    "cookMinutes": 40,
+    "ingredients": [
+      {
+        "productId": "ground-beef",
+        "grams": 227
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 411
+      },
+      {
+        "productId": "frozen-mixed-vegetables",
+        "grams": 250
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      }
+    ],
+    "perServing": {
+      "kcal": 224.1,
+      "protein": 15.9,
+      "carbs": 23.7,
+      "fat": 7.5
+    },
+    "contains": [
+      "meat"
+    ],
+    "steps": [
+      "Brown the beef in a pot and drain the fat.",
+      "Add the tomatoes, vegetables, beans, chili powder, cumin, garlic powder and a splash of water.",
+      "Simmer on low about 25 minutes."
+    ],
+    "photo": "/recipes/taco-soup.jpg",
+    "source": {
+      "name": "adapted from MyPlate Kitchen",
+      "url": "https://www.myplate.gov/recipes/taco-soup",
       "license": "Public domain (USDA)"
     }
   }

@@ -1,0 +1,15 @@
+name = "affordly-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "affordly"
+database_id = "REPLACE_WITH_D1_ID"
+
+[ai]
+binding = "AI"
+
+[vars]
+KROGER_BASE = "https://api-ce.kroger.com"
+ALLOWED_ORIGIN = "*"

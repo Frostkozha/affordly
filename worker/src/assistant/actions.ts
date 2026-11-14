@@ -23,7 +23,7 @@ export function suggestions(route: Route): string[] {
   if (route.action === 'find-recipes' || route.action === 'how-to-cook') {
     return ['Find a dinner without dairy', 'What can I cook with leftovers?'];
   }
-  return ['Why is my gap so big?', 'What if $70 vs $90?', 'Find a quick dinner'];
+  return ['Why is my gap so big?', 'What if $70 vs $95?', 'Find a quick dinner'];
 }
 
 function solvedFacts(body: AssistantRequest, route: Route, asked: Inputs[],

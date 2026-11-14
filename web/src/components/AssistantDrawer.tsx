@@ -62,7 +62,7 @@ export function AssistantDrawer({ close, open, go, messages, setMessages }: {
         setMessages([...messages, { user: message, response: {
           action: 'off-topic', intent: 'off-topic', source: 'template', refused: true,
           text: 'That option is unavailable. Choose an Apply button on a feasible scenario.',
-          recipeIds: [], suggestions: ['What if $70 vs $90?', 'Explain my plan'],
+          recipeIds: [], suggestions: ['What if $70 vs $95?', 'Explain my plan'],
         } }]);
         return;
       }

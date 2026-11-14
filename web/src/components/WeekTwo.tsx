@@ -1,3 +1,4 @@
+import { DoesNotFit } from './DoesNotFit';
 import './WeekTwo.css';
 import { SolveStatus } from './SolveStatus';
 import { useState } from 'react';
@@ -37,6 +38,8 @@ export function WeekTwo({ locked, go }: {
   if (solveError) {
     return <><h1>Week 2</h1><ErrorState retry={retry}>{solveError}</ErrorState></>;
   }
+  if (result && !result.ok)
+    return <><h1>Week 2</h1><DoesNotFit result={result} go={go} /></>;
   if (!plan)
     return (
       <>
@@ -90,10 +93,10 @@ export function WeekTwo({ locked, go }: {
         </div>
         <div className="stack">
           {state.week > 1 ?
-            state.plus ?
-              <><Paywall /><CheckoutGapCard plan={plan} budget={state.inputs!.budget} /></>
-              :
+            <>
               <Paywall />
+              {state.plus && <CheckoutGapCard plan={plan} budget={state.inputs!.budget} />}
+            </>
             :
             <div className="card">
               <h2>Buy once. Use it next week.</h2>

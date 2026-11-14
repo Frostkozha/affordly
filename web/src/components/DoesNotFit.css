@@ -10,3 +10,25 @@
 @media (max-width: 767px) {
   .not-fit { grid-template-columns: minmax(0, 1fr); }
 }
+
+.not-fit {
+  border-left: 4px solid var(--over);
+  padding: var(--s-4);
+  animation: a-fade var(--dur-base);
+}
+.not-fit > div:first-child {
+  background: var(--over-tint);
+  padding: var(--s-4);
+  border-radius: var(--r-md);
+}
+.alternatives {
+  align-content: start;
+  visibility: visible;
+  opacity: 1;
+}
+.alternative:nth-child(2) {
+  --i: 1;
+}
+.alternative:nth-child(3) {
+  --i: 2;
+}

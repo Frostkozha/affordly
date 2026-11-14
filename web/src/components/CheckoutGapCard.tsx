@@ -1,3 +1,6 @@
+import { useStore } from '../lib/store';
+import { useState } from 'react';
+import { FitsBanner } from './FitsBanner';
 import './CheckoutGapCard.css';
 import './BasketTable.css';
 import type { Plan } from '@affordly/engine';
@@ -10,9 +13,19 @@ export function CheckoutGapCard({ plan, budget }: {
   plan: Plan;
   budget: number;
 }) {
+  const { revealPlan } = useStore();
+  const [reveal] = useState(() => {
+    if (!revealPlan) return false;
+    const key = 'gapRevealed:' + plan.meals.map(m => m.recipeId + m.servings).join(',');
+    try {
+      if (sessionStorage.getItem(key)) return false;
+      sessionStorage.setItem(key, '1');
+    } catch { /* Reveal once for this mounted card if storage is unavailable. */ }
+    return true;
+  });
   return (
     <section
-      className="card checkout"
+      className={'card checkout tear-bottom' + (reveal ? ' gap-reveal' : '')}
       aria-live="polite"
     >
       <div className="section-top">
@@ -68,15 +81,8 @@ export function CheckoutGapCard({ plan, budget }: {
           {' '}
           budget
         </span>
-        <Badge
-          kind={plan.basketCost <= budget ?
-            'save' :
-            'over'}
-        >
-          {plan.basketCost <= budget ?
-            'Fits' :
-            `Over by ${fmtMoney(plan.basketCost - budget)}`}
-        </Badge>
+        {plan.basketCost <= budget ? <FitsBanner budget={budget} cost={plan.basketCost} /> :
+          <Badge kind="over">Over by {fmtMoney(plan.basketCost - budget)}</Badge>}
       </div>
     </section>
   );

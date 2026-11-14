@@ -1,31 +1,29 @@
-import './PlanView.css';
+import { useId, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { Plan, Recipe } from '@affordly/engine';
 import { dayNames } from '../lib/config';
 import { DayTotals } from './DayTotals';
 import { MealRow } from './MealRow';
-
+import './PlanView.css';
 export function DayCard({ plan, day, open }: {
   plan: Plan;
   day: number;
   open: (recipe: Recipe, servings?: number) => void;
 }) {
-  return (
-    <details
-      className="card day-card"
-      open={day === 0}
-    >
-      <summary><strong>{dayNames[day]}</strong><DayTotals plan={plan} day={day} /></summary>
-      <div>
-        {plan.meals.filter(m => m.day === day).map(meal =>
-          <MealRow
-            key={meal.slot}
-            meal={meal}
-            open={open}
-            cookOnce={meal.slot === 'dinner'
-              && plan.meals.some(m => m.day === day && m.slot === 'lunch' && m.recipeId === meal.recipeId)}
-          />
-        )}
-      </div>
-    </details>
-  );
+  const [expanded, setExpanded] = useState(day === 0);
+  const id = useId();
+  const meals = plan.meals.filter(meal => meal.day === day);
+  return <article className="card day-card" style={{ '--i': day } as CSSProperties}>
+    <button className="day-toggle" aria-expanded={expanded} aria-controls={id}
+      onClick={() => setExpanded(value => !value)}>
+      <span><strong>{dayNames[day]}</strong><DayTotals plan={plan} day={day} /></span>
+      <span aria-hidden="true">{expanded ? '−' : '+'}</span>
+    </button>
+    <div id={id} className="day-expand" data-expanded={expanded} inert={!expanded}
+      aria-hidden={!expanded}><div>
+        {meals.map(meal => <MealRow key={meal.slot} meal={meal} open={open}
+          cookOnce={meal.slot === 'dinner'
+            && meals.some(other => other.slot === 'lunch' && other.recipeId === meal.recipeId)} />)}
+      </div></div>
+  </article>;
 }

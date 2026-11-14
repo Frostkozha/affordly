@@ -1,13 +1,15 @@
 import { createElement, createContext, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { AccountState, Inputs, PantryItem, SolveResult } from '@affordly/engine';
-import { emptyState, loadState, saveState } from './account';
+import { emptyState, loadState, saveState, cacheState } from './account';
 import { solvePlan } from './engine';
 import { defaultInputs } from './config';
+import { readTaste } from './taste';
 
 interface Store {
   state: AccountState;
   inputs: Inputs;
+  taste: { liked: string[]; skipped: string[] };
   result: SolveResult | null;
   ready: boolean;
   solving: boolean;
@@ -15,11 +17,13 @@ interface Store {
   retry: () => void;
   reloadAccount: () => Promise<void>;
   sample: boolean;
+  revealPlan: boolean;
+  reprice: () => Promise<SolveResult>;
   swaps: number;
   recordSwap: () => void;
   setInputs: (inputs: Inputs) => void;
   run: (inputs?: Inputs, pantry?: PantryItem[], week?: number) => Promise<SolveResult>;
-  setPlus: (plus: boolean) => void;
+  setPlus: (plus: boolean) => Promise<void>;
   useSample: () => Promise<void>;
 }
 
@@ -32,6 +36,7 @@ export function StoreProvider({ children }: {
   const [result, setResult] = useState<SolveResult | null>(null);
   const [ready, setReady] = useState(false);
   const [sample, setSample] = useState(false);
+  const [revealPlan, setRevealPlan] = useState(true);
   const generation = useRef(0);
   const [solving, setSolving] = useState(false);
   const [solveError, setSolveError] = useState<string | null>(null);
@@ -69,12 +74,15 @@ export function StoreProvider({ children }: {
   useEffect(() => {
     if (!ready)
       return;
+    cacheState(state);
     const timer = setTimeout(() => {
       void saveState(state);
     }, 500);
     return () => clearTimeout(timer);
   }, [state, ready]);
-  const run = async (inputs = state.inputs ?? defaultInputs, pantry = state.pantry, week = state.week) => {
+  const run = async (inputs = state.inputs ?? defaultInputs, pantry = state.pantry,
+    week = state.week, reveal = true) => {
+    setRevealPlan(reveal);
     const version = ++generation.current;
     lastRun.current = {
       inputs,
@@ -133,9 +141,12 @@ export function StoreProvider({ children }: {
           void run(previous.inputs, previous.pantry, previous.week).catch(() => { });
       },
       inputs: state.inputs ?? defaultInputs,
+      taste: readTaste(state.inputs ?? defaultInputs),
       result,
       ready,
       sample,
+      revealPlan,
+      reprice: () => run(undefined, undefined, undefined, false),
       swaps,
       recordSwap: () => setSwaps(s => s + 1),
       setInputs: inputs => setState(s => ({
@@ -143,10 +154,10 @@ export function StoreProvider({ children }: {
         inputs
       })),
       run,
-      setPlus: plus => setState(s => ({
-        ...s,
-        plus
-      })),
+      setPlus: async plus => {
+        await saveState({ ...state, plus });
+        setState(current => ({ ...current, plus }));
+      },
       useSample: async () => {
         setSample(true);
         await run(structuredClone(defaultInputs), [], 1);

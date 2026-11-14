@@ -1,21 +1,14 @@
 import { useEffect, useState } from 'react';
-
+import { ReceiptSkeleton } from './ReceiptSkeleton';
 export function SolveStatus() {
-  const [checking, setChecking] = useState(false);
+  const [slow, setSlow] = useState(false);
   useEffect(() => {
-    const timer = setTimeout(() => setChecking(true), 3000);
+    const timer = setTimeout(() => setSlow(true), 4000);
     return () => clearTimeout(timer);
   }, []);
-  return (
-    <section
-      className="card"
-      role="status"
-      aria-live="polite"
-      aria-busy="true"
-    >
-      <p>{checking ? 'Checking what fits your budget\u2026' : 'Pricing your week by the package\u2026'}</p>
-      <div className="skeleton" />
-      <div className="skeleton" />
-    </section>
-  );
+  return <div className="solving-receipt">
+    <span className="num">AFFORDLY</span>
+    <ReceiptSkeleton />
+    {slow && <p role="status">Still working. This can take a moment on a slow connection.</p>}
+  </div>;
 }

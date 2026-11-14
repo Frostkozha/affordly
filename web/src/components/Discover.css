@@ -1,0 +1,318 @@
+
+.swipe-layout {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: var(--s-7);
+}
+.discover-explainer {
+  align-self: start;
+  position: sticky;
+  top: 88px;
+}
+.taste-summary {
+  margin-top: var(--s-5);
+  font-size: var(--fs-sm);
+}
+.deck-column {
+  width: 100%;
+  max-width: 380px;
+  margin: auto;
+  min-width: 0;
+}
+.deck-progress {
+  text-align: right;
+  font-size: var(--fs-xs);
+}
+.deck-column progress {
+  accent-color: var(--ink);
+  color: var(--ink);
+}
+.deck-column progress::-webkit-progress-value {
+  background: var(--ink);
+}
+.swipe-stack {
+  position: relative;
+  margin: var(--s-3) 0 var(--s-5);
+  aspect-ratio: 3 / 4;
+}
+.swipe-top,
+.behind-card {
+  position: absolute;
+  inset: 0;
+}
+.swipe-top {
+  will-change: transform;
+}
+.behind-card {
+  transform-origin: bottom;
+  pointer-events: none;
+}
+.meal-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--sunk);
+  box-shadow: var(--elev-1);
+  color: var(--on-photo);
+}
+.meal-card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.meal-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: var(--s-5) var(--s-4) var(--s-4);
+}
+.meal-caption h2 {
+  font-size: var(--fs-xl);
+}
+.meal-caption p {
+  font-size: var(--fs-xs);
+  margin-bottom: var(--s-1);
+  white-space: normal;
+}
+.meal-caption .weight-note {
+  font-size: 12px;
+}
+.meal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin-top: var(--s-2);
+}
+.meal-tags span {
+  border: 1px solid currentColor;
+  border-radius: var(--r-pill);
+  padding: 2px var(--s-2);
+  font-size: var(--fs-xs);
+}
+.meal-details {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  background: color-mix(in srgb, var(--ink) 60%, transparent);
+  color: var(--on-photo);
+}
+.meal-initial {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  font: 96px var(--font-display);
+}
+.photo-failed {
+  color: var(--ink);
+}
+.photo-failed .meal-caption {
+  background: var(--sunk);
+}
+.swipe-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-5);
+}
+.swipe-controls > div {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-xs);
+}
+.swipe-controls > div:nth-child(2) button {
+  width: var(--tap);
+  height: var(--tap);
+}
+.btn-round:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+.stamp-like,
+.stamp-nope {
+  position: absolute;
+  top: var(--s-7);
+  pointer-events: none;
+  background: var(--card);
+}
+.stamp-like {
+  left: var(--s-4);
+  color: var(--stamp-like);
+  opacity: var(--drag-like, 0);
+}
+.stamp-nope {
+  right: var(--s-4);
+  color: var(--stamp-nope);
+  transform: rotate(8deg);
+  opacity: var(--drag-nope, 0);
+}
+.stamp.committed {
+  opacity: 1;
+  animation: a-stamp var(--dur-base) var(--ease-out);
+}
+.deck-empty {
+  padding: var(--s-5);
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+}
+.discover-teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+}
+.teaser-thumbs {
+  display: flex;
+  padding: var(--s-3);
+}
+.teaser-thumbs .meal-thumb {
+  width: 96px;
+  height: 96px;
+  margin-left: -16px;
+  border: 2px solid var(--card);
+  box-shadow: var(--elev-1);
+}
+@media (max-width: 767px) {
+  .swipe-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+  }
+  .discover-explainer {
+    position: static;
+    display: contents;
+  }
+  .discover-explainer > p:first-child {
+    order: -2;
+    font-size: var(--fs-sm);
+  }
+  .deck-column {
+    order: -1;
+    max-width: 360px;
+  }
+  .swipe-stack {
+    aspect-ratio: auto;
+  }
+  .keys-hint {
+    display: none;
+  }
+  .taste-summary {
+    margin-top: var(--s-2);
+  }
+  .discover-teaser {
+    flex-wrap: wrap;
+  }
+  .teaser-thumbs .meal-thumb {
+    width: 64px;
+    height: 64px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .swipe-top {
+    transition: none !important;
+  }
+  .stamp.committed {
+    animation: none;
+  }
+}
+@media (max-width: 767px) {
+  .discover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4);
+    margin-bottom: var(--s-3);
+  }
+  .discover-header h1 {
+    margin: 0;
+  }
+  .discover-header .sub-tabs {
+    margin: 0;
+    padding: 0;
+    gap: var(--s-2);
+  }
+  .discover-header .sub-tabs a {
+    padding: var(--s-3);
+  }
+}
+.deck-progress {
+  margin-bottom: var(--s-1);
+}
+.deck-column progress {
+  display: block;
+}
+.undo-return {
+  animation: undo-return var(--dur-base) var(--ease-out);
+}
+@keyframes undo-return {
+  from {
+    opacity: 0;
+    transform: translateX(-140px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 767px) {
+  .swipe-stack {
+    height: min(calc((100vw - 32px) * 4 / 3), calc(100dvh - 440px));
+    min-height: 200px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .undo-return {
+    animation: none;
+  }
+}
+.deck-skeleton {
+  max-width: 360px;
+  min-height: 400px;
+  margin: auto;
+  padding-top: 280px;
+}
+.stamp-nope.committed {
+  animation-name: stamp-nope;
+}
+@keyframes stamp-nope {
+  from {
+    transform: scale(1.6) rotate(8deg);
+  }
+  to {
+    transform: scale(1) rotate(8deg);
+  }
+}
+.meal-details:hover {
+  background: var(--ink);
+}
+
+.swipe-top {
+  touch-action: pan-y;
+}
+@media (prefers-reduced-motion: reduce) {
+  .swipe-top {
+    touch-action: auto;
+  }
+}
+
+.meal-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--scrim-photo);
+  pointer-events: none;
+}
+.meal-caption {
+  background: none;
+  z-index: 1;
+}
+.meal-details {
+  z-index: 2;
+}
+.meal-card.photo-failed::after {
+  display: none;
+}

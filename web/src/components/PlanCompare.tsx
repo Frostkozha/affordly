@@ -8,7 +8,7 @@ export function PlanCompare({ unlocked }: {
   unlocked?: () => void;
 }) {
   return (
-    <div className="compare">
+    <div className="compare reveal-stagger">
       <article className="card plus-card">
         <Badge kind="plus">Best for repeat weeks</Badge>
         <h3>Plus</h3>

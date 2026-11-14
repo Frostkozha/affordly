@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { FitsBanner } from './FitsBanner';
 import './PlanView.css';
 import type { Plan, Recipe } from '@affordly/engine';
 import { useStore } from '../lib/store';
@@ -14,7 +16,16 @@ export function PlanView({ plan, go, open }: {
   go: (tab: string) => void;
   open: (recipe: Recipe, servings?: number) => void;
 }) {
-  const { inputs } = useStore();
+  const { inputs, revealPlan } = useStore();
+  const [reveal] = useState(() => {
+    if (!plan || !revealPlan) return false;
+    const key = 'daysRevealed:' + plan.meals.map(meal => meal.recipeId + meal.servings).join(',');
+    try {
+      if (sessionStorage.getItem(key)) return false;
+      sessionStorage.setItem(key, '1');
+    } catch { /* Show the reveal for this mount when storage is unavailable. */ }
+    return true;
+  });
   if (!plan)
     return (
       <EmptyState
@@ -38,15 +49,8 @@ export function PlanView({ plan, go, open }: {
             <span className="meta">of{' '}<Money value={inputs.budget} />{' '}budget</span>
           </h2>
         </div>
-        <Badge
-          kind={plan.basketCost <= inputs.budget ?
-            'save' :
-            'over'}
-        >
-          {plan.basketCost <= inputs.budget ?
-            'Fits' :
-            'Over budget'}
-        </Badge>
+        {plan.basketCost > inputs.budget && <Badge kind="over">Over budget</Badge>}
+        <FitsBanner budget={inputs.budget} cost={plan.basketCost} />
         <progress
           aria-label="Budget used"
           value={Math.min(plan.basketCost, inputs.budget)}
@@ -54,7 +58,7 @@ export function PlanView({ plan, go, open }: {
         />
       </div>
       <div className="plan-layout">
-        <div className="day-grid">
+        <div className={'day-grid' + (reveal ? ' reveal-stagger' : '')}>
           {dayNames.map((name, day) =>
             <DayCard key={name} plan={plan} day={day} open={open} />
           )}

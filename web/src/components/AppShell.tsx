@@ -1,3 +1,8 @@
+import { useToast } from '../lib/useToast';
+import { Toast } from './Toast';
+import { CreatorsPage } from './CreatorsPage';
+import { DiscoverPage } from './DiscoverPage';
+import { isSavedToServer } from '../lib/account';
 import { useEffect, useState } from 'react';
 import type { Recipe } from '@affordly/engine';
 import { useStore } from '../lib/store';
@@ -26,6 +31,13 @@ import { TopBar } from './TopBar';
 import { BottomBar } from './BottomBar';
 
 export function AppShell() {
+  const { message: toast, id: toastId } = useToast();
+  const [synced, setSynced] = useState(isSavedToServer);
+  useEffect(() => {
+    const update = () => setSynced(isSavedToServer());
+    window.addEventListener('affordly:save', update);
+    return () => window.removeEventListener('affordly:save', update);
+  }, []);
   const [hash, setHash] = useState(location.hash || '#/');
   const [assistant, setAssistant] = useState(false);
   const [paywall, setPaywall] = useState<string | null>(null);
@@ -54,6 +66,8 @@ export function AppShell() {
   const landing = hash === '#/' || hash === '';
   const week = hash.startsWith('#/week2');
   const account = hash.startsWith('#/account');
+  const creators = hash.startsWith('#/creators');
+  const discover = hash.startsWith('#/discover');
   const tab = hash.endsWith('#basket') ?
     'basket' :
     hash.endsWith('#inputs') ? 'inputs' : 'plan';
@@ -67,18 +81,22 @@ export function AppShell() {
         ask={() => setAssistant(true)}
       />
       <main
+        className={discover ? "discover-main" : undefined}
         id="content"
         tabIndex={-1}
       >
+        <div className="page-enter" key={hash}>
         {landing ?
           <Landing go={go} />
           :
           <>
-            <div className="device-banner">
-              <span>Saved on this device only.</span>
+            {!discover && <div className="device-banner">
+              <span>{synced ? 'Saved to your guest account' : 'Saved on this device only'}</span>
               <PriceSourceLine />
-            </div>
-            {account ?
+            </div>}
+
+            {creators ? <CreatorsPage /> : discover ?
+              <DiscoverPage reels={hash.startsWith('#/discover/reels')} open={open} /> : account ?
               <AccountPage />
               :
               week ?
@@ -95,7 +113,7 @@ export function AppShell() {
                       </h1>
                     </div>
                     {sample &&
-                      <Badge>Sample plan · demo data</Badge>
+                      <Badge>Sample week</Badge>
                     }
                   </div>
                   <nav
@@ -144,25 +162,24 @@ export function AppShell() {
             }
           </>
         }
+        </div>
       </main>
+      <Toast key={toastId} message={toast} />
       <footer>
         <a href="#/" className="wordmark">Affordly.</a>
         <p>Planning tool, not medical or dietary advice.</p>
-        <span className="meta">The whole package. The honest price.</span>
+        <a href="#/creators">Creators: get Plus free</a>
       </footer>
-      {!landing
-        &&
-        <>
+      <>
           <BottomBar hash={hash} />
-          <Button
+          {!landing && !discover && !assistant && !recipe && paywall === null && <Button
             className="ask-float"
             onClick={() => setAssistant(true)}
             aria-label="Ask Affordly"
           >
             Ask
-          </Button>
-        </>
-      }
+          </Button>}
+      </>
       {assistant
         &&
         <AssistantDrawer

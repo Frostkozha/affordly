@@ -1,3 +1,4 @@
+import { Icon } from './art/Icons';
 import './RecipeDialog.css';
 import type { ReactNode } from 'react';
 
@@ -13,6 +14,7 @@ export function Chip({ children, selected, onClick }: {
       aria-pressed={selected}
       onClick={onClick}
     >
+      {selected && <Icon name="check" size={14} />}
       {children}
     </button>
   );

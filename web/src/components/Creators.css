@@ -1,0 +1,91 @@
+
+.creators-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-7);
+}
+.creators-layout h2 {
+  margin-top: var(--s-6);
+}
+.creator-right {
+  display: grid;
+  align-content: start;
+  gap: var(--s-5);
+}
+.creator-steps {
+  grid-template-columns: 1fr;
+}
+.creator-rules h2 {
+  margin-top: 0;
+}
+.creator-rules ol {
+  padding-left: var(--s-5);
+}
+.creator-rules li {
+  padding: var(--s-3) 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.creator-form > fieldset {
+  margin: 0;
+}
+.creator-form label {
+  margin-top: var(--s-5);
+}
+.creator-form label:first-child {
+  margin-top: 0;
+}
+.creator-form input,
+.creator-form textarea {
+  width: 100%;
+}
+.creator-form fieldset fieldset {
+  margin-bottom: var(--s-5);
+}
+.creator-error {
+  background: var(--over-tint);
+  border-left: 3px solid var(--over);
+  padding: var(--s-3);
+  margin: var(--s-4) 0;
+}
+.creator-form .btn[type="submit"] {
+  margin-top: var(--s-5);
+}
+.creator-success svg {
+  color: var(--save);
+}
+@media (max-width: 767px) {
+  .creators-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.creators-layout {
+  grid-template-areas: 'intro rules' 'about application';
+}
+.creator-intro {
+  grid-area: intro;
+}
+.creator-rules {
+  grid-area: rules;
+  align-self: start;
+}
+.creator-about {
+  grid-area: about;
+}
+.creator-application {
+  grid-area: application;
+  position: sticky;
+  top: 88px;
+  align-self: start;
+}
+@media (max-width: 767px) {
+  .creators-layout {
+    grid-template-areas: 'intro' 'rules' 'about' 'application';
+  }
+  .creator-application {
+    position: static;
+  }
+}
+
+.creator-form .num.error {
+  color: var(--over-deep);
+}

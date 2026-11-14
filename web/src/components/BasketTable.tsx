@@ -12,12 +12,12 @@ export function BasketTable({ plan, locked }: {
   plan: Plan | null;
   locked: (message?: string) => void;
 }) {
-  const { state, inputs, run, swaps, recordSwap } = useStore();
+  const { state, inputs, run, reprice, swaps, recordSwap } = useStore();
   if (!plan)
     return (
       <EmptyState>No basket until there is a plan.</EmptyState>);
   const changed = async () => {
-    await run();
+    await reprice();
   };
   const swap = async (id: string) => {
     if (!state.plus && swaps >= demoTerms.freeSwaps) {

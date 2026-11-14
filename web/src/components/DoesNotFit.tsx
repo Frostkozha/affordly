@@ -29,7 +29,7 @@ export function DoesNotFit({ result, go }: {
           Edit inputs
         </Button>
       </div>
-      <div className="alternatives">
+      <div className="alternatives reveal-stagger">
         {result.alternatives.length ?
           result.alternatives.map(alt =>
             <AlternativeCard

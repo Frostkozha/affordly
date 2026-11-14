@@ -1,0 +1,332 @@
+
+.reels-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--reel-w) minmax(0, 1fr);
+  gap: var(--s-5);
+}
+.reels-explainer nav {
+  display: grid;
+  margin-top: var(--s-5);
+  justify-items: start;
+}
+.reels-explainer [aria-current] {
+  font-weight: 700;
+  text-decoration-thickness: 3px;
+}
+.reel-feed {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+}
+.reel {
+  height: 100%;
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--card);
+  overflow: hidden;
+  isolation: isolate;
+}
+.reel-progress {
+  position: absolute;
+  z-index: 4;
+  top: var(--s-3);
+  left: var(--s-4);
+  right: var(--s-4);
+  height: 3px;
+  background: var(--rule);
+}
+.reel-progress > div {
+  background: var(--ink);
+  height: 100%;
+  transform-origin: left;
+}
+.reel-label {
+  position: absolute;
+  top: var(--s-5);
+  left: var(--s-4);
+  right: var(--s-4);
+  z-index: 4;
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+.reel-number-content {
+  padding: 88px 80px 112px var(--s-4);
+  height: 100%;
+  overflow-y: auto;
+}
+.reel-number-content h2 {
+  font-size: var(--fs-2xl);
+}
+.reel-number-content .money--big {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: var(--s-5) 0;
+}
+.reel-number-content .receipt-row {
+  font-size: var(--fs-xs);
+  padding: var(--s-2) 0;
+}
+.reel-number-content small {
+  display: block;
+}
+.reel-rail {
+  position: absolute;
+  z-index: var(--z-reel-rail);
+  right: var(--s-2);
+  bottom: 112px;
+  width: 64px;
+  display: grid;
+  gap: var(--s-3);
+}
+.reel-rail > div {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-1);
+  text-align: center;
+}
+.reel-rail span {
+  font-size: var(--fs-xs);
+}
+.reel-rail button {
+  width: var(--tap);
+  height: var(--tap);
+}
+.reel-rail [aria-pressed="true"] {
+  color: var(--save);
+  border-color: var(--save);
+}
+.reel-navigation {
+  position: absolute;
+  bottom: var(--s-5);
+  left: var(--s-4);
+  display: flex;
+  gap: var(--s-3);
+}
+.reel-navigation .btn {
+  background: var(--card);
+  color: var(--ink);
+}
+.reel-timed {
+  transition: opacity var(--dur-base), transform var(--dur-base);
+}
+.reel-timed[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.reel-basket-lines {
+  max-height: 280px;
+  overflow-y: auto;
+}
+.reel-thumbs {
+  display: flex;
+  gap: var(--s-2);
+  margin: var(--s-4) 0;
+}
+.reel-thumbs .meal-thumb {
+  width: var(--s-7);
+  height: var(--s-7);
+}
+.gap-track {
+  height: 20px;
+  margin-bottom: var(--s-5);
+  position: relative;
+}
+.gap-track > div {
+  height: 100%;
+  background: var(--ink-2);
+  border-radius: var(--r-sm);
+  transform-origin: left;
+}
+.receipt-track > div {
+  background: var(--ink);
+}
+.gap-track i {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: var(--over);
+  transform-origin: left;
+}
+.cook-reel,
+.cook-reel > img {
+  height: 100%;
+  width: 100%;
+}
+.cook-reel > img {
+  object-fit: cover;
+  animation: a-ken-burns 10000ms var(--ease-in-out) both;
+}
+.cook-copy {
+  position: absolute;
+  inset: 0;
+  padding: 88px 80px 112px var(--s-4);
+  color: var(--on-photo);
+  display: flex;
+  flex-direction: column;
+}
+.cook-copy > .badge {
+  align-self: start;
+}
+.cook-copy h2 {
+  font-size: 28px;
+  margin-top: var(--s-3);
+}
+.cook-copy ol {
+  overflow-y: auto;
+  padding-left: var(--s-5);
+  font-size: var(--fs-sm);
+}
+.cook-copy li {
+  margin-bottom: var(--s-3);
+}
+.cook-step {
+  margin-top: auto;
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  font-size: var(--fs-lg);
+  max-height: 50%;
+  overflow-y: auto;
+  animation: a-line-in var(--dur-base);
+}
+.cook-end {
+  margin-top: auto;
+}
+.cook-end .btn {
+  margin: var(--s-1) 0;
+  background: var(--card);
+  color: var(--ink);
+}
+.cook-end .btn--primary {
+  background: var(--save);
+  color: var(--save-ink);
+}
+.cook-reel.photo-failed .cook-copy {
+  color: var(--ink);
+  background: transparent;
+}
+.reel-photo .reel-rail {
+  color: var(--on-photo);
+}
+.pause-mark {
+  position: absolute;
+  top: 46%;
+  left: 40%;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--ink);
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-xl);
+}
+.reel-position {
+  position: absolute;
+  right: var(--s-4);
+  top: var(--s-2);
+  z-index: 5;
+  font-size: var(--fs-xs);
+}
+.bag-draw path {
+  stroke-dasharray: 1;
+  animation: bag-draw 1200ms var(--ease-in-out) 200ms backwards;
+}
+@keyframes bag-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (max-width: 767px) {
+  .reels-layout {
+    display: block;
+  }
+  .reels-explainer {
+    margin-bottom: var(--s-4);
+  }
+  .reels-explainer nav {
+    display: none;
+  }
+  .reel-feed {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cook-reel > img,
+  .bag-draw path {
+    animation: none;
+  }
+  .reel-timed {
+    transition: none;
+  }
+}
+.cook-reel.static > img {
+  animation: none;
+  transform: none;
+}
+@media (max-width: 767px) {
+  .discover-page:has(.reel-feed) .reels-explainer > p:first-child {
+    display: none;
+  }
+  .discover-page:has(.reel-feed) .reels-explainer > p {
+    font-size: var(--fs-xs);
+  }
+  .discover-page:has(.reel-feed) .reels-explainer .btn {
+    min-height: var(--tap);
+    font-size: var(--fs-sm);
+  }
+}
+.reel-feed {
+  height: max(240px, calc(100dvh - var(--feed-top, 152px) - 24px));
+}
+@media (max-width: 767px) {
+  .reel-feed {
+    height: max(320px, calc(100dvh - var(--feed-top, 176px) - 68px
+    - env(safe-area-inset-bottom)));
+  }
+}
+.reel-content {
+  position: absolute;
+  inset: 0;
+}
+.cook-copy > .badge {
+  color: var(--ink);
+}
+.reel:has(.photo-failed) .reel-rail {
+  color: var(--ink);
+}
+.cook-reel.photo-failed .cook-step {
+  background: var(--card);
+}
+.bag-draw path:nth-child(2) {
+  animation-delay: 300ms;
+}
+.bag-draw path:nth-child(3) {
+  animation-delay: 400ms;
+}
+.bag-draw path:nth-child(4) {
+  animation-delay: 500ms;
+}
+
+.cook-copy {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--ink) 75%, transparent),
+    transparent 45%), var(--scrim-photo);
+}
+
+.reel:nth-child(even) .cook-reel:not(.static) > img {
+  animation-name: ken-burns-other;
+}
+@keyframes ken-burns-other {
+  from { transform: scale(1); }
+  to { transform: scale(1.12) translate(1.5%, -1%); }
+}
+
+.reel-rail [aria-pressed="true"] svg path {
+  fill: currentColor;
+}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './Paywall.css';
 import { useStore } from '../lib/store';
 import { Button } from './Button';
@@ -6,13 +7,17 @@ export function UnlockDemoButton({ unlocked }: {
   unlocked?: () => void;
 }) {
   const { setPlus } = useStore();
+  const [busy, setBusy] = useState(false);
   return (
     <div>
       <Button
         primary
+        size="lg"
+        block
+        busy={busy}
         onClick={() => {
-          setPlus(true);
-          unlocked?.();
+          setBusy(true);
+          void setPlus(true).then(() => unlocked?.()).finally(() => setBusy(false));
         }}
       >
         Unlock demo

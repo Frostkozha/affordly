@@ -7,6 +7,15 @@ let identity: {
   restoreCode: string;
 } | null = null;
 let serverIdentity = false;
+let savedToServer = false;
+let pendingSync = false;
+export function isSavedToServer() {
+  return Boolean(identity && savedToServer);
+}
+function saveStatus(saved: boolean) {
+  savedToServer = saved;
+  window.dispatchEvent(new Event('affordly:save'));
+}
 let localState: AccountState;
 let pendingLoad: Promise<AccountState> | null = null;
 let pendingSave: Promise<void> = Promise.resolve();
@@ -46,7 +55,8 @@ function persistLocal() {
   try {
     localStorage.setItem(stateKey, JSON.stringify({
       ...identity,
-      state: localState
+      state: localState,
+      pendingSync
     }));
     if (serverIdentity)
       localStorage.setItem(accountKey, JSON.stringify(identity));
@@ -55,6 +65,7 @@ function persistLocal() {
   }
 }
 function accept(account: AccountResponse) {
+  pendingSync = false;
   identity = {
     id: account.id,
     restoreCode: account.restoreCode
@@ -71,6 +82,7 @@ async function initialize(): Promise<AccountState> {
     const saved = localStorage.getItem(stateKey);
     if (saved) {
       const data = JSON.parse(saved);
+      pendingSync = data.pendingSync === true;
       if (data.state)
         localState = {
           ...emptyState,
@@ -99,13 +111,21 @@ async function initialize(): Promise<AccountState> {
   if (apiBase) {
     try {
       if (serverIdentity && identity) {
-        accept(await request<AccountResponse>(`/${encodeURIComponent(identity.id)}`));
+        const saved = localState;
+        const keepLocal = pendingSync;
+        accept(await request<AccountResponse>('/' + encodeURIComponent(identity.id)));
+        if (keepLocal) {
+          localState = saved;
+          pendingSync = true;
+          persistLocal();
+        }
       } else {
         const account = await request<AccountResponse>('', 'POST');
         // Preserve a week already saved on this device when creating its server account.
         const saved = localState;
         accept(account);
         localState = saved;
+        pendingSync = true;
         persistLocal();
       }
     } catch {
@@ -123,9 +143,14 @@ export function loadState(): Promise<AccountState> {
   pendingLoad ??= initialize();
   return pendingLoad;
 }
-export function saveState(state: AccountState): Promise<void> {
+export function cacheState(state: AccountState) {
   localState = state;
+  pendingSync = true;
+  saveStatus(false);
   persistLocal();
+}
+export function saveState(state: AccountState): Promise<void> {
+  cacheState(state);
   if (!apiBase) return Promise.resolve();
   // Keep writes in order when the network is slower than the store debounce.
   pendingSave = pendingSave.then(async () => {
@@ -137,7 +162,13 @@ export function saveState(state: AccountState): Promise<void> {
         persistLocal();
       }
       await request(`/${encodeURIComponent(identity!.id)}`, 'PUT', state);
+      if (localState === state) {
+        pendingSync = false;
+        saveStatus(true);
+        persistLocal();
+      }
     } catch {
+      saveStatus(false);
       // The local save already succeeded, even while the server is down.
     }
   });

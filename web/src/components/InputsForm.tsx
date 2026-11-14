@@ -1,3 +1,4 @@
+import { Stepper } from './Stepper';
 import './InputsForm.css';
 import { useStore } from '../lib/store';
 import { fmtMoney, fmtNum } from '../lib/fmtMoney';
@@ -45,6 +46,9 @@ export function InputsForm({ locked, go }: {
               Calories per day
               <input
                 className="num"
+                aria-invalid={inputs.kcalPerDay < 1200 || inputs.kcalPerDay > 4000
+                  || !Number.isFinite(inputs.kcalPerDay)}
+                aria-describedby="calorie-hint"
                 type="number"
                 min="1200"
                 max="4000"
@@ -55,28 +59,25 @@ export function InputsForm({ locked, go }: {
                   kcalPerDay: e.target.valueAsNumber
                 })}
               />
-              <small>Average within 10%.</small>
+              <small id="calorie-hint">
+                {inputs.kcalPerDay < 1200 || inputs.kcalPerDay > 4000 || !Number.isFinite(inputs.kcalPerDay) ?
+                  'Enter calories between 1,200 and 4,000.' : 'Average within 10%.'}
+              </small>
             </label>
-            <label>
-              Protein per day (g)
-              <input
-                className="num"
-                type="number"
-                min="40"
-                max="300"
-                required
-                value={Number.isNaN(inputs.proteinPerDay) ? '' : inputs.proteinPerDay}
-                onChange={e => setInputs({
-                  ...inputs,
-                  proteinPerDay: e.target.valueAsNumber
-                })}
-              />
-              <small>Average at least this.</small>
-            </label>
+            <div>
+              <label htmlFor="protein">Protein per day (g)</label>
+              <Stepper id="protein" label="protein" value={inputs.proteinPerDay} min={40} max={300}
+                suffix="g" onChange={proteinPerDay => setInputs({ ...inputs, proteinPerDay })} />
+              <p id="protein-hint" className="meta">
+                {inputs.proteinPerDay < 40 || inputs.proteinPerDay > 300
+                  || !Number.isFinite(inputs.proteinPerDay) ?
+                  'Enter protein between 40 and 300 g.' : 'Average at least this.'}
+              </p>
+            </div>
           </div>
           <fieldset>
             <legend>Max cooking time per recipe</legend>
-            <div className="chips">
+            <div className="chips cooking-segments">
               {[15, 30, 45, 60].map(n =>
                 <Chip
                   key={n}
@@ -92,9 +93,22 @@ export function InputsForm({ locked, go }: {
             </div>
           </fieldset>
         </section>
+        <fieldset>
+          <legend>Variety</legend>
+          <div className="chips">
+            {([4, 3, 2] as const).map(value => (
+              <Chip key={value} selected={(inputs.maxRepeats ?? 3) === value}
+                onClick={() => setInputs({ ...inputs, maxRepeats: value })}>
+                {value === 4 ? 'Cheapest (repeat meals up to 4 times)' :
+                  value === 3 ? 'Balanced' : 'More variety'}
+              </Chip>
+            ))}
+          </div>
+          <p className="meta">More variety can cost more. The plan shows the real price either way.</p>
+        </fieldset>
         <AvoidChips inputs={inputs} update={setInputs} />
         <WorkoutList locked={locked} />
-        <div className="form-cta">
+        <div className="form-cta sticky-cta">
           <Button primary type="submit" disabled={!valid || solving}>Plan my week</Button>
           {!valid
             &&

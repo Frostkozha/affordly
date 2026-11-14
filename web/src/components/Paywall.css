@@ -13,3 +13,37 @@
 @media (max-width: 767px) {
 .compare .card:last-child { order: 0; }
 }
+
+.plus-card {
+  box-shadow: var(--elev-2);
+}
+@media (hover: hover) {
+  .plus-card:hover {
+    transform: translateY(-2px);
+    transition: transform var(--dur-fast);
+  }
+}
+.compare > :nth-child(2) {
+  --i: 1;
+}
+.paywall-collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--dur-base);
+}
+.paywall-collapse[data-collapsed="true"] {
+  grid-template-rows: 0fr;
+}
+.paywall-collapse > div {
+  overflow: hidden;
+  min-height: 0;
+}
+.plus-on {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.plus-on path {
+  stroke-dasharray: 30;
+  animation: check-draw var(--dur-slow) var(--ease-out);
+}

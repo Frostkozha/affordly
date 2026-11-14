@@ -1,0 +1,23 @@
+import { useState } from 'react';
+import { Button } from './Button';
+export function TasteSummary({ liked, skipped, clear, rebuild, busy }: {
+  liked: number;
+  skipped: number;
+  clear: () => void;
+  rebuild: () => void;
+  busy: boolean;
+}) {
+  const [confirm, setConfirm] = useState(false);
+  return <div className="taste-summary">
+    <p>Your taste: {liked} liked, {skipped} skipped</p>
+    {confirm ? <div><p>Clear all likes and skips?</p>
+      <Button variant="danger" size="sm" onClick={() => {
+        clear();
+        setConfirm(false);
+      }}>Clear</Button>
+      <Button quiet size="sm" onClick={() => setConfirm(false)}>Keep</Button>
+    </div> : <Button quiet size="sm" onClick={() => setConfirm(true)}>Reset</Button>}
+    {liked + skipped > 0 && <Button quiet busy={busy} onClick={rebuild}>
+      Rebuild my week with this</Button>}
+  </div>;
+}

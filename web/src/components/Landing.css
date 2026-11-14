@@ -44,3 +44,179 @@
 @media (max-width: 767px) {
 .landing-proof { gap: var(--s-5); }
 }
+
+.landing > .proof-row,
+.landing > .how-it-works,
+.landing > .discover-teaser {
+  grid-column: 1 / -1;
+}
+.landing-source {
+  display: block;
+  margin-top: var(--s-5);
+}
+.price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-pill);
+  background: var(--sunk);
+  color: var(--ink-2);
+  font-size: var(--fs-xs);
+}
+.price-badge svg {
+  flex-shrink: 0;
+}
+.hero-receipt {
+  max-width: 380px;
+  margin: auto;
+}
+.hero-receipt > p {
+  margin-top: var(--s-4);
+}
+.proof {
+  position: relative;
+  overflow: hidden;
+  animation-delay: 200ms;
+}
+.receipt-heading {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-xs);
+}
+.proof .receipt-row {
+  font-size: var(--fs-sm);
+  padding: var(--s-3) 0;
+}
+.proof small {
+  display: block;
+}
+.proof-figure {
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: var(--s-4);
+}
+.proof-gap {
+  background: var(--over-tint);
+  color: var(--over-deep);
+  font-size: var(--fs-xl);
+}
+.proof-gap > span:first-child {
+  font-size: var(--fs-sm);
+}
+.receipt-perforation {
+  border-top: 2px dashed var(--rule);
+  margin: var(--s-3) 0;
+}
+.print-head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ink);
+  top: 0;
+  animation: print-head var(--dur-print) var(--ease-in-out) 200ms both;
+}
+@keyframes print-head {
+  from {
+    top: 0;
+  }
+  92% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+.proof-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.proof-row p {
+  display: flex;
+  gap: var(--s-3);
+  align-items: center;
+  padding: var(--s-4);
+  margin: 0;
+  border-right: 1px dashed var(--rule);
+}
+.proof-row p:last-child {
+  border: 0;
+}
+.number-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+  list-style: none;
+  padding: 0;
+  counter-reset: step;
+}
+.number-steps li {
+  counter-increment: step;
+  border-top: 1px dashed var(--rule);
+  padding-top: var(--s-4);
+}
+.number-steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: var(--s-6);
+  height: var(--s-6);
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  font-family: var(--font-num);
+  margin-bottom: var(--s-3);
+}
+.receipt-skeleton .skeleton-line {
+  margin: 0;
+}
+.receipt-skeleton .skeleton-line {
+  background: linear-gradient(90deg, var(--sunk), var(--paper), var(--sunk));
+  background-size: 200%;
+  animation: shimmer 1200ms linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (max-width: 767px) {
+  .landing {
+    gap: var(--s-7);
+  }
+  .hero-buttons .btn {
+    min-height: var(--btn-h-lg);
+    width: 100%;
+  }
+  .proof-row,
+  .number-steps {
+    grid-template-columns: 1fr;
+  }
+  .proof-row p {
+    border-right: 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .print-head {
+    display: none;
+  }
+  .receipt-skeleton .skeleton-line {
+    animation: none;
+  }
+}
+.proof.print-in .receipt-row {
+  animation: a-line-in var(--dur-slow) var(--ease-out) backwards;
+  animation-delay: calc(200ms + var(--i, 0) * var(--stagger));
+}
+@media (prefers-reduced-motion: reduce) {
+  .proof.print-in .receipt-row {
+    animation: none;
+  }
+}
+
+.hero-buttons .btn {
+  min-height: var(--btn-h-lg);
+}

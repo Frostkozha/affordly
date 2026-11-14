@@ -1,16 +1,15 @@
-import './RecipeDialog.css';
 import type { ButtonHTMLAttributes } from 'react';
-
-export function Button({
-  primary, quiet, className = '', ...props
+export function Button({ primary, quiet, variant, size = 'md', block, busy,
+  disabled, className = '', type = 'button', ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
   primary?: boolean;
   quiet?: boolean;
+  variant?: 'primary' | 'secondary' | 'quiet' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  block?: boolean;
+  busy?: boolean;
 }) {
-  return (
-    <button
-      {...props}
-      className={`btn ${primary ? 'btn--primary' : ''} ${quiet ? 'btn--quiet' : ''} ${className}`}
-    />
-  );
+  const kind = variant ?? (primary ? 'primary' : quiet ? 'quiet' : 'secondary');
+  return <button {...props} type={type} disabled={disabled || busy} aria-busy={busy || undefined}
+    className={['btn', 'btn--' + kind, 'btn--' + size, block ? 'btn--block' : '', className].join(' ')} />;
 }

@@ -45,3 +45,35 @@ progress::-webkit-progress-value { background: var(--save); }
 @media (max-width: 350px) {
 .day-totals { max-width: 21ch; }
 }
+
+.day-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: var(--s-8);
+  padding: var(--s-4);
+  text-align: left;
+  border: 0;
+  background: transparent;
+}
+.day-toggle:hover {
+  background: var(--sunk);
+}
+.day-toggle strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+}
+.day-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base);
+}
+.day-expand[data-expanded="true"] {
+  grid-template-rows: 1fr;
+}
+.day-expand > div {
+  overflow: hidden;
+  min-height: 0;
+}

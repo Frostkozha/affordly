@@ -2,12 +2,14 @@ import './CheckoutGapCard.css';
 import './BasketTable.css';
 import type { Plan } from '@affordly/engine';
 import { getCatalog } from '../lib/engine';
+import { useStore } from '../lib/store';
 import { fmtNum } from '../lib/fmtMoney';
 import { Money } from './Money';
 
 export function LeftoverTop3({ plan }: {
   plan: Plan;
 }) {
+  const { state: { week } } = useStore();
   return (
     <div>
       <h3>Where the gap comes from</h3>
@@ -35,7 +37,7 @@ export function LeftoverTop3({ plan }: {
         {' '}
         <Money value={plan.perishableLeftValue} />
         {' '}
-        may spoil. Week 2 can carry them over.
+        may spoil. Week {week + 1} can carry them over.
       </p>
     </div>
   );

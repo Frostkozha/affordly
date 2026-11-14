@@ -24,7 +24,8 @@ interface Store {
   recordSwap: () => void;
   setInputs: (inputs: Inputs) => void;
   toggleEaten: (key: string) => void;
-  run: (inputs?: Inputs, pantry?: PantryItem[], week?: number) => Promise<SolveResult>;
+  /** keepOnFail: when the new inputs do not fit, leave the current plan and inputs as they were. */
+  run: (inputs?: Inputs, pantry?: PantryItem[], week?: number, reveal?: boolean, keepOnFail?: boolean) => Promise<SolveResult>;
   setPlus: (plus: boolean) => Promise<void>;
   useSample: () => Promise<void>;
 }
@@ -83,7 +84,8 @@ export function StoreProvider({ children }: {
     return () => clearTimeout(timer);
   }, [state, ready]);
   const run = async (inputs = state.inputs ?? defaultInputs, pantry = state.pantry,
-    week = state.week, reveal = true) => {
+    week = state.week, reveal = true, keepOnFail = false) => {
+    const previous = result;
     setRevealPlan(reveal);
     const version = ++generation.current;
     lastRun.current = {
@@ -101,6 +103,10 @@ export function StoreProvider({ children }: {
       }, pantry);
       if (version !== generation.current)
         return next;
+      if (!next.ok && keepOnFail) {
+        setResult(previous);
+        return next;
+      }
       setResult(next);
       setState(s => ({
         ...s,

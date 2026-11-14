@@ -1,7 +1,7 @@
 import './CheckoutGapCard.css';
 import './BasketTable.css';
 import type { Inputs, Plan } from '@affordly/engine';
-import { swapProduct } from '../lib/engine';
+import { getCatalog, swapProduct } from '../lib/engine';
 import { demoTerms } from '../lib/config';
 import { useStore } from '../lib/store';
 import { useToast } from '../lib/useToast';
@@ -27,12 +27,16 @@ export function BasketTable({ plan, locked }: {
       locked('Unlimited swaps are in Plus.');
       return;
     }
-    recordSwap();
     const next: Inputs = swapProduct(inputs, id);
     const before = plan.basketCost;
-    const result = await run(next);
-    if (result.ok)
+    const result = await run(next, undefined, undefined, true, true);
+    if (result.ok) {
+      recordSwap();
       notify(`Plan updated. Receipt ${fmtMoney(before)} → ${fmtMoney(result.plan.basketCost)}.`);
+    } else {
+      const name = getCatalog().products.find(p => p.id === id)?.name ?? 'this product';
+      notify(`No plan fits ${fmtMoney(inputs.budget)} without ${name}. Your plan is unchanged.`);
+    }
   };
   return (
     <section className="card basket">

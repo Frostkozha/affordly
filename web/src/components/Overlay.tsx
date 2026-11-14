@@ -14,7 +14,10 @@ export function Overlay({ children, title, onClose, drawer = false }: {
     const previous = document.activeElement as HTMLElement | null;
     const dialog = ref.current;
     dialog?.showModal();
+    // A route change (Back button, bottom bar) must not leave the dialog over the new screen.
+    window.addEventListener('hashchange', onClose);
     return () => {
+      window.removeEventListener('hashchange', onClose);
       dialog?.close();
       previous?.focus();
     };

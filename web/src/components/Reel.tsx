@@ -59,15 +59,19 @@ export function Reel({ data, plan, active, sample, index, total, navigate, open,
             + ' at the register.';
     const text = facts + ' Plan yours: https://affordly.pages.dev';
     try {
-      if (navigator.share)
+      if (navigator.share) {
         await navigator.share({ text });
-      else {
-        await navigator.clipboard.writeText(text);
-        notify('Copied.');
+        return;
       }
     } catch (error) {
-      if (!(error instanceof DOMException && error.name === 'AbortError'))
-        notify('Could not copy. Select the text and copy it by hand.');
+      if (error instanceof DOMException && error.name === 'AbortError')
+        return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      notify('Copied.');
+    } catch {
+      notify('Could not copy. Link: https://affordly.pages.dev');
     }
   };
   return <article className={'reel' + (data.kind === 'cook' ? ' reel-photo' : '')}
@@ -86,7 +90,7 @@ export function Reel({ data, plan, active, sample, index, total, navigate, open,
     <button className="sr-only" aria-label={paused ? 'Play' : 'Pause'} aria-pressed={paused}
       onClick={() => setPaused(value => !value)}>{paused ? 'Play' : 'Pause'}</button>
     <div className="reel-content" style={{ opacity: fade * receiptFade }}>
-      {data.kind === 'receipt' && <ReceiptReel plan={plan} t={t} />}
+      {data.kind === 'receipt' && <ReceiptReel plan={plan} />}
       {data.kind === 'basket' && <BasketReel plan={plan} t={t} />}
       {data.kind === 'gap' && <GapReel plan={plan} t={t} />}
       {data.kind === 'leftovers' && <LeftoversReel plan={plan} t={t} />}

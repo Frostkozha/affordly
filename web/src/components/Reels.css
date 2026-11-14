@@ -337,3 +337,8 @@
 .reel-number-content .receipt-row > :last-child {
   flex-shrink: 0;
 }
+/* Long prices wrap instead of clipping at narrow widths. */
+.reel-number-content p {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

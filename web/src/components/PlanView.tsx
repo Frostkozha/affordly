@@ -58,6 +58,7 @@ export function PlanView({ plan, go, open }: {
             Receipt total
             {' '}
             <Money value={plan.basketCost} />
+            {' '}
             <span className="meta">of{' '}<Money value={inputs.budget} />{' '}budget</span>
           </h2>
         </div>

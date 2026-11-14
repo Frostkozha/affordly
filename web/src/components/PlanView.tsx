@@ -10,13 +10,15 @@ import { Money } from './Money';
 import { dayNames } from '../lib/config';
 import { CheckoutGapCard } from './CheckoutGapCard';
 import { DayCard } from './DayCard';
+import { DayRings } from './DayRings';
+import { isEaten } from '../lib/eaten';
 
 export function PlanView({ plan, go, open }: {
   plan: Plan | null;
   go: (tab: string) => void;
   open: (recipe: Recipe, servings?: number) => void;
 }) {
-  const { inputs, revealPlan } = useStore();
+  const { inputs, revealPlan, state } = useStore();
   const [reveal] = useState(() => {
     if (!plan || !revealPlan) return false;
     const key = 'daysRevealed:' + plan.meals.map(meal => meal.recipeId + meal.servings).join(',');
@@ -34,6 +36,7 @@ export function PlanView({ plan, go, open }: {
       >
         No plan yet. Set your budget and plan the week.
       </EmptyState>);
+  const eatenTotal = plan.meals.filter(meal => isEaten(state.eaten, state.week, meal)).length;
   return (
     <>
       <div
@@ -56,7 +59,9 @@ export function PlanView({ plan, go, open }: {
           value={Math.min(plan.basketCost, inputs.budget)}
           max={inputs.budget}
         />
+        <p className="meta num week-eaten">{eatenTotal} of {plan.meals.length} meals eaten</p>
       </div>
+      <DayRings plan={plan} />
       <div className="plan-layout">
         <div className={'day-grid' + (reveal ? ' reveal-stagger' : '')}>
           {dayNames.map((name, day) =>

@@ -1,0 +1,48 @@
+.day-rings {
+  --ring-0: #ff6b5e;
+  --ring-1: #ffc23d;
+  --ring-2: #4cc3ff;
+  --ring-3: #c08bff;
+  margin-bottom: var(--s-5);
+}
+.ring-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--s-1); margin-bottom: var(--s-3); }
+.ring-days .chip { justify-content: center; padding: 0; }
+.ring-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-5);
+  padding: var(--s-5);
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--r-lg);
+}
+.ring-svg { width: 220px; height: 220px; }
+.ring-track { fill: none; stroke: #fff; stroke-opacity: 0.16; stroke-width: 14; transition: stroke-width 400ms var(--ease); }
+.ring[data-empty="true"] .ring-track { stroke-width: 3; }
+.ring-arc {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: var(--off);
+  transition: stroke-dashoffset 400ms var(--ease), opacity 400ms var(--ease);
+}
+.ring-0 .ring-arc { stroke: var(--ring-0); }
+.ring-1 .ring-arc { stroke: var(--ring-1); }
+.ring-2 .ring-arc { stroke: var(--ring-2); }
+.ring-3 .ring-arc { stroke: var(--ring-3); }
+.ring-arc--lap2 { filter: brightness(0.78) drop-shadow(0 0 3px rgba(0, 0, 0, 0.7)); }
+.ring-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); font-size: var(--fs-sm); max-width: 380px; }
+.ring-legend li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-2); }
+.ring-dot { width: 12px; height: 12px; border-radius: 50%; background: currentColor; }
+.ring-key-0 .ring-dot { color: var(--ring-0); }
+.ring-key-1 .ring-dot { color: var(--ring-1); }
+.ring-key-2 .ring-dot { color: var(--ring-2); }
+.ring-key-3 .ring-dot { color: var(--ring-3); }
+.ring-empty { grid-column: 1 / -1; margin: 0; max-width: none; color: rgba(255, 255, 255, 0.78); font-size: var(--fs-sm); }
+@media (max-width: 767px) {
+  .ring-card { grid-template-columns: minmax(0, 1fr); justify-items: center; padding: var(--s-4); gap: var(--s-4); }
+  .ring-svg { width: 180px; height: 180px; }
+  .ring-legend { width: 100%; }
+}

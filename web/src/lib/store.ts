@@ -5,6 +5,7 @@ import { emptyState, loadState, saveState, cacheState } from './account';
 import { solvePlan } from './engine';
 import { defaultInputs } from './config';
 import { readTaste } from './taste';
+import { pruneEaten } from './eaten';
 
 interface Store {
   state: AccountState;
@@ -22,6 +23,7 @@ interface Store {
   swaps: number;
   recordSwap: () => void;
   setInputs: (inputs: Inputs) => void;
+  toggleEaten: (key: string) => void;
   run: (inputs?: Inputs, pantry?: PantryItem[], week?: number) => Promise<SolveResult>;
   setPlus: (plus: boolean) => Promise<void>;
   useSample: () => Promise<void>;
@@ -106,6 +108,9 @@ export function StoreProvider({ children }: {
         pantry,
         week,
         currentPlan: next.ok ? next.plan : null,
+        eaten: next.ok ?
+          pruneEaten(s.eaten, week, s.week === week ? s.currentPlan : null, next.plan) :
+          s.eaten,
         history: next.ok ?
           [
             ...s.history.filter(h => h.week !== week),
@@ -113,7 +118,8 @@ export function StoreProvider({ children }: {
               week,
               basketCost: next.plan.basketCost,
               checkoutGap: next.plan.checkoutGap,
-              pantryUsedValue: next.plan.pantryUsedValue
+              pantryUsedValue: next.plan.pantryUsedValue,
+              budget: inputs.budget
             }
           ].sort((a, b) => a.week - b.week) :
           s.history
@@ -152,6 +158,10 @@ export function StoreProvider({ children }: {
       setInputs: inputs => setState(s => ({
         ...s,
         inputs
+      })),
+      toggleEaten: key => setState(s => ({
+        ...s,
+        eaten: s.eaten?.includes(key) ? s.eaten.filter(k => k !== key) : [...(s.eaten ?? []), key]
       })),
       run,
       setPlus: async plus => {

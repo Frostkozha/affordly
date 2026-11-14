@@ -7,6 +7,7 @@ import { Button } from './Button';
 import { Skeleton } from './Skeleton';
 import { PlanBadge } from './PlanBadge';
 import { HistoryTable } from './HistoryTable';
+import { SpendChart } from './SpendChart';
 
 export function AccountPage() {
   const { state, setPlus, ready, reloadAccount } = useStore();
@@ -126,7 +127,10 @@ export function AccountPage() {
               <a className="btn btn--quiet btn--sm" href="#/creators">Learn more</a></div>
             <p className="meta">Sign-in arrives in v2.</p>
           </section>
-          <HistoryTable state={state} />
+          <div className="account-main">
+            <SpendChart state={state} />
+            <HistoryTable state={state} />
+          </div>
         </div>
       }
     </>

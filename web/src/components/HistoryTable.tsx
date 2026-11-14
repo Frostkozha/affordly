@@ -15,7 +15,7 @@ export function HistoryTable({ state }: {
           <table>
             <thead>
               <tr>
-                {['Week', 'Receipt', 'Gap', 'Waste avoided'].map((name, i) =>
+                {['Week', 'Receipt', 'Budget', 'Gap', 'Saved by leftovers'].map((name, i) =>
                   <th key={name} scope="col" className={i ? 'num' : ''}>{name}</th>
                 )}
               </tr>
@@ -25,13 +25,14 @@ export function HistoryTable({ state }: {
                 <tr key={h.week}>
                   <th scope="row" className="num">{h.week}</th>
                   <td className="num"><Money value={h.basketCost} /></td>
+                  <td className="num">{h.budget === undefined ? '—' : <Money value={h.budget} />}</td>
                   <td className="num"><Money value={h.checkoutGap} gap /></td>
                   <td className="num"><Money value={h.pantryUsedValue} save /></td>
                 </tr>
               )}
               {!state.plus
                 &&
-                <tr><td colSpan={4}>Week 2 onward is in Plus.</td></tr>
+                <tr><td colSpan={5}>Week 2 onward is in Plus.</td></tr>
               }
             </tbody>
           </table>

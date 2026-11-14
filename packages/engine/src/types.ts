@@ -82,7 +82,7 @@ export interface PlannedMeal {
   slot: Slot;
   time: string; // "HH:MM"
   recipeId: string;
-  servings: number; // servings eaten at this meal (usually 1)
+  servings: number; // recipe servings eaten at this meal: 1 to 3 in half steps, sized to a third of the daily calories
 }
 
 export interface BasketLine {
@@ -148,4 +148,4 @@ export interface VerifyReport {
 //   for every product: gramsNeeded <= gramsFromPantry + packages * packageGrams
 //   with workouts: on each workout day one meal is "pre-workout" 2-3 h before start
 //   (carbs >= 45% of its kcal, fat <= 30%) and the first meal after the session is
-//   "post-workout" (protein >= 30 g per serving). They replace the nearest regular slot.
+//   "post-workout" (protein >= 30 g in the meal). They replace the nearest regular slot.

@@ -11,19 +11,19 @@ export function verify(plan: Plan, inputs: Inputs, catalog: Catalog, recipes: Re
   const time = (s: string) => /^([01]\d|2[0-3]):[0-5]\d$/.test(s) ? +s.slice(0, 2) * 60 + +s.slice(3) : NaN;
   for (const m of plan.meals) {
     const r = recipes.find(r => r.id === m.recipeId);
-    if (!r || !Number.isInteger(m.day) || !days[m.day] || m.servings !== 1 || !Number.isFinite(time(m.time))) { fail('Invalid meal'); continue; }
+    if (!r || !Number.isInteger(m.day) || !days[m.day] || !(m.servings >= 1 && m.servings <= 3 && Number.isInteger(m.servings * 2)) || !Number.isFinite(time(m.time))) { fail('Invalid meal'); continue; }
     counts.set(r.id, (counts.get(r.id) ?? 0) + 1);
     if (r.cookMinutes > inputs.maxCookMinutes || r.contains.some(t => inputs.avoid.includes(t)) || inputs.excludedRecipeIds.includes(r.id)) fail('Recipe excluded');
     const calculated: Macros = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
     for (const ing of r.ingredients) {
       const p = catalog.products.find(p => p.id === ing.productId);
       if (!p || inputs.excludedProductIds.includes(ing.productId) || !(r.servings > 0) || ing.grams < 0) { fail('Invalid ingredient'); continue; }
-      const grams = ing.grams / r.servings;
+      const grams = ing.grams / r.servings * m.servings;
       used.set(p.id, (used.get(p.id) ?? 0) + grams);
       for (const k of keys) calculated[k] += grams * p.per100g[k] / 100;
     }
     for (const k of keys) {
-      near(r.perServing[k], calculated[k], Math.max(.001, calculated[k] * .05), 'Recipe macros inconsistent');
+      near(r.perServing[k] * m.servings, calculated[k], Math.max(.001, calculated[k] * .05), 'Recipe macros inconsistent');
       days[m.day][k] += calculated[k];
     }
     nutrition.set(r.id, calculated);

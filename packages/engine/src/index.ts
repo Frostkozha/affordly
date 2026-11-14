@@ -6,3 +6,4 @@ export * from './schedule';
 export * from './verify';
 export * from './pantry';
 export * from './fixtures';
+export { initEngine } from './lp';

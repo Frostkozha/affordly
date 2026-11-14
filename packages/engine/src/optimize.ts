@@ -1,4 +1,4 @@
-import solver from 'javascript-lp-solver';
+import { solveModel } from './lp';
 import type { Catalog, Inputs, Macros, PantryItem, Plan, Recipe, SolveResult } from './types';
 import { fits, positions, schedule } from './schedule';
 import { verify } from './verify';
@@ -12,7 +12,10 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
       const p = catalog.products.find(p => p.id === ing.productId)!;
       for (const k of ['kcal', 'protein', 'carbs', 'fat'] as const) perServing[k] += ing.grams / r.servings * p.per100g[k] / 100;
     }
-    return { ...r, perServing };
+    // One meal is a portion of 1 to 3 servings (half steps), sized to a third of the daily calories.
+    const portion = Math.min(3, Math.max(1, Math.round(inputs.kcalPerDay / 3 / perServing.kcal * 2) / 2));
+    for (const k of ['kcal', 'protein', 'carbs', 'fat'] as const) perServing[k] *= portion;
+    return { ...r, servings: r.servings / portion, perServing, portion };
   });
   const ps = positions(inputs);
   if (!ps || recipes.length < 6) return null;
@@ -63,11 +66,12 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
     previous.set(signature, i);
   });
   for (let attempt = 0; attempt < 5; attempt++) {
-    const result = solver.Solve({ optimize: 'objective', opType: 'min', constraints, variables, ints, options: { ...(minimumCost ? {} : { timeout: 300 }), tolerance: 0 } });
-    if (!result.feasible || !result.bounded || !result.isIntegral) break;
-    const counts = recipes.map((_, i) => Math.round(Number(result[`r${i}`] ?? 0)));
+    const result = solveModel({ constraints, variables, ints }, minimumCost ? 0.001 : 0.005);
+    if (!result) break;
+    const counts = recipes.map((_, i) => Math.round(result[`r${i}`] ?? 0));
     const meals = schedule(inputs, recipes, counts);
     if (meals) {
+      for (const m of meals) m.servings = recipes.find(r => r.id === m.recipeId)!.portion;
       const used = new Map<string, number>();
       recipes.forEach((r, i) => r.ingredients.forEach(x => used.set(x.productId, (used.get(x.productId) ?? 0) + x.grams / r.servings * counts[i])));
       const pantryAfter: PantryItem[] = [];
@@ -97,12 +101,6 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
     const worst = counts.map((n,i) => ({n,i})).filter(x => x.n > 0).sort((a,b) => b.n - a.n)[0];
     if (!worst) break;
     constraints[`r${worst.i}`].max = worst.n - 1;
-  }
-  // A timed search can finish before finding an integer incumbent. The exact
-  // cost-only search is a deterministic fallback, never a rounded LP solution.
-  if (!minimumCost) {
-    const cheapest = findPlan(inputs, catalog, allRecipes, pantry, true);
-    if (cheapest && cheapest.basketCost <= inputs.budget) return cheapest;
   }
   return null;
 }

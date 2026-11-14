@@ -1,0 +1,1499 @@
+[
+  {
+    "id": "breakfast-burrito-salsa",
+    "name": "Baked egg breakfast burritos",
+    "description": "Soft egg bake rolled in a warm tortilla and topped with salsa.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 2,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "eggs",
+        "grams": 300
+      },
+      {
+        "productId": "milk",
+        "grams": 30
+      },
+      {
+        "productId": "onions",
+        "grams": 40
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 40
+      },
+      {
+        "productId": "tortillas",
+        "grams": 82
+      },
+      {
+        "productId": "salsa",
+        "grams": 60
+      }
+    ],
+    "perServing": {
+      "kcal": 364.5,
+      "protein": 23.5,
+      "carbs": 27.1,
+      "fat": 17.6
+    },
+    "contains": [
+      "egg",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Whisk the eggs with the milk, chopped onion and pepper.",
+      "Pour into a small greased baking dish and bake at 350 F for 20 to 25 minutes until set.",
+      "Warm the tortillas for 20 seconds in the microwave.",
+      "Cut the egg into two pieces, roll each in a tortilla and top with salsa."
+    ],
+    "photo": "/recipes/breakfast-burrito-salsa.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Breakfast Burrito with Salsa",
+      "url": "https://www.myplate.gov/recipes/breakfast-burrito-salsa",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "broccoli-omelet",
+    "name": "Broccoli and cottage cheese omelet",
+    "description": "Veggie-packed omelet with a creamy cottage cheese filling.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 2,
+    "cookMinutes": 20,
+    "ingredients": [
+      {
+        "productId": "eggs",
+        "grams": 300
+      },
+      {
+        "productId": "milk",
+        "grams": 60
+      },
+      {
+        "productId": "cottage-cheese",
+        "grams": 100
+      },
+      {
+        "productId": "broccoli",
+        "grams": 150
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 75
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 5
+      }
+    ],
+    "perServing": {
+      "kcal": 320.5,
+      "protein": 28.5,
+      "carbs": 11.2,
+      "fat": 18.0
+    },
+    "contains": [
+      "egg",
+      "dairy"
+    ],
+    "steps": [
+      "Chop the broccoli and pepper and saute in a little oil for 4 minutes.",
+      "Whisk the eggs with the milk and cook half at a time in a hot nonstick pan.",
+      "Spoon cottage cheese and vegetables onto half of each omelet.",
+      "Fold over, cook one more minute and serve."
+    ],
+    "photo": "/recipes/broccoli-omelet.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Broccoli Omelet",
+      "url": "https://www.myplate.gov/recipes/broccoli-omelet",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "overnight-oatmeal-berries",
+    "name": "Overnight oats with yogurt and berries",
+    "description": "No-cook oats soaked overnight in milk and Greek yogurt.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 1,
+    "cookMinutes": 15,
+    "ingredients": [
+      {
+        "productId": "milk",
+        "grams": 120
+      },
+      {
+        "productId": "greek-yogurt",
+        "grams": 60
+      },
+      {
+        "productId": "honey",
+        "grams": 14
+      },
+      {
+        "productId": "oats",
+        "grams": 45
+      },
+      {
+        "productId": "frozen-berries",
+        "grams": 40
+      }
+    ],
+    "perServing": {
+      "kcal": 319.3,
+      "protein": 16.3,
+      "carbs": 55.0,
+      "fat": 4.6
+    },
+    "contains": [
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Stir the milk, yogurt and honey together in a jar.",
+      "Mix in the oats.",
+      "Top with the frozen berries.",
+      "Cover and chill overnight; eat cold or warmed."
+    ],
+    "photo": "/recipes/overnight-oatmeal-berries.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Overnight Oatmeal with Berries",
+      "url": "https://www.myplate.gov/recipes/overnight-oatmeal-berries",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "breakfast-potato-egg-burritos",
+    "name": "Potato and egg burritos",
+    "description": "Crispy potatoes, onion and scrambled egg wrapped in a tortilla.",
+    "mealTypes": [
+      "breakfast",
+      "lunch"
+    ],
+    "servings": 4,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "potatoes",
+        "grams": 340
+      },
+      {
+        "productId": "onions",
+        "grams": 75
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 75
+      },
+      {
+        "productId": "garlic",
+        "grams": 8
+      },
+      {
+        "productId": "eggs",
+        "grams": 200
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 10
+      },
+      {
+        "productId": "tortillas",
+        "grams": 164
+      },
+      {
+        "productId": "cheddar",
+        "grams": 28
+      },
+      {
+        "productId": "salsa",
+        "grams": 60
+      }
+    ],
+    "perServing": {
+      "kcal": 324.3,
+      "protein": 14.0,
+      "carbs": 40.6,
+      "fat": 12.0
+    },
+    "contains": [
+      "egg",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Dice the potatoes and cook in oil with the onion, pepper and garlic for about 10 minutes until tender.",
+      "Push the potatoes aside and scramble the eggs in the gap.",
+      "Stir everything together.",
+      "Fill the tortillas and top with cheese and salsa."
+    ],
+    "photo": "/recipes/breakfast-potato-egg-burritos.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Breakfast Potato and Egg Burritos",
+      "url": "https://www.myplate.gov/recipes/breakfast-potato-egg-burritos",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "yogurt-berry-parfait",
+    "name": "Greek yogurt parfait with banana and berries",
+    "description": "Quick high-protein parfait layered with fruit and oats.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 2,
+    "cookMinutes": 5,
+    "ingredients": [
+      {
+        "productId": "greek-yogurt",
+        "grams": 450
+      },
+      {
+        "productId": "bananas",
+        "grams": 118
+      },
+      {
+        "productId": "frozen-berries",
+        "grams": 80
+      },
+      {
+        "productId": "oats",
+        "grams": 60
+      }
+    ],
+    "perServing": {
+      "kcal": 319.4,
+      "protein": 27.7,
+      "carbs": 46.8,
+      "fat": 3.3
+    },
+    "contains": [
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Slice the banana.",
+      "Spoon half the yogurt into each of two glasses.",
+      "Sprinkle with oats.",
+      "Top with banana and berries."
+    ],
+    "photo": "/recipes/yogurt-berry-parfait.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Yogurt Berry Parfait",
+      "url": "https://www.myplate.gov/recipes/yogurt-berry-parfait",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "baked-eggs-cheese",
+    "name": "Baked egg and cheese with toast",
+    "description": "Fluffy oven-baked eggs with melted cheese, served with toast.",
+    "mealTypes": [
+      "breakfast"
+    ],
+    "servings": 3,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "eggs",
+        "grams": 300
+      },
+      {
+        "productId": "milk",
+        "grams": 120
+      },
+      {
+        "productId": "cheddar",
+        "grams": 60
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 10
+      },
+      {
+        "productId": "bread",
+        "grams": 93
+      }
+    ],
+    "perServing": {
+      "kcal": 330.6,
+      "protein": 23.2,
+      "carbs": 16.5,
+      "fat": 18.4
+    },
+    "contains": [
+      "egg",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Heat the oil in a small baking dish in a 350 F oven.",
+      "Beat the eggs with the milk and shredded cheese.",
+      "Pour into the hot dish and bake about 20 minutes until firm.",
+      "Serve with toast."
+    ],
+    "photo": "/recipes/baked-eggs-cheese.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Sure to Please Baked Egg and Cheese",
+      "url": "https://www.myplate.gov/recipes/baked-eggs-cheese",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "tuna-quesadillas",
+    "name": "Tuna cheese quesadillas",
+    "description": "Crisp tortillas filled with tuna and melted cheese.",
+    "mealTypes": [
+      "lunch"
+    ],
+    "servings": 2,
+    "cookMinutes": 15,
+    "ingredients": [
+      {
+        "productId": "canned-tuna",
+        "grams": 224
+      },
+      {
+        "productId": "greek-yogurt",
+        "grams": 30
+      },
+      {
+        "productId": "tortillas",
+        "grams": 164
+      },
+      {
+        "productId": "cheddar",
+        "grams": 56
+      }
+    ],
+    "perServing": {
+      "kcal": 437.2,
+      "protein": 37.5,
+      "carbs": 41.7,
+      "fat": 13.1
+    },
+    "contains": [
+      "fish",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Mix the tuna with the yogurt.",
+      "Spread on half of each tortilla and top with cheese.",
+      "Fold and brown in a dry skillet 2 to 3 minutes per side.",
+      "Cut into wedges."
+    ],
+    "photo": "/recipes/tuna-quesadillas.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Tuna Quesadillas",
+      "url": "https://www.myplate.gov/recipes/tuna-quesadillas",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "black-bean-quesadillas",
+    "name": "Black bean and cheese quesadillas",
+    "description": "Cheesy quesadillas stuffed with beans and salsa.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 20,
+    "ingredients": [
+      {
+        "productId": "salsa",
+        "grams": 140
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "cheddar",
+        "grams": 226
+      },
+      {
+        "productId": "tortillas",
+        "grams": 164
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 5
+      }
+    ],
+    "perServing": {
+      "kcal": 418.2,
+      "protein": 25.7,
+      "carbs": 41.6,
+      "fat": 16.3
+    },
+    "contains": [
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Drain the salsa and beans.",
+      "Mix the beans, salsa and cheese.",
+      "Spread over half of each tortilla and fold.",
+      "Brush the pan with oil and cook until golden and crisp, about 5 minutes, flipping once."
+    ],
+    "photo": "/recipes/black-bean-quesadillas.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Black Bean Quesadillas",
+      "url": "https://www.myplate.gov/recipes/black-bean-quesadillas",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "chicken-salad",
+    "name": "Greek yogurt chicken salad sandwiches",
+    "description": "Creamy chicken salad piled on whole wheat bread.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 3,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "chicken-breast",
+        "grams": 454
+      },
+      {
+        "productId": "greek-yogurt",
+        "grams": 120
+      },
+      {
+        "productId": "celery",
+        "grams": 60
+      },
+      {
+        "productId": "onions",
+        "grams": 40
+      },
+      {
+        "productId": "apples",
+        "grams": 100
+      },
+      {
+        "productId": "bread",
+        "grams": 186
+      }
+    ],
+    "perServing": {
+      "kcal": 386.9,
+      "protein": 46.2,
+      "carbs": 34.4,
+      "fat": 6.4
+    },
+    "contains": [
+      "poultry",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Simmer the chicken in water for about 15 minutes until cooked through, then dice.",
+      "Mix with the yogurt, celery, onion and diced apple.",
+      "Chill briefly.",
+      "Spoon onto the bread to make sandwiches."
+    ],
+    "photo": "/recipes/chicken-salad.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Chicken Salad",
+      "url": "https://www.myplate.gov/recipes/chicken-salad",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "black-bean-and-rice-salad",
+    "name": "Black bean and rice salad",
+    "description": "Hearty cold rice and bean salad with a light dressing.",
+    "mealTypes": [
+      "lunch"
+    ],
+    "servings": 4,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "onions",
+        "grams": 75
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 75
+      },
+      {
+        "productId": "rice",
+        "grams": 130
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 28
+      },
+      {
+        "productId": "garlic",
+        "grams": 4
+      }
+    ],
+    "perServing": {
+      "kcal": 291.1,
+      "protein": 9.2,
+      "carbs": 46.8,
+      "fat": 7.6
+    },
+    "contains": [],
+    "steps": [
+      "Cook the rice, then cool it.",
+      "Mix the rice, beans, onion and pepper.",
+      "Shake the oil, garlic, salt and pepper into a dressing.",
+      "Pour over and chill, or serve right away."
+    ],
+    "photo": "/recipes/black-bean-and-rice-salad.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Black Bean and Rice Salad",
+      "url": "https://www.myplate.gov/recipes/black-bean-and-rice-salad",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "turkey-tostadas",
+    "name": "Turkey and bean tostadas",
+    "description": "Crisp tortillas topped with seasoned turkey, beans and cheese.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 3,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "ground-turkey",
+        "grams": 454
+      },
+      {
+        "productId": "tortillas",
+        "grams": 246
+      },
+      {
+        "productId": "black-beans",
+        "grams": 212
+      },
+      {
+        "productId": "cheddar",
+        "grams": 56
+      },
+      {
+        "productId": "salsa",
+        "grams": 120
+      },
+      {
+        "productId": "romaine",
+        "grams": 60
+      }
+    ],
+    "perServing": {
+      "kcal": 608.8,
+      "protein": 45.1,
+      "carbs": 55.9,
+      "fat": 23.0
+    },
+    "contains": [
+      "poultry",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Brown the turkey in a skillet and stir in salsa.",
+      "Bake the tortillas at 375 F for 5 minutes until crisp.",
+      "Spread with beans, turkey and cheese and bake 2 more minutes.",
+      "Top with shredded lettuce."
+    ],
+    "photo": "/recipes/turkey-tostadas.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Turkey Tostadas",
+      "url": "https://www.myplate.gov/recipes/turkey-tostadas",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "tuna-pasta",
+    "name": "Tuna tomato pasta",
+    "description": "Quick pasta with tuna, broccoli and tomato sauce.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 2,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "pasta",
+        "grams": 170
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 10
+      },
+      {
+        "productId": "onions",
+        "grams": 75
+      },
+      {
+        "productId": "broccoli",
+        "grams": 80
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 300
+      },
+      {
+        "productId": "canned-tuna",
+        "grams": 224
+      }
+    ],
+    "perServing": {
+      "kcal": 508.5,
+      "protein": 35.6,
+      "carbs": 74.8,
+      "fat": 7.9
+    },
+    "contains": [
+      "fish",
+      "gluten"
+    ],
+    "steps": [
+      "Boil the pasta and drain.",
+      "Soften the onion and broccoli in oil.",
+      "Add the tomatoes and simmer 5 minutes.",
+      "Stir in the tuna and pasta and heat through."
+    ],
+    "photo": "/recipes/tuna-pasta.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Tuna Pasta",
+      "url": "https://www.myplate.gov/recipes/tuna-pasta",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "black-bean-burrito",
+    "name": "Black bean cheese burritos",
+    "description": "Mashed black bean burritos for breakfast or lunch.",
+    "mealTypes": [
+      "breakfast",
+      "lunch"
+    ],
+    "servings": 2,
+    "cookMinutes": 15,
+    "ingredients": [
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 5
+      },
+      {
+        "productId": "onions",
+        "grams": 30
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 100
+      },
+      {
+        "productId": "tortillas",
+        "grams": 164
+      },
+      {
+        "productId": "salsa",
+        "grams": 120
+      },
+      {
+        "productId": "cheddar",
+        "grams": 28
+      }
+    ],
+    "perServing": {
+      "kcal": 534.7,
+      "protein": 24.7,
+      "carbs": 83.1,
+      "fat": 12.4
+    },
+    "contains": [
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Mash the beans with the oil and mix in onion and tomato.",
+      "Warm the tortillas.",
+      "Fill with the beans and cheese and roll up.",
+      "Microwave 15 seconds and top with salsa."
+    ],
+    "photo": "/recipes/black-bean-burrito.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Black Bean Burrito",
+      "url": "https://www.myplate.gov/recipes/black-bean-burrito",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "tuna-salad-greens",
+    "name": "Tuna salad on greens",
+    "description": "Tuna salad on crisp romaine with bread on the side.",
+    "mealTypes": [
+      "lunch"
+    ],
+    "servings": 2,
+    "cookMinutes": 15,
+    "ingredients": [
+      {
+        "productId": "romaine",
+        "grams": 170
+      },
+      {
+        "productId": "carrots",
+        "grams": 60
+      },
+      {
+        "productId": "onions",
+        "grams": 30
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 14
+      },
+      {
+        "productId": "canned-tuna",
+        "grams": 224
+      },
+      {
+        "productId": "greek-yogurt",
+        "grams": 80
+      },
+      {
+        "productId": "celery",
+        "grams": 30
+      },
+      {
+        "productId": "bread",
+        "grams": 62
+      }
+    ],
+    "perServing": {
+      "kcal": 294.8,
+      "protein": 31.3,
+      "carbs": 22.2,
+      "fat": 9.7
+    },
+    "contains": [
+      "fish",
+      "dairy",
+      "gluten"
+    ],
+    "steps": [
+      "Toss the romaine, grated carrot and half the onion with the oil.",
+      "Mix the tuna with the yogurt, celery and remaining onion.",
+      "Pile the tuna on the greens.",
+      "Serve with the bread."
+    ],
+    "photo": "/recipes/tuna-salad-greens.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Tuna Salad on Greens",
+      "url": "https://www.myplate.gov/recipes/tuna-salad-greens",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "brown-rice-sizzling-chicken-and-vegetables",
+    "name": "Chicken and vegetable rice bowl",
+    "description": "Soy-honey glazed chicken and vegetables over rice.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "rice",
+        "grams": 190
+      },
+      {
+        "productId": "soy-sauce",
+        "grams": 45
+      },
+      {
+        "productId": "honey",
+        "grams": 21
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 20
+      },
+      {
+        "productId": "chicken-breast",
+        "grams": 454
+      },
+      {
+        "productId": "garlic",
+        "grams": 6
+      },
+      {
+        "productId": "onions",
+        "grams": 80
+      },
+      {
+        "productId": "carrots",
+        "grams": 180
+      },
+      {
+        "productId": "broccoli",
+        "grams": 130
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 150
+      }
+    ],
+    "perServing": {
+      "kcal": 425.2,
+      "protein": 31.9,
+      "carbs": 54.0,
+      "fat": 8.7
+    },
+    "contains": [
+      "poultry",
+      "soy",
+      "gluten"
+    ],
+    "steps": [
+      "Cook the rice.",
+      "Stir soy sauce and honey with a splash of water.",
+      "Cook the chicken cubes in oil with garlic, then the vegetables one at a time.",
+      "Add the sauce, bubble until glossy and serve over rice."
+    ],
+    "photo": "/recipes/brown-rice-sizzling-chicken-and-vegetables.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Brown Rice, Sizzling Chicken and Vegetables",
+      "url": "https://www.myplate.gov/recipes/brown-rice-sizzling-chicken-and-vegetables",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "chicken-stir-fry",
+    "name": "Chicken stir-fry with rice",
+    "description": "Fast chicken and vegetable stir-fry over white rice.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "chicken-breast",
+        "grams": 454
+      },
+      {
+        "productId": "rice",
+        "grams": 190
+      },
+      {
+        "productId": "carrots",
+        "grams": 90
+      },
+      {
+        "productId": "celery",
+        "grams": 60
+      },
+      {
+        "productId": "onions",
+        "grams": 40
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 150
+      },
+      {
+        "productId": "garlic",
+        "grams": 8
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 28
+      },
+      {
+        "productId": "soy-sauce",
+        "grams": 45
+      }
+    ],
+    "perServing": {
+      "kcal": 405.5,
+      "protein": 30.8,
+      "carbs": 45.0,
+      "fat": 10.6
+    },
+    "contains": [
+      "poultry",
+      "soy",
+      "gluten"
+    ],
+    "steps": [
+      "Cook the rice.",
+      "Stir-fry the vegetables and garlic in oil over high heat.",
+      "Add sliced raw chicken and cook until done, about 6 minutes.",
+      "Add the soy sauce and serve over rice."
+    ],
+    "photo": "/recipes/chicken-stir-fry.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Chicken Stir Fry",
+      "url": "https://www.myplate.gov/recipes/chicken-stir-fry",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "braised-chicken-thighs-spinach",
+    "name": "Braised chicken thighs with spinach and rice",
+    "description": "Tender chicken thighs simmered with onion, garlic and spinach.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 40,
+    "ingredients": [
+      {
+        "productId": "chicken-thighs",
+        "grams": 680
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 5
+      },
+      {
+        "productId": "onions",
+        "grams": 110
+      },
+      {
+        "productId": "garlic",
+        "grams": 12
+      },
+      {
+        "productId": "spinach",
+        "grams": 283
+      },
+      {
+        "productId": "rice",
+        "grams": 160
+      }
+    ],
+    "perServing": {
+      "kcal": 394.5,
+      "protein": 38.8,
+      "carbs": 38.1,
+      "fat": 8.8
+    },
+    "contains": [
+      "poultry"
+    ],
+    "steps": [
+      "Brown the thighs in a little oil and set aside.",
+      "Cook the onion and garlic until soft.",
+      "Return the chicken, add a cup of water and simmer covered for 30 minutes.",
+      "Stir in the spinach until wilted and serve over cooked rice."
+    ],
+    "photo": "/recipes/braised-chicken-thighs-spinach.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Braised Chicken Thighs with Spinach",
+      "url": "https://www.myplate.gov/recipes/braised-chicken-thighs-spinach",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "turkey-meatloaf",
+    "name": "Turkey meatloaf with sweet potatoes",
+    "description": "Oat-bound turkey loaf baked with sweet potato wedges.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 5,
+    "cookMinutes": 40,
+    "ingredients": [
+      {
+        "productId": "ground-turkey",
+        "grams": 454
+      },
+      {
+        "productId": "oats",
+        "grams": 40
+      },
+      {
+        "productId": "eggs",
+        "grams": 50
+      },
+      {
+        "productId": "onions",
+        "grams": 75
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 100
+      },
+      {
+        "productId": "celery",
+        "grams": 60
+      },
+      {
+        "productId": "garlic",
+        "grams": 8
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 75
+      },
+      {
+        "productId": "sweet-potatoes",
+        "grams": 450
+      }
+    ],
+    "perServing": {
+      "kcal": 275.4,
+      "protein": 21.4,
+      "carbs": 27.5,
+      "fat": 9.2
+    },
+    "contains": [
+      "poultry",
+      "egg",
+      "gluten"
+    ],
+    "steps": [
+      "Mix the turkey with the oats, egg, chopped vegetables and tomato.",
+      "Press into a loaf pan and bake at 350 F.",
+      "Cut the sweet potatoes into wedges and roast alongside.",
+      "Slice when the loaf reaches 165 F."
+    ],
+    "photo": "/recipes/turkey-meatloaf.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Turkey Meatloaf",
+      "url": "https://www.myplate.gov/recipes/turkey-meatloaf",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "easy-beef-supper",
+    "name": "Beef, bean and macaroni skillet",
+    "description": "One-pan beef, beans and macaroni in tomato sauce.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 35,
+    "ingredients": [
+      {
+        "productId": "ground-beef",
+        "grams": 454
+      },
+      {
+        "productId": "onions",
+        "grams": 110
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 150
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 822
+      },
+      {
+        "productId": "pasta",
+        "grams": 100
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      }
+    ],
+    "perServing": {
+      "kcal": 487.1,
+      "protein": 33.1,
+      "carbs": 48.2,
+      "fat": 18.4
+    },
+    "contains": [
+      "meat",
+      "gluten"
+    ],
+    "steps": [
+      "Brown the beef and drain off the fat.",
+      "Cook the onion and pepper until soft.",
+      "Add the tomatoes, pasta, beans and half a cup of water.",
+      "Cover and simmer about 20 minutes until the pasta is tender."
+    ],
+    "photo": "/recipes/easy-beef-supper.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Easy Beef Supper",
+      "url": "https://www.myplate.gov/recipes/easy-beef-supper",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "tofu-broccoli",
+    "name": "Tofu and broccoli with rice",
+    "description": "Golden tofu and broccoli in a soy garlic sauce.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 35,
+    "ingredients": [
+      {
+        "productId": "tofu",
+        "grams": 794
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 20
+      },
+      {
+        "productId": "garlic",
+        "grams": 8
+      },
+      {
+        "productId": "broccoli",
+        "grams": 454
+      },
+      {
+        "productId": "soy-sauce",
+        "grams": 15
+      },
+      {
+        "productId": "rice",
+        "grams": 190
+      }
+    ],
+    "perServing": {
+      "kcal": 416.0,
+      "protein": 25.0,
+      "carbs": 52.0,
+      "fat": 14.0
+    },
+    "contains": [
+      "soy",
+      "gluten"
+    ],
+    "steps": [
+      "Press the tofu dry, cut into slabs and pan-fry until golden.",
+      "Cook the garlic, then the broccoli with a splash of water until tender.",
+      "Return the tofu and add the soy sauce.",
+      "Serve with cooked rice."
+    ],
+    "photo": "/recipes/tofu-broccoli.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Tofu and Broccoli",
+      "url": "https://www.myplate.gov/recipes/tofu-broccoli",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "cuban-beans-and-rice",
+    "name": "Cuban black beans and rice",
+    "description": "Garlicky black beans over fluffy rice.",
+    "mealTypes": [
+      "lunch",
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "olive-oil",
+        "grams": 5
+      },
+      {
+        "productId": "garlic",
+        "grams": 8
+      },
+      {
+        "productId": "onions",
+        "grams": 150
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 150
+      },
+      {
+        "productId": "black-beans",
+        "grams": 850
+      },
+      {
+        "productId": "rice",
+        "grams": 190
+      }
+    ],
+    "perServing": {
+      "kcal": 405.5,
+      "protein": 17.1,
+      "carbs": 79.6,
+      "fat": 2.3
+    },
+    "contains": [],
+    "steps": [
+      "Cook the rice.",
+      "Saute the garlic, onion and pepper in oil for 3 minutes.",
+      "Add the beans with a little water and simmer 10 minutes.",
+      "Spoon over the rice."
+    ],
+    "photo": "/recipes/cuban-beans-and-rice.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Cuban Beans and Rice",
+      "url": "https://www.myplate.gov/recipes/cuban-beans-and-rice",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "mac-and-beans-medley",
+    "name": "Macaroni and beans in tomato sauce",
+    "description": "Peppery tomato bean sauce tossed with macaroni.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "garlic",
+        "grams": 12
+      },
+      {
+        "productId": "bell-peppers",
+        "grams": 150
+      },
+      {
+        "productId": "olive-oil",
+        "grams": 28
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 411
+      },
+      {
+        "productId": "black-beans",
+        "grams": 425
+      },
+      {
+        "productId": "pasta",
+        "grams": 150
+      }
+    ],
+    "perServing": {
+      "kcal": 328.4,
+      "protein": 12.7,
+      "carbs": 52.4,
+      "fat": 8.3
+    },
+    "contains": [
+      "gluten"
+    ],
+    "steps": [
+      "Cook the pasta and drain.",
+      "Saute the garlic and pepper in oil for a minute.",
+      "Add the tomatoes and simmer 10 minutes.",
+      "Stir in the beans and pasta and heat through."
+    ],
+    "photo": "/recipes/mac-and-beans-medley.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Mac and Beans Medley",
+      "url": "https://www.myplate.gov/recipes/mac-and-beans-medley",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "vegetable-and-turkey-stir-fry",
+    "name": "Turkey and vegetable stir-fry with rice",
+    "description": "Ground turkey and frozen vegetables over rice in 25 minutes.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 3,
+    "cookMinutes": 25,
+    "ingredients": [
+      {
+        "productId": "olive-oil",
+        "grams": 14
+      },
+      {
+        "productId": "garlic",
+        "grams": 4
+      },
+      {
+        "productId": "ground-turkey",
+        "grams": 454
+      },
+      {
+        "productId": "frozen-mixed-vegetables",
+        "grams": 454
+      },
+      {
+        "productId": "soy-sauce",
+        "grams": 15
+      },
+      {
+        "productId": "rice",
+        "grams": 190
+      }
+    ],
+    "perServing": {
+      "kcal": 613.0,
+      "protein": 38.4,
+      "carbs": 71.7,
+      "fat": 18.5
+    },
+    "contains": [
+      "poultry",
+      "soy",
+      "gluten"
+    ],
+    "steps": [
+      "Cook the rice.",
+      "Brown the turkey with the garlic in oil.",
+      "Add the frozen vegetables and cook until hot and tender.",
+      "Season with soy sauce and serve over rice."
+    ],
+    "photo": "/recipes/vegetable-and-turkey-stir-fry.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Vegetables and Turkey Stir-Fry",
+      "url": "https://www.myplate.gov/recipes/vegetable-and-turkey-stir-fry",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "beef-noodles",
+    "name": "Beef and noodles skillet",
+    "description": "Savory ground beef and pasta cooked in one pan.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 3,
+    "cookMinutes": 30,
+    "ingredients": [
+      {
+        "productId": "ground-beef",
+        "grams": 340
+      },
+      {
+        "productId": "pasta",
+        "grams": 140
+      },
+      {
+        "productId": "onions",
+        "grams": 75
+      },
+      {
+        "productId": "frozen-mixed-vegetables",
+        "grams": 227
+      }
+    ],
+    "perServing": {
+      "kcal": 481.3,
+      "protein": 29.9,
+      "carbs": 47.4,
+      "fat": 18.1
+    },
+    "contains": [
+      "meat",
+      "gluten"
+    ],
+    "steps": [
+      "Brown the beef with the onion and drain.",
+      "Add the pasta and about 2 cups water.",
+      "Simmer covered 15 minutes, adding the frozen vegetables near the end.",
+      "Season with salt and pepper."
+    ],
+    "photo": "/recipes/beef-noodles.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Beef and Noodles",
+      "url": "https://www.myplate.gov/recipes/beef-noodles",
+      "license": "Public domain (USDA)"
+    }
+  },
+  {
+    "id": "chickpeas-and-spinach-saute",
+    "name": "Chickpea and spinach saute with rice",
+    "description": "Tomato chickpea saute with spinach over rice.",
+    "mealTypes": [
+      "dinner"
+    ],
+    "servings": 4,
+    "cookMinutes": 40,
+    "ingredients": [
+      {
+        "productId": "olive-oil",
+        "grams": 14
+      },
+      {
+        "productId": "onions",
+        "grams": 110
+      },
+      {
+        "productId": "garlic",
+        "grams": 4
+      },
+      {
+        "productId": "celery",
+        "grams": 40
+      },
+      {
+        "productId": "carrots",
+        "grams": 60
+      },
+      {
+        "productId": "tomatoes-canned",
+        "grams": 411
+      },
+      {
+        "productId": "chickpeas",
+        "grams": 425
+      },
+      {
+        "productId": "spinach",
+        "grams": 283
+      },
+      {
+        "productId": "rice",
+        "grams": 190
+      }
+    ],
+    "perServing": {
+      "kcal": 350.6,
+      "protein": 12.0,
+      "carbs": 63.1,
+      "fat": 6.5
+    },
+    "contains": [],
+    "steps": [
+      "Cook the rice.",
+      "Saute the onion, garlic, celery and carrot in oil until soft.",
+      "Add the tomatoes and chickpeas and simmer 5 minutes.",
+      "Fold in the spinach until wilted and serve over rice."
+    ],
+    "photo": "/recipes/chickpeas-and-spinach-saute.jpg",
+    "source": {
+      "name": "Adapted from USDA MyPlate Kitchen: Chickpeas and Spinach Saute",
+      "url": "https://www.myplate.gov/recipes/chickpeas-and-spinach-saute",
+      "license": "Public domain (USDA)"
+    }
+  }
+]

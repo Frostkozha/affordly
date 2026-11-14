@@ -1,3 +1,6 @@
+import { beforeAll } from 'vitest';
+import { initEngine } from './lp';
+beforeAll(() => initEngine());
 import { describe, expect, it } from 'vitest';
 import { findPlan, solve } from './optimize';
 import { verify } from './verify';

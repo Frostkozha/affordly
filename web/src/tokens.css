@@ -4,30 +4,35 @@
   color-scheme: light;
 
   /* surfaces */
-  --paper: #f6f2ea;        /* page background, warm receipt paper */
-  --card: #fffdf8;         /* raised surface */
-  --sunk: #ece6d9;         /* inset wells, table stripes */
-  --rule: #d6cebd;         /* hairlines, dashed receipt rules */
+  --paper: #f3eadb;        /* page background, warm receipt paper */
+  --card: #fbf6ec;         /* raised surface */
+  --sunk: #e9dcc7;         /* inset wells, table stripes */
+  --rule: #d3c2a8;         /* hairlines, dashed receipt rules */
 
   /* text */
-  --ink: #1b1a17;
-  --ink-2: #4f4a40;
-  --ink-3: #6b6558;        /* minimum for small text */
+  --ink: #1a120e;
+  --ink-2: #4a3a2e;
+  --ink-3: #6b5847;        /* minimum for small text */
 
   /* money-positive accent: use only for savings, "fits", waste avoided, primary action */
-  --save: #1d6a44;
+  --save: #1f5f41;
   --save-ink: #ffffff;     /* text on --save */
-  --save-tint: #dcebe1;    /* bg for save chips; text --save-deep on it */
-  --save-deep: #14502f;
+  --save-tint: #dbe7d8;    /* bg for save chips; text --save-deep on it */
+  --save-deep: #163832;
 
   /* over budget / does not fit: use only for gap, refusal, errors */
-  --over: #b0361a;
+  --over: #a8480c;
   --over-ink: #ffffff;
-  --over-tint: #f6ddd5;
-  --over-deep: #86270f;
+  --over-tint: #f5ddc6;
+  --over-deep: #7a3306;
 
   /* neutral highlight for focus */
-  --focus: #1b1a17;
+  --focus: #1a120e;
+
+  /* brand accent: crimson. Primary buttons and brand marks; never used for "over budget". */
+  --accent: #710014;
+  --accent-ink: #fbf6ec;
+  --accent-deep: #561c24;
 
   /* type */
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -58,8 +63,8 @@
   --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-pill: 999px;
 
   /* shadow: flat paper, one soft lift */
-  --shadow-1: 0 1px 0 rgba(27, 26, 23, 0.06), 0 1px 2px rgba(27, 26, 23, 0.08);
-  --shadow-2: 0 2px 4px rgba(27, 26, 23, 0.08), 0 12px 28px rgba(27, 26, 23, 0.12);
+  --shadow-1: 0 1px 0 rgba(26, 18, 14, 0.06), 0 1px 2px rgba(26, 18, 14, 0.08);
+  --shadow-2: 0 2px 4px rgba(26, 18, 14, 0.08), 0 12px 28px rgba(26, 18, 14, 0.12);
 
   --dur: 160ms;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -129,8 +134,8 @@ label { display: block; font-size: var(--fs-sm); font-weight: 600; margin-bottom
 }
 .btn:hover { background: var(--sunk); }
 .btn:active { transform: translateY(1px); }
-.btn--primary { background: var(--save); border-color: var(--save); color: var(--save-ink); }
-.btn--primary:hover { background: var(--save-deep); border-color: var(--save-deep); }
+.btn--primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn--primary:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
 .btn--quiet { border-color: transparent; text-decoration: underline; text-underline-offset: 3px; padding: 0 var(--s-3); }
 .btn[disabled], .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
 
@@ -184,9 +189,9 @@ td.num, th.num { text-align: right; }
   /* elevation: paper stacking. 0 flat, 1 card, 2 raised/sticky, 3 drawer/modal */
   --elev-0: none;
   --elev-1: var(--shadow-1);
-  --elev-2: 0 1px 0 rgba(27, 26, 23, 0.06), 0 6px 16px rgba(27, 26, 23, 0.10);
+  --elev-2: 0 1px 0 rgba(26, 18, 14, 0.06), 0 6px 16px rgba(26, 18, 14, 0.10);
   --elev-3: var(--shadow-2);
-  --elev-inset: inset 0 1px 2px rgba(27, 26, 23, 0.10);
+  --elev-inset: inset 0 1px 2px rgba(26, 18, 14, 0.10);
 
   /* buttons */
   --btn-h-sm: 44px;        /* smallest allowed, equals --tap */
@@ -194,24 +199,24 @@ td.num, th.num { text-align: right; }
   --btn-h-lg: 56px;
   --btn-pad: var(--s-5);
   --btn-press: translateY(1px) scale(0.99);
-  --btn-primary-bg: var(--save);
-  --btn-primary-bg-hover: var(--save-deep);
-  --btn-primary-bg-active: #0f3f25;     /* white text 11.6:1 */
+  --btn-primary-bg: var(--accent);
+  --btn-primary-bg-hover: var(--accent-deep);
+  --btn-primary-bg-active: #3d0a10;
   --btn-secondary-bg-hover: var(--sunk);
   --btn-secondary-bg-active: var(--rule);
   --btn-danger-bg: var(--over);         /* white text 5.6:1 */
   --btn-danger-bg-hover: var(--over-deep);
-  --btn-danger-bg-active: #6a1e0b;
+  --btn-danger-bg-active: #5c2504;
   --btn-disabled-opacity: 0.55;
   --btn-focus-ring: 0 0 0 2px var(--paper), 0 0 0 5px var(--focus); /* ring visible on ink and green fills */
 
   /* on-photo text (always over --scrim-photo) */
   --on-photo: #ffffff;
-  --scrim-base: #1b1a17;           /* fixed dark for chips and gradients laid over photos, both themes */
-  --backdrop: rgba(27, 26, 23, 0.4);   /* dialog and drawer backdrop */
-  --ring-surface: #1b1a17;         /* daily rings card, a dark card in both themes */
+  --scrim-base: #1a120e;           /* fixed dark for chips and gradients laid over photos, both themes */
+  --backdrop: rgba(26, 18, 14, 0.4);   /* dialog and drawer backdrop */
+  --ring-surface: #1a120e;         /* daily rings card, a dark card in both themes */
   --ring-border: transparent;
-  --scrim-photo: linear-gradient(to top, rgba(27, 26, 23, 0.86) 0%, rgba(27, 26, 23, 0.55) 45%, rgba(27, 26, 23, 0) 100%);
+  --scrim-photo: linear-gradient(to top, rgba(26, 18, 14, 0.86) 0%, rgba(26, 18, 14, 0.55) 45%, rgba(26, 18, 14, 0) 100%);
 
   /* swipe deck */
   --swipe-threshold: 96px;         /* drag distance that commits */
@@ -268,7 +273,7 @@ td.num, th.num { text-align: right; }
 .btn[aria-busy="true"] { cursor: progress; color: transparent; pointer-events: none; }
 .btn[aria-busy="true"]::after { content: ""; position: absolute; width: 18px; height: 18px; inset: 0; margin: auto;
   border: 2px solid var(--ink); border-right-color: transparent; border-radius: 50%; animation: a-spin 700ms var(--ease-linear) infinite; }
-.btn--primary[aria-busy="true"]::after { border-color: var(--save-ink); border-right-color: transparent; }
+.btn--primary[aria-busy="true"]::after { border-color: var(--accent-ink); border-right-color: transparent; }
 .btn--danger[aria-busy="true"]::after { border-color: var(--over-ink); border-right-color: transparent; }
 /* round action buttons (swipe deck, reel rail): 56 / 44 px circles */
 .btn-round { display: inline-grid; place-items: center; width: var(--btn-h-lg); height: var(--btn-h-lg); border-radius: 50%;
@@ -322,61 +327,67 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--
    ========================================================================== */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #16140f;
-  --card: #201d17;
-  --sunk: #2a261e;
-  --rule: #413b2f;
-  --ink: #f1ebde;
-  --ink-2: #c9c1ae;
-  --ink-3: #a39b88;
-  --save: #5fbf8c;
-  --save-ink: #0e1f15;
-  --save-tint: #1d3425;
-  --save-deep: #8fd9b0;
-  --over: #f0846a;
-  --over-ink: #1d0a04;
-  --over-tint: #3b1f17;
-  --over-deep: #ffb09c;
-  --focus: #f1ebde;
+  --paper: #161616;
+  --card: #1f1f1f;
+  --sunk: #2b2b2a;
+  --rule: #3d3b38;
+  --ink: #f2f1ed;
+  --ink-2: #cfcbc2;
+  --ink-3: #a8a59e;
+  --save: #8eb69b;
+  --save-ink: #0b2b26;
+  --save-tint: #2b2b2a;
+  --save-deep: #b9d6c2;
+  --over: #f0a05a;
+  --over-ink: #2a1202;
+  --over-tint: #2b2b2a;
+  --over-deep: #f9c592;
+  --focus: #f2f1ed;
+  --accent: #f2f1ed;
+  --accent-ink: #161616;
+  --accent-deep: #ffffff;
   --shadow-1: 0 1px 0 rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px rgba(0, 0, 0, 0.55);
   --elev-2: 0 1px 0 rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.5);
   --elev-inset: inset 0 1px 2px rgba(0, 0, 0, 0.5);
-  --btn-primary-bg-active: #b3e8cb;
-  --btn-danger-bg-active: #ffc9ba;
+  --btn-primary-bg-active: #d6d3cc;
+  --btn-danger-bg-active: #fbdcbb;
   --backdrop: rgba(0, 0, 0, 0.62);
-  --ring-surface: #2c2921;
-  --ring-border: #4d4738;
+  --ring-surface: #262625;
+  --ring-border: #3d3b38;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --paper: #16140f;
-    --card: #201d17;
-    --sunk: #2a261e;
-    --rule: #413b2f;
-    --ink: #f1ebde;
-    --ink-2: #c9c1ae;
-    --ink-3: #a39b88;
-    --save: #5fbf8c;
-    --save-ink: #0e1f15;
-    --save-tint: #1d3425;
-    --save-deep: #8fd9b0;
-    --over: #f0846a;
-    --over-ink: #1d0a04;
-    --over-tint: #3b1f17;
-    --over-deep: #ffb09c;
-    --focus: #f1ebde;
+    --paper: #161616;
+    --card: #1f1f1f;
+    --sunk: #2b2b2a;
+    --rule: #3d3b38;
+    --ink: #f2f1ed;
+    --ink-2: #cfcbc2;
+    --ink-3: #a8a59e;
+    --save: #8eb69b;
+    --save-ink: #0b2b26;
+    --save-tint: #2b2b2a;
+    --save-deep: #b9d6c2;
+    --over: #f0a05a;
+    --over-ink: #2a1202;
+    --over-tint: #2b2b2a;
+    --over-deep: #f9c592;
+    --focus: #f2f1ed;
+  --accent: #f2f1ed;
+  --accent-ink: #161616;
+  --accent-deep: #ffffff;
     --shadow-1: 0 1px 0 rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.5);
     --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px rgba(0, 0, 0, 0.55);
     --elev-2: 0 1px 0 rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.5);
     --elev-inset: inset 0 1px 2px rgba(0, 0, 0, 0.5);
-    --btn-primary-bg-active: #b3e8cb;
-    --btn-danger-bg-active: #ffc9ba;
+    --btn-primary-bg-active: #d6d3cc;
+    --btn-danger-bg-active: #fbdcbb;
     --backdrop: rgba(0, 0, 0, 0.62);
-    --ring-surface: #2c2921;
-    --ring-border: #4d4738;
+    --ring-surface: #262625;
+    --ring-border: #3d3b38;
   }
 }
 

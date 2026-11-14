@@ -352,3 +352,4 @@ footer a,
     transform: translateX(-50%);
   }
 }
+.wordmark-dot { color: var(--accent); }

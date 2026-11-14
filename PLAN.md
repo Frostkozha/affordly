@@ -1,13 +1,13 @@
-# NutriCart — build plan
+# Affordly — build plan
 
 Business Cup 2.0 · Money track · deadline 15 November, 12:00 (Almaty).
 
 ## Product in one line
 
-NutriCart plans a week of meals that fits a grocery budget, priced by the whole
+Affordly plans a week of meals that fits a grocery budget, priced by the whole
 packages a store actually sells, not by recipe grams.
 
-> Other planners price your recipes. NutriCart prices your receipt.
+> Other planners price your recipes. Affordly prices your receipt.
 
 ## User and pain
 
@@ -67,7 +67,7 @@ Rules:
 
 Pipeline, reusing the medical tutor code from `D:\Projects-main`:
 
-| Stage | Tutor part reused | NutriCart job |
+| Stage | Tutor part reused | Affordly job |
 |---|---|---|
 | 1. Classifier | gate classifier | Sort the question: plan change, recipe or meal question, budget question, off-topic, medical |
 | 2. Retriever (text) | E5-small-v2 vectors + SQLite BM25, fused, then MiniLM reranker | Find recipes and food facts |
@@ -111,10 +111,10 @@ The product takes the same information by hand: a short workout schedule. No
   (carbohydrate-rich and low in fat, or protein-dense). The optimizer must pick
   at least one of each per training day; a scheduler then places them around
   the workout time. The verifier checks the placement too.
-- **State:** localStorage (pantry, week history, Plus flag). No accounts.
+- **State:** a guest account per browser, stored on the server and cached in localStorage. No sign-in.
 - **Data:** about 40 products and 20 recipes in JSON; nutrients from USDA
   FoodData Central. Any price can be edited and everything recalculates.
-- **Hosting:** GitHub Pages. No server and no secret keys.
+- **Hosting:** Cloudflare Pages for the site and one Cloudflare Worker for the API (guest accounts, Kroger prices, assistant). Keys are Worker secrets, never in the repo.
 - **Paywall:** Free and Plus side by side, "Unlock demo" button. A Stripe test
   payment link is optional.
 - **Assistant server:** Python FastAPI service built from the tutor code, on a

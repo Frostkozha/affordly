@@ -1,4 +1,4 @@
-# NutriCart
+# Affordly
 
 Plan the week you can actually afford. A web tool that plans a week of meals inside a grocery budget, priced by real store packages.
 

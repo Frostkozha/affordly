@@ -60,7 +60,9 @@ export interface Workout {
 export interface Inputs {
   budget: number; // weekly, hard limit
   kcalPerDay: number;
-  proteinPerDay: number; // grams
+  proteinPerDay: number; // grams, a minimum
+  carbsPerDay?: number; // grams; weekly average must land within 15%. Unset = no limit
+  fatPerDay?: number; // grams; same rule as carbs
   maxCookMinutes: number; // per recipe
   avoid: string[]; // tags matched against Recipe.contains
   workouts: Workout[]; // empty = training-aware placement off
@@ -111,7 +113,7 @@ export interface Plan {
   pantryUsedValue: number; // dollars of earlier leftovers used this week ("waste avoided")
 }
 
-export type AlternativeKind = 'min-budget' | 'max-protein' | 'more-cook-time';
+export type AlternativeKind = 'min-budget' | 'max-protein' | 'more-cook-time' | 'closest-macros';
 
 export interface Alternative {
   kind: AlternativeKind;
@@ -146,6 +148,7 @@ export interface VerifyReport {
 //   basketCost <= budget
 //   average.kcal within +-10% of kcalPerDay; every day within +-20%
 //   average.protein >= proteinPerDay; every day >= 85% of proteinPerDay
+//   average.carbs within +-15% of carbsPerDay and average.fat within +-15% of fatPerDay, when set
 //   every recipe cookMinutes <= maxCookMinutes and none of inputs.avoid in recipe.contains
 //   3 meals a day (breakfast, lunch, dinner); a recipe at most 3 times a week;
 //   at most 6 packages of any one product (variety: no week built on 12 cans of tuna)

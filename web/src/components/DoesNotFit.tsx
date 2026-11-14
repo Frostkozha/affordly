@@ -19,7 +19,7 @@ export function DoesNotFit({ result, go }: {
     >
       <div>
         <Badge kind="over">Does not fit</Badge>
-        <h2>This does not fit your budget.</h2>
+        <h2>{result.alternatives[0]?.kind === 'closest-macros' ? 'These macros do not fit this week.' : 'This does not fit your budget.'}</h2>
         <p className="reason">{result.reason}</p>
         {result.alternatives.length > 0
           &&

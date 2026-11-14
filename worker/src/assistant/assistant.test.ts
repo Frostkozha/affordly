@@ -54,7 +54,7 @@ describe('parse', () => {
 describe('templates and verifier', () => {
   it('reports feasible receipt and proposes asked inputs', () => {
     const reply = template('budget', inputs, feasible);
-    expect(reply.text).toBe('Yes: this fits. Receipt $71.40 of $80.00 budget; recipe price $60.00; Checkout Gap $11.40; 123 g protein and 2001 kcal a day on average.');
+    expect(reply.text).toBe('Yes: this fits. Receipt $71.40 of $80.00 budget; recipe price $60.00; Checkout Gap $11.40; 123 g protein, 200 g carbs, 70 g fat and 2001 kcal a day on average.');
     expect(reply.proposedInputs).toEqual(inputs);
     expect(reply.refused).toBe(false);
     expect(verify(reply.text, facts(inputs, feasible, []), 'fits')).toBe(true);

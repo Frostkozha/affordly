@@ -10,6 +10,7 @@ const pantry: Shape = { array: { productId: 'string', grams: 'number', daysLeft:
 const stateShape: Shape = {
   inputs: { nullable: {
     budget: 'number', kcalPerDay: 'number', proteinPerDay: 'number', maxCookMinutes: 'number',
+    carbsPerDay: { optional: 'number' }, fatPerDay: { optional: 'number' },
     avoid: strings, excludedProductIds: strings, excludedRecipeIds: strings, likedRecipeIds: likedStrings, maxRepeats: 'number',
     workouts: { array: { day: 'number', start: 'string', kind: ['strength', 'cardio', 'mixed'], minutes: 'number' } },
   } },

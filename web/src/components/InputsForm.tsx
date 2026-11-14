@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Stepper } from './Stepper';
 import { useToast } from '../lib/useToast';
-import { suggestTargets, type Body } from '../lib/targets';
+import { macroKcal, macroLimits, splitRest, suggestTargets, type Body } from '../lib/targets';
 import './InputsForm.css';
 import { useStore } from '../lib/store';
 import { fmtMoney, fmtNum } from '../lib/fmtMoney';
@@ -17,12 +17,17 @@ export function InputsForm({ locked, go }: {
   go: (tab: string) => void;
 }) {
   const { inputs, setInputs, run, solving } = useStore();
+  const inRange = (v: number | undefined, [lo, hi]: readonly [number, number]) => v === undefined || (v >= lo && v <= hi);
+  const sum = macroKcal(inputs.proteinPerDay, inputs.carbsPerDay ?? 0, inputs.fatPerDay ?? 0);
+  const hasSplit = inputs.carbsPerDay !== undefined && inputs.fatPerDay !== undefined;
+  const offBy = hasSplit ? Math.abs(sum - inputs.kcalPerDay) / inputs.kcalPerDay : 0;
   const valid = Number.isFinite(inputs.budget) && inputs.budget >= 10
     && inputs.budget <= 500
     && inputs.kcalPerDay >= 1200
     && inputs.kcalPerDay <= 4000
     && inputs.proteinPerDay >= 40
     && inputs.proteinPerDay <= 300
+    && inRange(inputs.carbsPerDay, macroLimits.carbs) && inRange(inputs.fatPerDay, macroLimits.fat)
     && inputs.workouts.every(w => w.start && w.minutes > 0 && w.minutes <= 240);
   const { notify } = useToast();
   const [open, setOpen] = useState(false);
@@ -43,7 +48,7 @@ export function InputsForm({ locked, go }: {
     });
     setInputs({ ...inputs, ...t });
     setOpen(false);
-    notify(`Set to ${fmtNum(t.kcalPerDay)} kcal and ${fmtNum(t.proteinPerDay)} g protein. Change them if you need to.`);
+    notify(`Set to ${fmtNum(t.kcalPerDay)} kcal: ${fmtNum(t.proteinPerDay)} g protein, ${fmtNum(t.carbsPerDay)} g carbs, ${fmtNum(t.fatPerDay)} g fat. Change them if you need to.`);
   };
   return (
     <div className="input-layout">
@@ -133,7 +138,28 @@ export function InputsForm({ locked, go }: {
                   'Enter protein between 40 and 300 g.' : 'Average at least this.'}
               </p>
             </div>
+            {(['carbs', 'fat'] as const).map(k => {
+              const field = k === 'carbs' ? 'carbsPerDay' : 'fatPerDay', [lo, hi] = macroLimits[k];
+              return <div key={k}>
+                <label htmlFor={k}>{k === 'carbs' ? 'Carbs' : 'Fat'} per day (g)</label>
+                <Stepper id={k} label={k} value={inputs[field] ?? splitRest(inputs.kcalPerDay, inputs.proteinPerDay)[field]}
+                  min={lo} max={hi} suffix="g" onChange={v => setInputs({ ...inputs, [field]: v })} />
+                <p className="meta">
+                  {inRange(inputs[field], macroLimits[k]) ? 'Average within 15%.' : `Enter ${k} between ${lo} and ${hi} g.`}
+                </p>
+              </div>;
+            })}
           </div>
+          <p className={'macro-sum' + (offBy > .1 ? ' macro-sum--off' : '')} role="status">
+            {hasSplit ?
+              <>Protein, carbs and fat add up to <span className="num">{fmtNum(sum)} kcal</span>
+                {offBy > .1 ? `, not ${fmtNum(inputs.kcalPerDay)}. No week can hit both.` : '.'}</> :
+              'Carbs and fat are open: the plan picks the cheapest split.'}
+            {' '}
+            {(offBy > .1 || !hasSplit) && <Button quiet size="sm"
+              onClick={() => setInputs({ ...inputs, ...splitRest(inputs.kcalPerDay, inputs.proteinPerDay) })}>
+              {hasSplit ? 'Match my calories' : 'Set carbs and fat'}</Button>}
+          </p>
           <fieldset>
             <legend>Max cooking time per recipe</legend>
             <div className="chips cooking-segments">
@@ -189,6 +215,16 @@ export function InputsForm({ locked, go }: {
           <span>Protein per day</span>
           <span className="num">{fmtNum(inputs.proteinPerDay || 0)}{' '}g</span>
         </div>
+        {hasSplit && <>
+          <div className="receipt-row">
+            <span>Carbs per day</span>
+            <span className="num">{fmtNum(inputs.carbsPerDay || 0)}{' '}g</span>
+          </div>
+          <div className="receipt-row">
+            <span>Fat per day</span>
+            <span className="num">{fmtNum(inputs.fatPerDay || 0)}{' '}g</span>
+          </div>
+        </>}
         <div className="receipt-row">
           <span>Cooking time</span>
           <span className="num">{inputs.maxCookMinutes}{' '}min</span>

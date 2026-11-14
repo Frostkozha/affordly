@@ -54,8 +54,8 @@ export function DayRings({ plan, picked, setPicked }: {
   const targets = {
     kcal: inputs.kcalPerDay,
     protein: inputs.proteinPerDay,
-    carbs: plan.days[day].carbs,
-    fat: plan.days[day].fat,
+    carbs: inputs.carbsPerDay ?? plan.days[day].carbs,
+    fat: inputs.fatPerDay ?? plan.days[day].fat,
   };
   const rows = keys.map((key, i) => {
     const pct = targets[key] > 0 ? totals[key] / targets[key] : 0;

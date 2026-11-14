@@ -5,6 +5,7 @@ import { verify } from './verify';
 import { infeasible } from './infeasible';
 
 const MAX_PRODUCT_PACKAGES = 6;
+const MACRO_BAND = .15;
 
 const cents = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[], pantry: PantryItem[], minimumCost = false): Plan | null {
@@ -24,6 +25,8 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
   if (!ps || recipes.length * maxRepeats < 21) return null;
   const constraints: Record<string, { min?: number; max?: number; equal?: number }> = { meals: { equal: 21 }, kcal: { min: inputs.kcalPerDay * 7 * .9, max: inputs.kcalPerDay * 7 * 1.1 }, protein: { min: inputs.proteinPerDay * 7 }, cost: { max: minimumCost ? Infinity : inputs.budget } };
   if (minimumCost) delete constraints.cost;
+  if (inputs.carbsPerDay) constraints.carbs = { min: inputs.carbsPerDay * 7 * (1 - MACRO_BAND), max: inputs.carbsPerDay * 7 * (1 + MACRO_BAND) };
+  if (inputs.fatPerDay) constraints.fat = { min: inputs.fatPerDay * 7 * (1 - MACRO_BAND), max: inputs.fatPerDay * 7 * (1 + MACRO_BAND) };
   const variables: Record<string, Record<string, number>> = {}, ints: Record<string, number> = {};
   const stock = (id: string) => pantry.filter(p => p.productId === id && (p.daysLeft === null || p.daysLeft > 0)).reduce((s, p) => s + p.grams, 0);
   catalog.products.forEach((p, j) => {
@@ -47,7 +50,7 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
   }
   recipes.forEach((r, i) => {
     constraints[`r${i}`] = { max: maxRepeats };
-    const v: Record<string, number> = { objective: 0, meals: 1, kcal: r.perServing.kcal, protein: r.perServing.protein, [`r${i}`]: 1 };
+    const v: Record<string, number> = { objective: 0, meals: 1, kcal: r.perServing.kcal, protein: r.perServing.protein, carbs: r.perServing.carbs, fat: r.perServing.fat, [`r${i}`]: 1 };
     if (!minimumCost && inputs.likedRecipeIds?.includes(r.id)) {
       v.objective -= inputs.budget * .15 / 21 * r.portion;
     }

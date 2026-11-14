@@ -1,6 +1,7 @@
 import type { Catalog, Inputs, Macros, PantryItem, Plan, Recipe, VerifyReport } from './types';
 
 const MAX_PRODUCT_PACKAGES = 6;
+const MACRO_BAND = .15;
 
 export function verify(plan: Plan, inputs: Inputs, catalog: Catalog, recipes: Recipe[], pantry: PantryItem[]): VerifyReport {
   const errors: string[] = [];
@@ -62,6 +63,10 @@ export function verify(plan: Plan, inputs: Inputs, catalog: Catalog, recipes: Re
   for (const k of keys) near(plan.average[k], days.reduce((s, d) => s + d[k], 0) / 7, .5, 'Average macros');
   const kcal = days.reduce((s, d) => s + d.kcal, 0), protein = days.reduce((s, d) => s + d.protein, 0);
   if (kcal < inputs.kcalPerDay * 7 * .9 - .5 || kcal > inputs.kcalPerDay * 7 * 1.1 + .5 || protein < inputs.proteinPerDay * 7 - .5) fail('Weekly nutrition');
+  for (const [k, target] of [['carbs', inputs.carbsPerDay], ['fat', inputs.fatPerDay]] as const) {
+    const total = days.reduce((s, d) => s + d[k], 0);
+    if (target && (total < target * 7 * (1 - MACRO_BAND) - .5 || total > target * 7 * (1 + MACRO_BAND) + .5)) fail('Weekly ' + k);
+  }
   let cost = 0, gramCost = 0, leftValue = 0, pantryValue = 0;
   const ids = new Set<string>(), expected: PantryItem[] = [];
   for (const line of plan.basket) {

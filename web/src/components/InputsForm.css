@@ -79,3 +79,6 @@ main :is(.input-layout, .plan-layout, .day-grid, .week-layout, .account-layout, 
   /* While the auto-calculate panel is open, the sticky Plan bar must not cover its buttons. */
   form:has(.auto-targets) .form-cta { position: static; }
 }
+
+.macro-sum { font-size: var(--fs-sm); margin: var(--s-3) 0 0; }
+.macro-sum--off { color: var(--over-deep); }

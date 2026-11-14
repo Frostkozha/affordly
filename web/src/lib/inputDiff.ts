@@ -9,6 +9,12 @@ export function inputDiff(old: Inputs, next: Inputs) {
     old.proteinPerDay !== next.proteinPerDay ?
       `Protein ${fmtNum(old.proteinPerDay)} g → ${fmtNum(next.proteinPerDay)} g` :
       '',
+    old.carbsPerDay !== next.carbsPerDay && next.carbsPerDay ?
+      `Carbs ${old.carbsPerDay ? fmtNum(old.carbsPerDay) + ' g' : 'open'} → ${fmtNum(next.carbsPerDay)} g` :
+      '',
+    old.fatPerDay !== next.fatPerDay && next.fatPerDay ?
+      `Fat ${old.fatPerDay ? fmtNum(old.fatPerDay) + ' g' : 'open'} → ${fmtNum(next.fatPerDay)} g` :
+      '',
     old.maxCookMinutes !== next.maxCookMinutes ?
       `Cooking ${old.maxCookMinutes} min → ${next.maxCookMinutes} min` :
       '',

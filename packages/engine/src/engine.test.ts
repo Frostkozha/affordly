@@ -114,6 +114,19 @@ describe('meal engine', () => {
     expect(protein.ok).toBe(false);
     if (!protein.ok) expect(protein.alternatives.some(a => a.kind === 'max-protein')).toBe(true);
   });
+  it('holds carb and fat targets within 15% and offers a verified split when they cannot be met', () => {
+    const open = solve(inputs, catalog, recipes, []);
+    if (!open.ok) throw new Error('fixture plan expected');
+    const near = { ...inputs, carbsPerDay: Math.round(open.plan.average.carbs), fatPerDay: Math.round(open.plan.average.fat) };
+    expect(solve(near, catalog, recipes, []).ok).toBe(true);
+    expect(verify(open.plan, { ...near, carbsPerDay: near.carbsPerDay * 2 }, catalog, recipes, []).errors).toContain('Weekly carbs');
+    const far = solve({ ...inputs, carbsPerDay: 50, fatPerDay: 200 }, catalog, recipes, []);
+    expect(far.ok).toBe(false);
+    if (far.ok) return;
+    expect(far.alternatives.map(a => a.kind)).toEqual(['closest-macros']);
+    const a = far.alternatives[0];
+    expect(verify(a.plan, a.inputs, catalog, recipes, [])).toEqual({ ok: true, errors: [] });
+  });
   it('keeps the minimum budget infeasible even one cent below', () => {
     const p = findPlan(inputs, catalog, recipes, [], true);
     expect(p).not.toBeNull();

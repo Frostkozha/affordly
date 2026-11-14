@@ -34,7 +34,7 @@ export function AlternativeCard({ alternative, apply }: {
           {' '}
           {fmtNum(alternative.plan.average.protein)}
           {' '}
-          g protein
+          g protein, {fmtNum(alternative.plan.average.carbs)} g carbs, {fmtNum(alternative.plan.average.fat)} g fat
         </span>
         {' '}
         per day

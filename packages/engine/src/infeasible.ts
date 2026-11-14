@@ -5,6 +5,28 @@ export function infeasible(
   inputs: Inputs, catalog: Catalog, recipes: Recipe[], pantry: PantryItem[],
 ): SolveResult {
   const alternatives: Alternative[] = [];
+  // Carb and fat targets are the newest and softest limit: when dropping them is enough, offer the closest split.
+  if (inputs.carbsPerDay || inputs.fatPerDay) {
+    const open = findPlan({ ...inputs, carbsPerDay: undefined, fatPerDay: undefined }, catalog, recipes, pantry);
+    if (open) {
+      const round = (n: number) => Math.round(n / 5) * 5;
+      // Try the point halfway between what was asked and what the foods give on their own; fall back to the latter.
+      const half = { ...inputs, carbsPerDay: round(((inputs.carbsPerDay ?? open.average.carbs) + open.average.carbs) / 2), fatPerDay: round(((inputs.fatPerDay ?? open.average.fat) + open.average.fat) / 2) };
+      const closer = findPlan(half, catalog, recipes, pantry);
+      const plan = closer ?? open;
+      const changed = closer ? half : { ...inputs, carbsPerDay: round(open.average.carbs), fatPerDay: round(open.average.fat) };
+      return {
+        ok: false,
+        reason: 'These foods cannot reach ' + (inputs.carbsPerDay ?? 'any') + ' g of carbs and ' + (inputs.fatPerDay ?? 'any')
+          + ' g of fat a day inside your other limits.',
+        alternatives: [{
+          kind: 'closest-macros',
+          headline: 'Keep everything else and eat ' + changed.carbsPerDay + ' g carbs, ' + changed.fatPerDay + ' g fat a day',
+          inputs: changed, plan,
+        }],
+      };
+    }
+  }
   const cheapest = findPlan(inputs, catalog, recipes, pantry, true);
   if (cheapest && cheapest.basketCost > inputs.budget) {
     alternatives.push({

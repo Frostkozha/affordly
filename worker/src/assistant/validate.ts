@@ -43,6 +43,8 @@ function validInputs(value: unknown): boolean {
   return i.budget >= 20 && i.budget <= 400
     && i.kcalPerDay >= 1200 && i.kcalPerDay <= 4500
     && i.proteinPerDay >= 40 && i.proteinPerDay <= 300
+    && (i.carbsPerDay === undefined || (i.carbsPerDay >= 50 && i.carbsPerDay <= 600))
+    && (i.fatPerDay === undefined || (i.fatPerDay >= 20 && i.fatPerDay <= 200))
     && i.maxCookMinutes >= 10 && i.maxCookMinutes <= 120
     && (i.maxRepeats === undefined || [2, 3, 4].includes(i.maxRepeats))
     && i.avoid.every(t => avoidTags.includes(t)) && i.workouts.length <= 7
@@ -79,7 +81,7 @@ export function validate(value: unknown): AssistantRequest {
         ? matches(r.plan, plan) && validReceipt(r.plan, b.asked![index].budget)
         : r?.ok === false && typeof r.reason === 'string' && r.reason.length <= 1000
           && Array.isArray(r.alternatives) && r.alternatives.length <= 3
-          && r.alternatives.every(a => a && ['min-budget', 'max-protein', 'more-cook-time'].includes(a.kind)
+          && r.alternatives.every(a => a && ['min-budget', 'max-protein', 'more-cook-time', 'closest-macros'].includes(a.kind)
             && typeof a.headline === 'string' && a.headline.length <= 500
             && validInputs(a.inputs) && matches(a.plan, plan) && validReceipt(a.plan, a.inputs.budget));
       if (!valid) throw new HttpError(400, 'Invalid solver result');

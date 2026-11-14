@@ -4,9 +4,11 @@ export const avoidTags = ['fish', 'meat', 'poultry', 'pork', 'dairy', 'egg', 'gl
 
 export function parse(message: string, inputs: Inputs): Inputs {
   const asked = { ...inputs, avoid: [...inputs.avoid] };
-  const fields: [keyof Pick<Inputs, 'budget' | 'proteinPerDay' | 'kcalPerDay' | 'maxCookMinutes'>, RegExp, number, number][] = [
+  const fields: [keyof Pick<Inputs, 'budget' | 'proteinPerDay' | 'carbsPerDay' | 'fatPerDay' | 'kcalPerDay' | 'maxCookMinutes'>, RegExp, number, number][] = [
     ['budget', /(?:\$\s*(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?)\s*dollars?\b)/i, 20, 400],
     ['proteinPerDay', /(\d+(?:\.\d+)?)\s*g(?:rams?)?\s*(?:of\s+)?protein\b/i, 40, 300],
+    ['carbsPerDay', /(\d+(?:\.\d+)?)\s*g(?:rams?)?\s*(?:of\s+)?carb(?:s|ohydrates?)?\b/i, 50, 600],
+    ['fatPerDay', /(\d+(?:\.\d+)?)\s*g(?:rams?)?\s*(?:of\s+)?fats?\b/i, 20, 200],
     ['kcalPerDay', /(\d+(?:\.\d+)?)\s*(?:kcal|calories)\b/i, 1200, 4500],
     ['maxCookMinutes', /(\d+(?:\.\d+)?)\s*minutes?\b/i, 10, 120],
   ];

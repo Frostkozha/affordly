@@ -4,6 +4,8 @@ export const defaultInputs: Inputs = {
   budget: 95,
   kcalPerDay: 2200,
   proteinPerDay: 150,
+  carbsPerDay: 240,
+  fatPerDay: 70,
   maxCookMinutes: 30,
   avoid: [],
   workouts: [],

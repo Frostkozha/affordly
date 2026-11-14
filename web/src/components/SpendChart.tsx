@@ -23,12 +23,11 @@ function barPath(x: number, y: number, w: number, h: number, round: boolean) {
   return `M${x} ${y + h}V${y + r}Q${x} ${y} ${x + r} ${y}H${x + w - r}Q${x + w} ${y} ${x + w} ${y + r}V${y + h}Z`;
 }
 
-function Column({ week, index, scale, hatch, showBudget }: {
+function Column({ week, index, scale, hatch }: {
   week: Week;
   index: number;
   scale: number;
   hatch: string;
-  showBudget: boolean;
 }) {
   const x = left + index * step;
   const spentH = week.basketCost * scale;
@@ -36,31 +35,33 @@ function Column({ week, index, scale, hatch, showBudget }: {
   const spentY = base - spentH;
   const savedY = spentY - 2 - savedH;
   const hasSaved = savedH > 0.5;
-  const topY = hasSaved ? savedY : spentY;
+  const inside = spentH >= 30;
   const budgetY = week.budget ? base - week.budget * scale : null;
   return (
     <g>
       {spentH > 0 && <path d={barPath(x, spentY, colW, spentH, !hasSaved)} className="sc-spent" />}
       {hasSaved && <path d={barPath(x, savedY, colW, savedH, true)} fill={`url(#${hatch})`} className="sc-saved" />}
-      <text x={x + colW / 2} y={topY - 6} className={'sc-label' + (hasSaved ? ' sc-label--save' : '')}
-        textAnchor="middle">
-        {fmtMoney(hasSaved ? week.pantryUsedValue : week.basketCost)}
-      </text>
-      {hasSaved && spentH >= 16 && (
-        <text x={x + colW / 2} y={spentY + spentH / 2 + 4} className="sc-label sc-label--on-spent"
+      {/* The receipt label sits inside the solid column when it fits, otherwise above the column. */}
+      {inside ? (
+        <text x={x + colW / 2} y={spentY + spentH / 2 - 2} className="sc-label sc-label--on-spent"
           textAnchor="middle">
-          {fmtMoney(week.basketCost)}
+          <tspan x={x + colW / 2}>spent</tspan>
+          <tspan x={x + colW / 2} dy="13">{fmtMoney(week.basketCost)}</tspan>
+        </text>
+      ) : (
+        <text x={x + colW / 2} y={(hasSaved ? savedY - 20 : spentY - 6)}
+          className="sc-label" textAnchor="middle">
+          spent {fmtMoney(week.basketCost)}
         </text>
       )}
+      {hasSaved && (
+        <text x={x + colW / 2} y={savedY - 6} className="sc-label sc-label--save" textAnchor="middle">
+          saved {fmtMoney(week.pantryUsedValue)}
+        </text>
+      )}
+      {/* The budget amount is in the table below; the dashed line needs no label that could collide. */}
       {budgetY !== null && (
-        <g>
-          <line x1={x - 4} x2={x + colW + 4} y1={budgetY} y2={budgetY} className="sc-budget" />
-          {showBudget && (
-            <text x={x + colW + 4} y={budgetY - 4} className="sc-budget-text" textAnchor="end">
-              Budget {fmtMoney(week.budget!).replace('.00', '')}
-            </text>
-          )}
-        </g>
+        <line x1={x - 4} x2={x + colW + 4} y1={budgetY} y2={budgetY} className="sc-budget" />
       )}
       <text x={x + colW / 2} y={base + 20} className="sc-week" textAnchor="middle">Week {week.week}</text>
     </g>
@@ -78,8 +79,9 @@ export function SpendChart({ state }: { state: AccountState }) {
   const { unit, max } = niceMax(tallest);
   const scale = (base - top) / max;
   const width = left + shown.length * step;
-  const summary = shown.map(h => `Week ${h.week}: spent ${fmtMoney(h.basketCost)}, saved by using leftovers `
-    + `${fmtMoney(h.pantryUsedValue)}${h.budget ? `, budget ${fmtMoney(h.budget)}` : ''}`).join('. ');
+  const summary = shown.map(h => `Week ${h.week}: spent ${fmtMoney(h.basketCost)} on the receipt; `
+    + `saved ${fmtMoney(h.pantryUsedValue)} by using leftovers, which is not extra cost`
+    + `${h.budget ? `; budget ${fmtMoney(h.budget)}` : ''}`).join('. ');
   return (
     <section className="card spend-chart">
       <div className="sc-head">
@@ -118,14 +120,14 @@ export function SpendChart({ state }: { state: AccountState }) {
                 </g>
               ))}
               {shown.map((week, i) => (
-                <Column key={week.week} week={week} index={i} scale={scale} hatch={hatch}
-                  showBudget={shown.length <= 4 || i === shown.length - 1} />
+                <Column key={week.week} week={week} index={i} scale={scale} hatch={hatch} />
               ))}
             </svg>
           </div>
           <ul className="sc-legend">
-            <li><span className="sc-key sc-key--spent" />Spent</li>
-            <li><span className="sc-key sc-key--saved" />Saved by using leftovers</li>
+            <li><span className="sc-key sc-key--spent" />Spent (your receipt)</li>
+            <li><span className="sc-key sc-key--saved" />Saved by using leftovers (not extra cost)</li>
+            <li><span className="sc-key sc-key--budget" />Budget</li>
           </ul>
           {history.length === 1 && <p>Simulate next week to see leftovers carried over.</p>}
           <p className="meta">

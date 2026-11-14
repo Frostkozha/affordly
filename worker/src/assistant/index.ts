@@ -20,7 +20,10 @@ export async function assistant(request: Request, env: Env, url: URL): Promise<R
     const next = { ...body, asked: fallback.needsSolve, route: chosen };
     return json({ ...fallback, route: chosen, ticket: allowed ? await proof(next) : undefined });
   }
-  if (chosen.action === 'medical' || chosen.action === 'off-topic' || fallback.paywall) return json(fallback);
+  const keepOut = chosen.action === 'swap-product' && !fallback.results;
+  if (chosen.action === 'medical' || chosen.action === 'off-topic' || fallback.paywall || keepOut) {
+    return json(fallback);
+  }
   if (!allowed) {
     return json({ ...fallback, note: 'AI unavailable or daily limit reached; checked template.' });
   }

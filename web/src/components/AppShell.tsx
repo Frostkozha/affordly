@@ -4,7 +4,7 @@ import { CreatorsPage } from './CreatorsPage';
 import { DiscoverPage } from './DiscoverPage';
 import { isSavedToServer } from '../lib/account';
 import { useEffect, useState } from 'react';
-import type { Recipe } from '@affordly/engine';
+import type { Plan, Recipe } from '@affordly/engine';
 import { useStore } from '../lib/store';
 import { Badge } from './Badge';
 import { Button } from './Button';
@@ -56,7 +56,7 @@ export function AppShell() {
     return () => window.removeEventListener('hashchange', change);
   }, []);
   const go = (tab: string) => {
-    location.hash = `/plan#${tab}`;
+    location.hash = tab === 'plan' ? '/plan' : `/plan/${tab}`;
   };
   const locked = (message = '') => setPaywall(message);
   const open = (r: Recipe, servings?: number) => setRecipe({
@@ -64,14 +64,20 @@ export function AppShell() {
     servings
   });
   const landing = hash === '#/' || hash === '';
-  const week = hash.startsWith('#/week2');
+  const week = /^#\/(next-week|week2)/.test(hash);
   const account = hash.startsWith('#/account');
   const creators = hash.startsWith('#/creators');
   const discover = hash.startsWith('#/discover');
-  const tab = hash.endsWith('#basket') ?
+  const tab = /[#/]basket$/.test(hash) ?
     'basket' :
-    hash.endsWith('#inputs') ? 'inputs' : 'plan';
+    /[#/]inputs$/.test(hash) ? 'inputs' : 'plan';
   const plan = result?.ok ? result.plan : null;
+  const [lastPlan, setLastPlan] = useState<Plan | null>(null);
+  if (plan && plan !== lastPlan)
+    setLastPlan(plan);
+  // Keep the basket on screen while a swap or price edit re-solves, so the page does not jump.
+  const stale = tab === 'basket' && solving ? lastPlan : null;
+  const shown = plan ?? stale;
   const gated = state.week > 1 && !state.plus;
   return (
     <>
@@ -112,9 +118,10 @@ export function AppShell() {
                           tab === 'basket' ? 'What you’ll actually pay.' : 'Your week, within reach.'}
                       </h1>
                     </div>
-                    {sample &&
-                      <Badge>Sample week</Badge>
-                    }
+                    <div className="plan-badges">
+                      {state.week > 1 && <Badge kind="save">Week {state.week}</Badge>}
+                      {sample && <Badge>Sample week</Badge>}
+                    </div>
                   </div>
                   <nav
                     className="sub-tabs"
@@ -122,7 +129,7 @@ export function AppShell() {
                   >
                     {['inputs', 'plan', 'basket'].map(t =>
                       <a
-                        href={`#/plan#${t}`}
+                        href={t === 'plan' ? '#/plan' : `#/plan/${t}`}
                         key={t}
                         aria-current={tab === t ? 'page' : undefined}
                       >
@@ -133,7 +140,7 @@ export function AppShell() {
                   {!ready ?
                     <Skeleton />
                     :
-                    solving ?
+                    solving && !stale ?
                       <SolveStatus />
                       :
                       solveError ?
@@ -150,10 +157,10 @@ export function AppShell() {
                               :
                               tab === 'basket' ?
                                 <div className="stack">
-                                  {plan &&
-                                    <CheckoutGapCard plan={plan} budget={state.inputs!.budget} />
+                                  {shown &&
+                                    <CheckoutGapCard plan={shown} budget={state.inputs!.budget} />
                                   }
-                                  <BasketTable plan={plan} locked={locked} />
+                                  <BasketTable plan={shown} locked={locked} />
                                 </div>
                                 :
                                 <PlanView plan={plan} go={go} open={open} />

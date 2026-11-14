@@ -16,7 +16,7 @@ export function LeftoverList({ items, title = 'Pantry preview', spoiled = false 
         <p>
           {spoiled ?
             'No leftovers spoiled.' :
-            'Nothing left over this week. Week 2 starts from zero.'}
+            'Nothing left over this week. Next week starts from zero.'}
         </p>
         :
         <ul className="leftover-list">
@@ -27,20 +27,21 @@ export function LeftoverList({ items, title = 'Pantry preview', spoiled = false 
                 key={`${item.productId}-${i}`}
                 className="receipt-row"
               >
-                <span>
+                <span className="leftover-name">
                   {p.name}
-                  <span className="meta num">
-                    {fmtNum(item.grams)}
-                    {' '}
-                    g ·
-                    {' '}
+                  <span className="meta">
                     {item.daysLeft === null ? 'shelf stable' : `keeps ${item.daysLeft} more days`}
                   </span>
                 </span>
-                {spoiled
-                  &&
-                  <span className="error"><Money value={item.grams / p.packageGrams * p.price} /></span>
-                }
+                <span className="leftover-amount num">
+                  {fmtNum(item.grams)}
+                  {' '}
+                  g
+                  {spoiled
+                    &&
+                    <span className="error"><Money value={item.grams / p.packageGrams * p.price} /></span>
+                  }
+                </span>
               </li>
             );
           })}

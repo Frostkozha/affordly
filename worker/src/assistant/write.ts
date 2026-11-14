@@ -13,7 +13,7 @@ const tasks: Record<AssistantAction, string> = {
   'explain-plan': 'Explain the current plan topic using the receipt, protein or largest basket items provided.',
   'price-lookup': 'Name the requested products; give package prices, price per weight and protein per dollar.',
   'find-recipes': 'Recommend the retrieved recipes by exact name, with their cooking times and protein.',
-  'how-to-cook': 'Give the recipe name, ingredients for one portion and the unaltered steps and source link.',
+  'how-to-cook': 'Give the recipe name, ingredients for the full recipe and the unaltered steps. Do not write any web address.',
   'use-leftovers': 'Name the ranked recipes and how much leftover pantry weight each uses per portion.',
   'off-topic': 'Refuse unrelated questions.',
   medical: 'Refuse medical advice.',

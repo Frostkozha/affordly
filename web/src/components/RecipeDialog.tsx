@@ -4,12 +4,15 @@ import { getCatalog } from '../lib/engine';
 import { fmtNum } from '../lib/fmtMoney';
 import { Overlay } from './Overlay';
 import { MealThumb } from './MealThumb';
+import { Button } from './Button';
 
-export function RecipeDialog({ recipe, servings = 1, close }: {
+// `servings` is the planned portion (servings eaten at a meal). Leave it out when no meal is planned.
+export function RecipeDialog({ recipe, servings, close }: {
   recipe: Recipe;
   servings?: number;
   close: () => void;
 }) {
+  const one = recipe.perServing;
   return (
     <Overlay
       title={recipe.name}
@@ -17,37 +20,20 @@ export function RecipeDialog({ recipe, servings = 1, close }: {
     >
       <div className="recipe-hero"><MealThumb recipe={recipe} /></div>
       <p>{recipe.description}</p>
-      <p className="num">
-        {recipe.cookMinutes}
-        {' '}
-        min ·
-        {' '}
-        {servings}
-        {' '}
-        serving
-        {servings !== 1 ? 's' : ''}
-      </p>
-      <p className="num">
-        Per serving:
-        {' '}
-        {fmtNum(recipe.perServing.kcal)}
-        {' '}
-        kcal ·
-        {' '}
-        {fmtNum(recipe.perServing.protein)}
-        {' '}
-        g protein
-      </p>
+      <p className="num">{recipe.cookMinutes} min</p>
+      {servings !== undefined &&
+        <p className="num">
+          <strong>
+            Your portion: {servings} serving{servings !== 1 ? 's' : ''} · {fmtNum(one.kcal * servings)} kcal
+            · {fmtNum(one.protein * servings)} g protein
+          </strong>
+        </p>
+      }
       <p className="meta num">
-        {fmtNum(recipe.perServing.carbs)}
-        {' '}
-        g carbs ·
-        {' '}
-        {fmtNum(recipe.perServing.fat)}
-        {' '}
-        g fat
+        One serving: {fmtNum(one.kcal)} kcal · {fmtNum(one.protein)} g protein · {fmtNum(one.carbs)} g carbs
+        · {fmtNum(one.fat)} g fat
       </p>
-      <h3>Ingredients</h3>
+      <h3>Ingredients for the full recipe (makes {recipe.servings} servings)</h3>
       <ul className="ingredients">
         {recipe.ingredients.map(i =>
           <li key={i.productId}>
@@ -78,6 +64,7 @@ export function RecipeDialog({ recipe, servings = 1, close }: {
           {recipe.source.license}
         </a>
       </p>
+      <Button block onClick={close}>Close</Button>
     </Overlay>
   );
 }

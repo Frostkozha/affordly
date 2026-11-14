@@ -6,6 +6,7 @@ import { decide, readTaste, shuffleRecipes } from '../lib/taste';
 import { useSwipe } from '../lib/useSwipe';
 import { useToast } from '../lib/useToast';
 import { MealCard } from './MealCard';
+import { Button } from './Button';
 import { TasteSummary } from './TasteSummary';
 import { GroceryBag } from './art/GroceryBag';
 import { SwipeControls } from './SwipeControls';
@@ -79,7 +80,7 @@ export function SwipeDeck({ open }: {
       const result = await run(inputs);
       if (result.ok)
         notify(rebuiltMessage(liked, result.plan.meals.map(meal => meal.recipeId)));
-      location.hash = '/plan#plan';
+      location.hash = '/plan';
     } catch {
       setError('Could not rebuild your week. Your taste is saved. Try again.');
     }
@@ -118,8 +119,7 @@ export function SwipeDeck({ open }: {
   return <div className="swipe-layout" tabIndex={-1}>
     <div className="discover-explainer">
       <p>Likes shape next week's plan. Skipped meals stay off it.</p>
-      <TasteSummary liked={liked.length} skipped={skipped.length} clear={clear}
-        rebuild={() => void rebuild()} busy={solving} />
+      <TasteSummary liked={liked.length} skipped={skipped.length} clear={clear} />
       <p className="keys-hint meta">Keys: left arrow skips, right arrow likes, Z undoes.</p>
       {error && <p role="alert" className="error">{error}</p>}
     </div>
@@ -147,6 +147,9 @@ export function SwipeDeck({ open }: {
         </div>
         <SwipeControls busy={swipe.leaving} canUndo={canUndo}
           choose={swipe.commit} undo={undo} />
+        {liked.length + skipped.length > 0 &&
+          <Button primary block className="rebuild-cta" busy={solving} onClick={() => void rebuild()}>
+            Rebuild my week with this</Button>}
       </> : <DeckEnd liked={liked.length} skipped={skipped.length} busy={solving}
         rebuild={() => void rebuild()} clear={clear} undo={undo} canUndo={canUndo} />}
     </div>

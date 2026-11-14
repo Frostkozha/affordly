@@ -15,7 +15,7 @@ export function HistoryTable({ state }: {
           <table>
             <thead>
               <tr>
-                {['Week', 'Receipt', 'Budget', 'Gap', 'Saved by leftovers'].map((name, i) =>
+                {['Week', 'Receipt', 'Budget', 'Gap', 'Saved'].map((name, i) =>
                   <th key={name} scope="col" className={i ? 'num' : ''}>{name}</th>
                 )}
               </tr>

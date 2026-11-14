@@ -316,3 +316,13 @@
 .meal-card.photo-failed::after {
   display: none;
 }
+.rebuild-cta {
+  margin-top: var(--s-4);
+}
+@media (max-width: 767px) {
+  .rebuild-cta {
+    position: sticky;
+    bottom: calc(var(--s-7) + var(--s-4) + env(safe-area-inset-bottom));
+    z-index: 2;
+  }
+}

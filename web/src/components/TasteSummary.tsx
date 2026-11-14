@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { Button } from './Button';
-export function TasteSummary({ liked, skipped, clear, rebuild, busy }: {
+export function TasteSummary({ liked, skipped, clear }: {
   liked: number;
   skipped: number;
   clear: () => void;
-  rebuild: () => void;
-  busy: boolean;
 }) {
   const [confirm, setConfirm] = useState(false);
   return <div className="taste-summary">
@@ -17,7 +15,5 @@ export function TasteSummary({ liked, skipped, clear, rebuild, busy }: {
       }}>Clear</Button>
       <Button quiet size="sm" onClick={() => setConfirm(false)}>Keep</Button>
     </div> : <Button quiet size="sm" onClick={() => setConfirm(true)}>Reset</Button>}
-    {liked + skipped > 0 && <Button quiet busy={busy} onClick={rebuild}>
-      Rebuild my week with this</Button>}
   </div>;
 }

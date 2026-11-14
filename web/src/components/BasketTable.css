@@ -49,3 +49,16 @@
 @media (max-width: 767px) {
 .basket-total { font-size: var(--fs-lg); }
 }
+.price-edit label {
+  display: block;
+  max-width: 24ch;
+  line-height: var(--lh-snug);
+}
+.price-edit input {
+  width: 8ch;
+}
+@media (max-width: 767px) {
+  .basket {
+    padding-bottom: var(--s-8);
+  }
+}

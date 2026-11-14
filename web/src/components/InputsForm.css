@@ -56,3 +56,11 @@ main :is(.input-layout, .plan-layout, .day-grid, .week-layout, .account-layout, 
 .cooking-segments .chip:last-child {
   border-radius: 0 var(--r-md) var(--r-md) 0;
 }
+@media (max-width: 767px) {
+  .input-layout form {
+    padding-bottom: var(--s-8);
+  }
+  .input-layout :is(input, select, fieldset, legend, h2, small, .meta) {
+    scroll-margin-bottom: calc(var(--s-9) + var(--s-7));
+  }
+}

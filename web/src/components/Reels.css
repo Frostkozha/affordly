@@ -330,3 +330,10 @@
 .reel-rail [aria-pressed="true"] svg path {
   fill: currentColor;
 }
+/* Keep full prices clear of the Share/Open rail. */
+.reel-number-content {
+  padding-right: calc(var(--tap) + var(--s-7));
+}
+.reel-number-content .receipt-row > :last-child {
+  flex-shrink: 0;
+}

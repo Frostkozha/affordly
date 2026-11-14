@@ -4,6 +4,8 @@ import type { Inputs, Plan } from '@affordly/engine';
 import { swapProduct } from '../lib/engine';
 import { demoTerms } from '../lib/config';
 import { useStore } from '../lib/store';
+import { useToast } from '../lib/useToast';
+import { fmtMoney } from '../lib/fmtMoney';
 import { EmptyState } from './EmptyState';
 import { BasketLine } from './BasketLine';
 import { BasketTotal } from './BasketTotal';
@@ -13,6 +15,7 @@ export function BasketTable({ plan, locked }: {
   locked: (message?: string) => void;
 }) {
   const { state, inputs, run, reprice, swaps, recordSwap } = useStore();
+  const { notify } = useToast();
   if (!plan)
     return (
       <EmptyState>No basket until there is a plan.</EmptyState>);
@@ -26,7 +29,10 @@ export function BasketTable({ plan, locked }: {
     }
     recordSwap();
     const next: Inputs = swapProduct(inputs, id);
-    await run(next);
+    const before = plan.basketCost;
+    const result = await run(next);
+    if (result.ok)
+      notify(`Plan updated. Receipt ${fmtMoney(before)} → ${fmtMoney(result.plan.basketCost)}.`);
   };
   return (
     <section className="card basket">

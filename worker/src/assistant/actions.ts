@@ -7,10 +7,14 @@ import { retrieve } from './retrieve';
 import { scenarios } from './scenarios';
 export { scenarios } from './scenarios';
 import type { Env } from '../http';
+import { resolveMeal } from './route';
 
 const recipes = recipesJson as Recipe[];
 const money = (n: number) => `$${n.toFixed(2)}`;
 const product = (id: string) => catalog.products.find(p => p.id === id)!;
+
+const productAbsent = (body: AssistantRequest, id: string) =>
+  !!body.plan && !body.plan.basket.some(b => b.productId === id);
 
 export function suggestions(route: Route): string[] {
   if (route.action === 'medical' || route.action === 'off-topic') {
@@ -70,11 +74,12 @@ function explainFacts(body: AssistantRequest, topic: unknown): string[] {
         + `Checkout Gap ${money(p.checkoutGap)}; ${Math.round(p.average.protein)} g protein daily.`];
       if (topic === 'gap' || topic === 'leftovers') {
         lines.push('Whole packages leave unused ingredients; the gap prices that unused weight.');
-        const items = p.basket.filter(b => b.gramsLeft > 0).map(b => ({
-          name: product(b.productId).name, grams: b.gramsLeft,
-          value: b.gramsLeft / product(b.productId).packageGrams * product(b.productId).price,
-        })).sort((x, y) => y.value - x.value).slice(0, 3);
-        lines.push(...items.map(x => `${x.name}: ${Math.round(x.grams)} g left, ${money(x.value)}.`));
+        // Same rule as the Basket tab's "Where the gap comes from" (LeftoverTop3): every basket line,
+        // ranked by unused money (package cost minus recipe price), top three.
+        const items = [...p.basket].sort((x, y) => (y.cost - y.gramCost) - (x.cost - x.gramCost))
+          .slice(0, 3);
+        lines.push(...items.map(b => `${product(b.productId).name}: ${Math.round(b.gramsLeft)} g left, `
+          + `${money(b.cost - b.gramCost)} unused.`));
       }
       if (topic === 'most-expensive') {
         lines.push(...[...p.basket].sort((x, y) => y.cost - x.cost).slice(0, 3)
@@ -135,6 +140,12 @@ export async function answer(body: AssistantRequest, route: Route, env?: Env): P
   } else if (route.action === 'add-workout' && !body.plus) {
     reply.paywall = true;
     lines = ['Workout-aware meal planning is a Plus feature. Open Plus to add your workout.'];
+  } else if (route.action === 'swap-product' && productAbsent(body, String(a.productId))) {
+    // Nothing to re-solve: the plan has no such product. Offer the exclusion for later plans only.
+    const name = product(String(a.productId)).name.split(',')[0].toLowerCase();
+    lines = [`Your plan already has no ${name}. I will keep it out of future plans.`];
+    reply.options = [{ label: `Keep ${name} out`, inputs: asked[0] }];
+    reply.proposedInputs = asked[0];
   } else if (asked.length) {
     if (!body.results) {
       reply.needsSolve = asked;
@@ -150,11 +161,14 @@ export async function answer(body: AssistantRequest, route: Route, env?: Env): P
       + `${money(p.price / p.packageGrams * 100)} per 100 g; `
       + `${(p.per100g.protein * p.packageGrams / 100 / p.price).toFixed(2)} g protein per dollar.`);
   } else if (route.action === 'how-to-cook') {
-    const r = recipes.find(r => r.id === a.recipeId)!;
+    // A reference like "first dinner" wins over the router's guess: it is read from the plan itself.
+    const id = resolveMeal(body.message, body.plan) ?? a.recipeId;
+    const r = recipes.find(r => r.id === id)!;
     found = [r];
-    lines = [`${r.name}: ingredients for one meal portion: ` + r.ingredients.map(i =>
-      `${product(i.productId).name} ${(i.grams / r.servings).toFixed(1)} g`).join('; '),
-    ...r.steps, `Source: ${r.source.name} ${r.source.url}`];
+    // Steps are written for the full recipe, so the ingredients are the full recipe too.
+    lines = [`${r.name}: ingredients for the full recipe (makes ${r.servings} servings): `
+      + r.ingredients.map(i => `${product(i.productId).name} ${Math.round(i.grams)} g`).join('; '),
+    ...r.steps];
   } else {
     const selection = await recipeFacts(body, route, env);
     found = selection.found;

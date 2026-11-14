@@ -220,3 +220,15 @@
 .hero-buttons .btn {
   min-height: var(--btn-h-lg);
 }
+.hero-receipt > .checkout-gap-def {
+  margin-top: var(--s-3);
+  color: var(--ink-2);
+}
+/* Content must be readable at once: no print-in delay on the hero receipt. */
+.proof.print-in,
+.proof.print-in .receipt-row {
+  animation: none;
+}
+.print-head {
+  display: none;
+}

@@ -22,11 +22,11 @@ export function RecipeCard({ recipe, open }: {
           {' '}
           {fmtNum(recipe.perServing.kcal)}
           {' '}
-          kcal ·
+          kcal per serving ·
           {' '}
           {fmtNum(recipe.perServing.protein)}
           {' '}
-          g protein
+          g protein per serving
         </span>
       </span>
     </button>

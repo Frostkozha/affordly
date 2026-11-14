@@ -98,3 +98,26 @@ progress::-webkit-progress-value { background: var(--save); }
 .eaten-check svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
 .eaten-check[aria-checked="true"] { background: var(--save); border-color: var(--save); }
 .eaten-check[aria-checked="true"] svg { opacity: 1; }
+
+.plan-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+.plan-intro p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+}
+.next-week-end {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding: var(--s-4) 0;
+}
+.meal-row {
+  cursor: pointer;
+}

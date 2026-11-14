@@ -111,8 +111,7 @@ export function AccountPage() {
             {state.plus
               &&
               <Button
-                quiet
-                variant="danger"
+                variant="secondary"
                 busy={changingPlan}
                 onClick={() => {
                   setChangingPlan(true);

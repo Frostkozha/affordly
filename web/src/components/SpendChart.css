@@ -10,20 +10,20 @@
 .sc-scroll { overflow-x: auto; }
 .sc-scroll svg { display: block; width: 100%; height: 240px; }
 .sc-spent { fill: var(--over); }
-.sc-saved { stroke: var(--save); stroke-width: 1.5; }
+.sc-saved { stroke: var(--save); stroke-width: 1.5; stroke-dasharray: 4 2; }
 .sc-hatch-bg { fill: var(--save-tint); }
 .sc-hatch-line { stroke: var(--save); stroke-width: 2; }
 .sc-grid, .sc-base { stroke: var(--rule); stroke-width: 1; }
 .sc-grid { stroke-opacity: 0.6; }
-.sc-axis, .sc-label, .sc-budget-text { font-family: var(--font-num); font-size: 11px; fill: var(--ink-2); }
+.sc-axis, .sc-label { font-family: var(--font-num); font-size: 11px; fill: var(--ink-2); }
 .sc-label { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--card); stroke-width: 3px; }
 .sc-label--save { fill: var(--save-deep); }
 .sc-label--on-spent { fill: #fff; stroke: none; }
 .sc-week { font-size: 12px; fill: var(--ink-3); }
 .sc-budget { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 4 3; }
-.sc-budget-text { fill: var(--ink); paint-order: stroke; stroke: var(--card); stroke-width: 3px; }
 .sc-legend { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); list-style: none; margin: var(--s-3) 0; padding: 0; font-size: var(--fs-sm); }
 .sc-legend li { display: flex; align-items: center; gap: var(--s-2); }
 .sc-key { width: 14px; height: 14px; border-radius: 3px; }
 .sc-key--spent { background: var(--over); }
+.sc-key--budget { height: 0; border-top: 2px dashed var(--ink); border-radius: 0; }
 .sc-key--saved { border: 1.5px solid var(--save); background: repeating-linear-gradient(45deg, var(--save-tint) 0 3px, var(--save) 3px 5px); }

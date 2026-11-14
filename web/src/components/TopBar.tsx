@@ -10,8 +10,6 @@ export function TopBar({ hash, ask }: {
     <header className="top-bar">
       <div>
         <a className="wordmark" href="#/">Affordly<span className="wordmark-dot">.</span></a>
-        {hash.startsWith('#/discover') &&
-          <Button quiet size="sm" className="mobile-only" onClick={ask}>Ask</Button>}
         <nav aria-label="Main navigation">
           <NavLinks hash={hash} />
           {hash !== '#/' &&

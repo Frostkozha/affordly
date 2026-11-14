@@ -46,3 +46,28 @@
   .ring-svg { width: 180px; height: 180px; }
   .ring-legend { width: 100%; }
 }
+.ring-card {
+  max-width: 560px;
+}
+.ring-card[data-empty="true"] .ring-svg {
+  width: 140px;
+  height: 140px;
+}
+@media (max-width: 767px) {
+  .ring-card[data-empty="true"] {
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
+    padding: var(--s-3) var(--s-4);
+    gap: var(--s-4);
+  }
+  .ring-card[data-empty="true"] .ring-svg {
+    width: 64px;
+    height: 64px;
+  }
+  .ring-card[data-empty="true"] .ring-legend {
+    display: none;
+  }
+  .ring-card[data-empty="true"] .ring-empty {
+    grid-column: auto;
+  }
+}

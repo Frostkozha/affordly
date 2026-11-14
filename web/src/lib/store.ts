@@ -150,7 +150,7 @@ export function StoreProvider({ children }: {
       taste: readTaste(state.inputs ?? defaultInputs),
       result,
       ready,
-      sample,
+      sample: sample && JSON.stringify(state.inputs) === JSON.stringify(defaultInputs),
       revealPlan,
       reprice: () => run(undefined, undefined, undefined, false),
       swaps,

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Icon } from './art/Icons';
 const links = [
-  { name: 'Plan', href: '#/plan#plan', icon: 'plan' },
-  { name: 'Basket', href: '#/plan#basket', icon: 'basket' },
+  { name: 'Plan', href: '#/plan', icon: 'plan' },
   { name: 'Discover', href: '#/discover', icon: 'discover' },
-  { name: 'Week 2', href: '#/week2', icon: 'week' },
   { name: 'Account', href: '#/account', icon: 'account' },
 ] as const;
 export function NavLinks({ hash }: {
@@ -35,8 +33,8 @@ export function NavLinks({ hash }: {
     return () => window.removeEventListener('hashchange', visit);
   }, []);
   return <>{links.map(link => {
-    const active = link.name === 'Plan' ? hash.startsWith('#/plan') && !hash.endsWith('#basket') :
-      link.name === 'Discover' ? hash.startsWith('#/discover') : hash === link.href;
+    const active = link.name === 'Plan' ?
+      /^#\/(plan|next-week|week2)/.test(hash) : hash.startsWith(link.href);
     return <a key={link.name} href={link.href} aria-current={active ? 'page' : undefined}>
       <span className="nav-icon"><Icon name={link.icon} />
         {link.name === 'Discover' && !seen && !hash.startsWith('#/discover') && <i className="unseen-dot" />}</span>

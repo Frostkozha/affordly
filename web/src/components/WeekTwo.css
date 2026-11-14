@@ -4,3 +4,15 @@
 .waste { border-top: 2px solid var(--save); padding: var(--s-5); }
 .waste > .money { display: block; margin: var(--s-5) 0; }
 .waste p { margin-bottom: 0; }
+.week-layout {
+  scroll-margin-top: var(--s-8);
+}
+.leftover-list .receipt-row > .leftover-name {
+  text-align: left;
+}
+.leftover-list .receipt-row > .leftover-amount {
+  text-align: right;
+}
+.leftover-amount .error {
+  display: block;
+}

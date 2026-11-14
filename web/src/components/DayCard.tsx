@@ -7,13 +7,20 @@ import { isEaten } from '../lib/eaten';
 import { DayTotals } from './DayTotals';
 import { MealRow } from './MealRow';
 import './PlanView.css';
-export function DayCard({ plan, day, open }: {
+export function DayCard({ plan, day, open, focusDay = null }: {
   plan: Plan;
   day: number;
+  focusDay?: number | null;
   open: (recipe: Recipe, servings?: number) => void;
 }) {
   const [expanded, setExpanded] = useState(day === 0);
   const id = useId();
+  const [seenFocus, setSeenFocus] = useState(focusDay);
+  if (focusDay !== seenFocus) {
+    setSeenFocus(focusDay);
+    if (focusDay !== null)
+      setExpanded(focusDay === day);
+  }
   const { state } = useStore();
   const meals = plan.meals.filter(meal => meal.day === day);
   const eatenCount = meals.filter(meal => isEaten(state.eaten, state.week, meal)).length;

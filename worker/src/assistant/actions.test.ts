@@ -156,11 +156,12 @@ describe('action facts and templates', () => {
       expect(r.perServing.protein).toBeGreaterThanOrEqual(30);
     }
   });
-  it('scales cooking ingredients to one portion and includes source and steps', async () => {
+  it('lists full-recipe ingredients and includes source and steps', async () => {
     const data = await answer(body, routes[9]);
-    expect(data.facts).toContain((recipe.ingredients[0].grams / recipe.servings).toFixed(1));
+    expect(data.facts).toContain(`full recipe (makes ${recipe.servings} servings)`);
+    expect(data.facts).toContain(`${Math.round(recipe.ingredients[0].grams)} g`);
     expect(data.facts).toContain(recipe.steps[0]);
-    expect(data.facts).toContain(recipe.source.url);
+    expect(data.facts).not.toContain('http');
   });
   it('checks comparisons against the corresponding scenario and feasibility', () => {
     const facts = 'Scenario 1: does not fit. Minimum $71.40.\n'
@@ -176,6 +177,54 @@ describe('action facts and templates', () => {
     expect(verify('Try dinner.', 'Facts', 'facts', [recipe.name])).toBe(false);
     expect(verify('A product.', 'Facts', 'facts', [product.name])).toBe(false);
     expect(verify('Yes, it fits.', 'Plan fits: no', 'does-not-fit')).toBe(false);
+  });
+});
+
+describe('plan references, gap ranking and product exclusion', () => {
+  const meal = (day: number, slot: 'breakfast' | 'dinner', recipeId: string) =>
+    ({ day, slot, recipeId, servings: 1, time: '19:00' });
+  const week: Plan = { ...plan, meals: [meal(2, 'dinner', 'chicken-salad'),
+    meal(1, 'dinner', 'black-bean-quesadillas'), meal(0, 'breakfast', 'breakfast-burrito-salsa')] };
+  it('resolves "first dinner" and day names against the plan, not by name search', async () => {
+    const b = { ...body, plan: week, message: 'how do I cook the first dinner?' };
+    const r = ruleRoute(b);
+    expect(r).toEqual({ action: 'how-to-cook', args: { recipeId: 'black-bean-quesadillas' } });
+    expect((await answer(b, { action: 'how-to-cook', args: { recipeId: 'x' } })).reply.recipeIds)
+      .toEqual(['black-bean-quesadillas']);
+    expect(ruleRoute({ ...b, message: 'How do I make Wednesday dinner?' }).args)
+      .toEqual({ recipeId: 'chicken-salad' });
+    expect(ruleRoute({ ...b, message: 'how do I cook the first breakfast' }).args)
+      .toEqual({ recipeId: 'breakfast-burrito-salsa' });
+  });
+  it('ranks the gap items like the Basket tab: unused money, top three', async () => {
+    const line = (productId: string, cost: number, gramCost: number) =>
+      ({ productId, gramsNeeded: 1, gramsFromPantry: 0, packages: 1, cost, gramCost, gramsLeft: 50 });
+    const basket = [line('olive-oil', 8, 7.5), line('eggs', 5, 1), line('milk', 4, 2), line('rice', 6, 3.2),
+      line('oats', 3, 2.9)];
+    const data = await answer({ ...body, plan: { ...plan, basket } }, routes[6]);
+    const lines = data.facts.split('\n').slice(2);
+    expect(lines.map(l => l.split(':')[0])).toEqual(['Eggs, large', 'Rice, white long-grain, dry',
+      'Milk, 1% lowfat']);
+    expect(lines[0]).toContain('$4.00 unused');
+  });
+  it.each(['I hate tuna', 'No tuna this week'])('%s excludes the tuna product', async message => {
+    const r = await route({ ...body, message });
+    expect(r).toEqual({ action: 'swap-product', args: { productId: 'canned-tuna' } });
+    expect(scenarios(body, r)[0].excludedProductIds).toContain('canned-tuna');
+  });
+  it('says so and keeps the exclusion when the plan has no tuna', async () => {
+    const r: Route = { action: 'swap-product', args: { productId: 'canned-tuna' } };
+    const data = await answer({ ...body, message: 'I hate tuna' }, r);
+    expect(data.reply.text).toBe('Your plan already has no tuna. I will keep it out of future plans.');
+    expect(data.reply.needsSolve).toBeUndefined();
+    expect(data.reply.options).toEqual([{ label: 'Keep tuna out',
+      inputs: { ...inputs, excludedProductIds: ['canned-tuna'] } }]);
+  });
+  it('still solves when the plan does use the product', async () => {
+    const withTuna = { ...plan, basket: [{ ...plan.basket[0], productId: 'canned-tuna' }] };
+    const r: Route = { action: 'swap-product', args: { productId: 'canned-tuna' } };
+    const data = await answer({ ...body, plan: withTuna }, r);
+    expect(data.reply.needsSolve?.length).toBe(1);
   });
 });
 

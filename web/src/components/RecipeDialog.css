@@ -2,6 +2,7 @@
 .overlay::backdrop { background: color-mix(in srgb, var(--ink) 40%, transparent); }
 body:has(dialog[open]) { overflow: hidden; }
 .overlay-heading { display: flex; justify-content: space-between; align-items: start; gap: var(--s-3); margin-bottom: var(--s-4); }
+.overlay-heading { position: sticky; top: calc(-1 * var(--s-5)); z-index: 1; margin: calc(-1 * var(--s-5)) calc(-1 * var(--s-5)) var(--s-4); padding: var(--s-5) var(--s-5) var(--s-2); background: var(--card); }
 .overlay-heading h2 { padding-top: var(--s-2); }
 .overlay li { margin-bottom: var(--s-3); }
 .recipe-hero { margin-bottom: var(--s-5); aspect-ratio: 16 / 9; }
@@ -9,4 +10,6 @@ body:has(dialog[open]) { overflow: hidden; }
 .ingredients li { display: flex; justify-content: space-between; gap: var(--s-3); padding: var(--s-2) 0; border-bottom: 1px dashed var(--rule); }
 @media (max-width: 767px) {
 .overlay { width: 100%; max-width: 100%; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; padding: var(--s-4); }
+.overlay-heading { top: calc(-1 * var(--s-4)); margin: calc(-1 * var(--s-4)) calc(-1 * var(--s-4)) var(--s-4); padding: var(--s-4) var(--s-4) var(--s-2); }
 }
+.overlay p.num { white-space: normal; }

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { Plan } from '@affordly/engine';
 import { dayNames } from '../lib/config';
@@ -44,9 +43,12 @@ function Ring({ index, pct, empty }: { index: number; pct: number; empty: boolea
   );
 }
 
-export function DayRings({ plan }: { plan: Plan }) {
+export function DayRings({ plan, picked, setPicked }: {
+  plan: Plan;
+  picked: number | null;
+  setPicked: (day: number) => void;
+}) {
   const { inputs, state } = useStore();
-  const [picked, setPicked] = useState<number | null>(null);
   const day = picked ?? firstOpenDay(plan, state.eaten, state.week);
   const { totals, count } = eatenTotals(plan, day, state.eaten, state.week);
   const targets = {
@@ -69,7 +71,7 @@ export function DayRings({ plan }: { plan: Plan }) {
             onClick={() => setPicked(d)}>{name}</button>
         )}
       </div>
-      <div className="ring-card">
+      <div className="ring-card" data-empty={count === 0}>
         <svg className="ring-svg" viewBox="0 0 220 220" role="img" aria-label={label}>
           <g transform="rotate(-90 110 110)">
             {rows.map(r => <Ring key={r.key} index={r.i} pct={r.pct} empty={count === 0} />)}

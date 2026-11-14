@@ -24,22 +24,23 @@ export function PriceEdit({ productId, changed }: {
   };
   return (
     <div className="price-edit">
-      <label htmlFor={`price-${productId}`}>Price per package</label>
+      <label htmlFor={`price-${productId}`}>Store price per package (editable)</label>
       <div className="inline">
         <span aria-hidden="true">$</span>
         <input
           id={`price-${productId}`}
           className="num"
-          type="number"
-          min="0"
-          step="0.01"
+          type="text"
           inputMode="decimal"
+          pattern="[0-9]*[.]?[0-9]*"
           value={value}
           aria-invalid={error}
           onChange={e => {
-            setValue(e.target.value);
-            if (e.target.value !== '')
-              void update(e.target.valueAsNumber);
+            const text = e.target.value.replace(',', '.');
+            const price = Number(text);
+            setValue(text);
+            if (text !== '' && Number.isFinite(price) && price >= 0)
+              void update(price);
             else
               setError(true);
           }}

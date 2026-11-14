@@ -42,7 +42,7 @@ export function AssistantMessage({ response, open, apply, suggest, paywall, disa
         return r ? <div key={id}>
           <RecipeCard recipe={r} open={open} />
           {response.action === 'how-to-cook' &&
-            <a href={r.source.url} target="_blank" rel="noreferrer">{r.source.name}</a>}
+            <a href={r.source.url} target="_blank" rel="noreferrer">Source recipe</a>}
         </div> : null;
       })}
       {response.options?.map((option, index) =>

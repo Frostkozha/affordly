@@ -24,7 +24,7 @@ export function MealCard({ recipe, top, open }: {
     {top && <Button size="sm" className="meal-details" onClick={open}>Details</Button>}
     <div className="meal-caption">
       <h2>{recipe.name}</h2>
-      <p className="num">{recipe.cookMinutes} min · {recipe.perServing.protein} g protein</p>
+      <p className="num">{recipe.cookMinutes} min · {Math.round(recipe.perServing.protein)} g protein per serving</p>
       <p className="money">{fmtMoney(recipePrice(recipe))} per serving</p>
       {top && <p className="weight-note">By weight. The receipt rounds up to whole packages.</p>}
       <div className="meal-tags">{[...recipe.mealTypes.map(t => t[0].toUpperCase() + t.slice(1)),

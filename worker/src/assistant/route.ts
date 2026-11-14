@@ -1,4 +1,5 @@
 import type { AssistantAction, AssistantRequest } from '../../../packages/engine/src/api';
+import type { Plan } from '../../../packages/engine/src/types';
 import catalog from '../../../data/catalog.json';
 import recipes from '../../../data/recipes.json';
 import type { Env } from '../http';
@@ -69,6 +70,48 @@ Tags: ${avoidTags.join(', ')}.
 Recipes (id: name): ${recipes.map(r => `${r.id}: ${r.name}`).join('; ')}.
 Products (id: name): ${catalog.products.map(p => `${p.id}: ${p.name}`).join('; ')}.`;
 
+const slotWords = ['breakfast', 'lunch', 'dinner'];
+const dayWords = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const ordinalWords = ['first', 'second', 'third'];
+
+/**
+ * Resolves "first dinner", "Monday lunch", "tonight's dinner" or "tomorrow's breakfast" to the recipe
+ * of that meal in the current plan. First means the earliest day. Needs a slot word plus a day,
+ * ordinal or "last"; otherwise returns undefined and the caller falls back to name search.
+ */
+export function resolveMeal(message: string, plan?: Pick<Plan, 'meals'> | null): string | undefined {
+  const m = message.toLowerCase();
+  const slot = slotWords.find(s => m.includes(s));
+  if (!plan || !slot) return undefined;
+  const today = (new Date().getUTCDay() + 6) % 7;
+  let day = dayWords.findIndex(d => m.includes(d));
+  if (day < 0 && /\b(tonight|today)/.test(m)) day = today;
+  if (day < 0 && /\btomorrow/.test(m)) day = (today + 1) % 7;
+  const nth = ordinalWords.findIndex(o => new RegExp('\\b' + o + '\\b').test(m));
+  const last = /\blast\b/.test(m);
+  if (day < 0 && nth < 0 && !last) return undefined;
+  const meals = plan.meals.filter(x => x.slot === slot && (day < 0 || x.day === day))
+    .sort((a, b) => a.day - b.day);
+  return (last ? meals.at(-1) : meals[Math.max(nth, 0)])?.recipeId;
+}
+
+// Words that name a kind of product too loosely to match on their own ("ground", "sweet").
+const looseWords = ['ground', 'sweet', 'frozen', 'yellow', 'whole', 'rolled', 'flour', 'diced',
+  'russet', 'black', 'cottage', 'greek', 'plain', 'large', 'light'];
+
+/** The catalog product a message names: the most name words matched wins, the first on a tie. */
+export function findProduct(message: string) {
+  const m = message.toLowerCase();
+  let best: { product: typeof catalog.products[number]; score: number } | undefined;
+  for (const product of catalog.products) {
+    const words = product.name.toLowerCase().split(',')[0].split(/[^a-z]+/).filter(w => w.length > 3);
+    const hits = words.filter(w => new RegExp('\\b' + w.replace(/s$/, '') + '(s|es)?\\b').test(m));
+    const score = m.includes(product.id) ? 9 : hits.every(w => looseWords.includes(w)) ? 0 : hits.length;
+    if (score > (best?.score ?? 0)) best = { product, score };
+  }
+  return best?.product;
+}
+
 export function validRoute(v: unknown): v is Route {
   if (!isObject(v) || Object.keys(v).some(k => !['action', 'args'].includes(k))) return false;
   if (!isObject(v.args)) return false;
@@ -103,12 +146,17 @@ export function validRoute(v: unknown): v is Route {
   }
 }
 
-export function ruleRoute(body: Pick<AssistantRequest, 'message' | 'inputs'>): Route {
+export function ruleRoute(body: Pick<AssistantRequest, 'message' | 'inputs' | 'plan'>): Route {
   const m = body.message;
   const intent = classifyRules(m);
   if (intent === 'medical') return { action: 'medical', args: {} };
   if (/\b(joke|weather|politics|code|president|movie)\b/i.test(m)) {
     return { action: 'off-topic', args: {} };
+  }
+  if (/\bhow\b.*\b(cook|make|prepare)\b|\b(recipe|steps) for\b/i.test(m)) {
+    const recipeId = resolveMeal(m, body.plan)
+      ?? recipes.find(r => m.toLowerCase().includes(r.name.toLowerCase()))?.id;
+    if (recipeId) return { action: 'how-to-cook', args: { recipeId } };
   }
   if (/leftovers?/i.test(m) && /cook|use|make/i.test(m)) return { action: 'use-leftovers', args: {} };
   if (/gap|leftover|costs the most|summary|my plan/i.test(m)) {
@@ -123,11 +171,9 @@ export function ruleRoute(body: Pick<AssistantRequest, 'message' | 'inputs'>): R
       .sort((a, b) => efficiency(b) - efficiency(a)).slice(0, 3).map(p => p.id);
     return { action: 'price-lookup', args: { productIds } };
   }
-  const product = catalog.products.find(p =>
-    m.toLowerCase().includes(p.id) || m.toLowerCase().includes(p.name.toLowerCase().split(',')[0])
-    || (p.id === 'tuna' && /tuna/i.test(m))
-    || (p.id === 'chicken-breast' && /chicken/i.test(m)));
-  if (product && /no |replace|swap|without/i.test(m)) {
+  const product = findProduct(m);
+  const drop = /\bno\b|replace|swap|without|hate|dislike|avoid|skip|remove|sick of|(don't|do not) want/i;
+  if (product && drop.test(m)) {
     return { action: 'swap-product', args: { productId: product.id } };
   }
   if (product && /price|how much|cost/i.test(m)) {
@@ -155,7 +201,7 @@ export function ruleRoute(body: Pick<AssistantRequest, 'message' | 'inputs'>): R
 export async function route(body: AssistantRequest, env?: Env): Promise<Route> {
   const fallback = ruleRoute(body);
   // Health questions get the medical refusal before any other gate.
-  if (fallback.action === 'medical') return fallback;
+  if (fallback.action === 'medical' || fallback.action === 'swap-product') return fallback;
   // The rule path handles only unambiguous messages; anything comparative goes to the model.
   const comparative = /\b(vs|versus|compare|or|what if|than)\b/i.test(body.message);
   const amounts = body.message.match(/\$\s*\d+|\b\d+\s*dollars?\b/gi) ?? [];

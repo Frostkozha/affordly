@@ -12,6 +12,7 @@ import { CheckoutGapCard } from './CheckoutGapCard';
 import { DayCard } from './DayCard';
 import { DayRings } from './DayRings';
 import { isEaten } from '../lib/eaten';
+import { NextWeekLink } from './NextWeekLink';
 
 export function PlanView({ plan, go, open }: {
   plan: Plan | null;
@@ -19,6 +20,7 @@ export function PlanView({ plan, go, open }: {
   open: (recipe: Recipe, servings?: number) => void;
 }) {
   const { inputs, revealPlan, state } = useStore();
+  const [picked, setPicked] = useState<number | null>(null);
   const [reveal] = useState(() => {
     if (!plan || !revealPlan) return false;
     const key = 'daysRevealed:' + plan.meals.map(meal => meal.recipeId + meal.servings).join(',');
@@ -39,6 +41,13 @@ export function PlanView({ plan, go, open }: {
   const eatenTotal = plan.meals.filter(meal => isEaten(state.eaten, state.week, meal)).length;
   return (
     <>
+      <div className="plan-intro">
+        {state.week > 1 ?
+          <p>Week {state.week} plan. Leftovers from week {state.week - 1} are used first.</p> :
+          <p>Week 1 plan. Leftovers from this week carry into next week.</p>
+        }
+        <NextWeekLink />
+      </div>
       <div
         className="week-strip"
         aria-live="polite"
@@ -61,12 +70,13 @@ export function PlanView({ plan, go, open }: {
         />
         <p className="meta num week-eaten">{eatenTotal} of {plan.meals.length} meals eaten</p>
       </div>
-      <DayRings plan={plan} />
+      <DayRings plan={plan} picked={picked} setPicked={setPicked} />
       <div className="plan-layout">
         <div className={'day-grid' + (reveal ? ' reveal-stagger' : '')}>
           {dayNames.map((name, day) =>
-            <DayCard key={name} plan={plan} day={day} open={open} />
+            <DayCard key={name} plan={plan} day={day} open={open} focusDay={picked} />
           )}
+          <div className="next-week-end"><NextWeekLink /></div>
         </div>
         <aside className="plan-aside">
           <CheckoutGapCard plan={plan} budget={inputs.budget} />

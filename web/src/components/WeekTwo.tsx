@@ -1,7 +1,7 @@
 import { DoesNotFit } from './DoesNotFit';
 import './WeekTwo.css';
 import { SolveStatus } from './SolveStatus';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { PantryItem } from '@affordly/engine';
 import { nextWeekPantry } from '../lib/engine';
 import { useStore } from '../lib/store';
@@ -21,44 +21,58 @@ export function WeekTwo({ locked, go }: {
   const { state, result, run, solving, solveError, retry } = useStore();
   const [dropped, setDropped] = useState<PantryItem[]>([]);
   const plan = result?.ok ? result.plan : null;
+  const resultTop = useRef<HTMLDivElement>(null);
+  const pending = useRef(false);
+  useEffect(() => {
+    if (!pending.current || solving || !plan || state.week < 2)
+      return;
+    pending.current = false;
+    resultTop.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [solving, plan, state.week]);
   const simulate = async () => {
     if (!plan)
       return;
     try {
       const carry = nextWeekPantry(plan);
+      pending.current = true;
       setDropped(plan.pantryAfter.filter(p => p.daysLeft !== null && p.daysLeft <= 7));
       await run(undefined, carry, state.week + 1);
     } catch {
-      // The shared solve state offers a retry without discarding week one.
+      pending.current = false;
+      // The shared solve state offers a retry without discarding the current week.
     }
   };
   if (solving) {
-    return <><h1>Week 2</h1><SolveStatus /></>;
+    return <><h1>Next week</h1><SolveStatus /></>;
   }
   if (solveError) {
-    return <><h1>Week 2</h1><ErrorState retry={retry}>{solveError}</ErrorState></>;
+    return <><h1>Next week</h1><ErrorState retry={retry}>{solveError}</ErrorState></>;
   }
   if (result && !result.ok)
-    return <><h1>Week 2</h1><DoesNotFit result={result} go={go} /></>;
+    return <><h1>Next week</h1><DoesNotFit result={result} go={go} /></>;
   if (!plan)
     return (
       <>
-        <h1>Week 2</h1>
+        <h1>Next week</h1>
         <EmptyState
           action="Go to inputs"
           onAction={() => go('inputs')}
         >
-          No plan yet. Plan week one to see your leftovers.
+          No plan yet. Plan your week first to see your leftovers.
         </EmptyState>
       </>);
   return (
     <>
       <div className="page-heading">
         <span className="eyebrow">Make the next receipt smaller</span>
-        <h1>Week 2</h1>
-        <p>Leftovers from week 1 count as free groceries in week 2.</p>
+        <h1>Next week</h1>
+        <p>
+          {state.week === 1 ?
+            `Leftovers from week ${state.week} count as free groceries in week ${state.week + 1}.` :
+            `Showing your week ${state.week} plan, built from week ${state.week - 1} leftovers.`}
+        </p>
       </div>
-      <div className="week-layout">
+      <div className="week-layout" ref={resultTop}>
         <div className="stack">
           {state.week === 1 ?
             <>
@@ -72,7 +86,8 @@ export function WeekTwo({ locked, go }: {
             </>
             :
             <>
-              <WasteAvoided plan={plan} />
+              <WasteAvoided plan={plan} week={state.week} />
+              <a className="btn btn--primary btn--md" href="#/plan">See the week {state.week} plan</a>
               <LeftoverList title={`Carried over from week ${state.week - 1}`} items={state.pantry} />
               {dropped.length > 0
                 &&

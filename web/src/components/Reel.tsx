@@ -47,7 +47,7 @@ export function Reel({ data, plan, active, sample, index, total, navigate, open,
       open(recipe);
     else
       location.hash = data.kind === 'creators' ? '/creators' :
-        data.kind === 'leftovers' ? '/week2' : '/plan#basket';
+        data.kind === 'leftovers' ? '/next-week' : '/plan/basket';
   };
   const share = async () => {
     const facts = recipe ? recipe.name + ': ' + recipe.cookMinutes + ' min, '

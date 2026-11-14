@@ -38,6 +38,7 @@ export function HeroReceipt({ plan }: {
       </svg>
       {print && <span className="print-head" aria-hidden="true" />}
     </section>
+    <p className="meta checkout-gap-def">Checkout Gap: what you pay for package leftovers the recipes do not use.</p>
     <p className="meta">Same week, same food. The {fmtMoney(plan.checkoutGap)} gap is packages
       you cannot half-buy.</p>
   </div>;

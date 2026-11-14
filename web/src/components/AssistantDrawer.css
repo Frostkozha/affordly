@@ -1,0 +1,25 @@
+.drawer[open] { position: fixed; margin: 0 0 0 auto; inset: 0; height: 100dvh; max-height: 100dvh; width: 420px; max-width: 100%; border-radius: 0; display: flex; flex-direction: column; animation: drawer-in 220ms var(--ease); }
+.drawer::backdrop { background: transparent; }
+.messages { flex: 1; min-height: 0; overflow: auto; padding: var(--s-2) 0; }
+.user-message { border-radius: var(--r-md); background: var(--sunk); padding: var(--s-3); margin-left: var(--s-6); }
+.assistant-message { border: 1px solid var(--rule); border-radius: var(--r-md); padding: var(--s-4); margin-bottom: var(--s-5); }
+.refusal { background: var(--over-tint); border-left: 3px solid var(--over); }
+.refusal .badge { margin-bottom: var(--s-3); }
+.assistant-message > small { display: block; margin-bottom: var(--s-3); }
+.recipe-card { display: flex; width: 100%; gap: var(--s-3); align-items: center; padding: var(--s-3) 0; border: 0; border-top: 1px dashed var(--rule); text-align: left; background: transparent; }
+.recipe-card .meta { display: block; white-space: normal; margin-top: var(--s-1); }
+.assistant-input { border-top: 1px solid var(--rule); display: flex; padding-top: var(--s-4); gap: var(--s-2); }
+.assistant-input input { min-width: 0; flex: 1; }
+.assistant-input .btn { padding: 0 var(--s-3); }
+.suggestions { display: grid; gap: var(--s-3); }
+.suggestions .btn { text-align: left; justify-content: start; }
+@keyframes drawer-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@media (max-width: 767px) {
+.drawer[open] { width: 100%; height: 85dvh; max-height: 85dvh; inset: auto 0 0; border-radius: var(--r-lg) var(--r-lg) 0 0; animation-name: sheet-in; }
+}
+@media (max-width: 767px) {
+.drawer::backdrop { background: color-mix(in srgb, var(--ink) 40%, transparent); }
+}
+@media (max-width: 767px) {
+@keyframes sheet-in { from { transform: translateY(100%); } to { transform: translateY(0); } }
+}

@@ -1,0 +1,1 @@
+export { JudgeGuide } from './Landing';

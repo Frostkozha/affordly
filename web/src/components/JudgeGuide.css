@@ -1,0 +1,3 @@
+.judge-guide { background: transparent; box-shadow: none; }
+.judge-guide ol { padding-left: var(--s-5); font-size: var(--fs-sm); margin-bottom: 0; }
+.judge-guide li { padding-left: var(--s-2); margin-bottom: var(--s-3); }

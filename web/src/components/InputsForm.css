@@ -1,0 +1,30 @@
+.input-layout { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s-8); align-items: start; }
+.input-layout form { min-width: 0; }
+.input-layout form section { margin: var(--s-7) 0; }
+.field { margin-bottom: var(--s-5); }
+.budget-input { display: flex; align-items: center; font-family: var(--font-num); font-size: var(--fs-money); border-bottom: 2px solid var(--ink); margin-bottom: var(--s-2); }
+.budget-input input { font-size: inherit; background: transparent; border: 0; width: 100%; padding-left: var(--s-2); min-width: 0; }
+.target-fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+.target-fields input { display: block; width: 100%; margin: var(--s-2) 0; }
+fieldset { border: 0; padding: 0; margin: var(--s-5) 0 0; }
+legend { font-size: var(--fs-sm); font-weight: 650; margin-bottom: var(--s-3); }
+.glance { padding: var(--s-6); position: sticky; top: calc(var(--s-8) + var(--s-5)); }
+.summary-money { font-size: var(--fs-money); }
+.glance .meta:last-child { margin-top: var(--s-5); }
+.workout-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); padding: var(--s-4) 0; border-top: 1px dashed var(--rule); }
+.workout-row input, .workout-row select { width: 100%; min-width: 0; }
+@media (max-width: 767px) {
+.input-layout, .plan-layout, .day-grid, .week-layout, .account-layout, .not-fit { grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+}
+@media (max-width: 767px) {
+.input-layout form section { margin: var(--s-7) 0; }
+}
+@media (max-width: 767px) {
+.glance, .plan-aside { display: none; }
+}
+@media (max-width: 767px) {
+.form-cta { position: sticky; bottom: calc(var(--s-7) + var(--s-2) + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--rule); padding: var(--s-3) 0; z-index: 1; }
+}
+@media (max-width: 767px) {
+.form-cta .btn { width: calc(100% - var(--s-8)); }
+}

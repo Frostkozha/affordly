@@ -1,0 +1,1 @@
+export { MealThumb } from './PlanView';

@@ -1,0 +1,15 @@
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin: var(--s-5) 0; }
+.compare .card { display: flex; flex-direction: column; align-items: start; }
+.plus-card { border: 2px solid var(--ink); }
+.plus-card .badge { margin-bottom: var(--s-4); }
+.compare .card:last-child { order: -1; }
+.compare ul { padding-left: var(--s-5); flex: 1; }
+.compare li { margin-bottom: var(--s-3); font-size: var(--fs-sm); }
+.plan-price { font-size: var(--fs-xl); }
+.compare .meta { margin-top: var(--s-3); }
+@media (max-width: 767px) {
+.compare { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+.compare .card:last-child { order: 0; }
+}

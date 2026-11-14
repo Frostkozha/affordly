@@ -1,0 +1,8 @@
+.not-fit { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s-7); }
+.not-fit h2 { margin-top: var(--s-5); font-size: var(--fs-2xl); }
+.reason { font-size: var(--fs-lg); }
+.alternatives { display: grid; gap: var(--s-4); }
+.alternative { display: grid; gap: var(--s-3); }
+.alternative h3, .alternative p { margin: 0; }
+.alternative .badge { justify-self: start; }
+.diff { white-space: normal; }

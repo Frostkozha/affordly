@@ -1,0 +1,46 @@
+.landing { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s-8); padding-top: var(--s-7); align-items: start; }
+.hero { padding-top: var(--s-7); }
+.hero h1 { max-width: 12ch; margin-bottom: var(--s-5); }
+.hero-sub { font-size: var(--fs-lg); color: var(--ink-2); line-height: var(--lh-body); margin-bottom: var(--s-6); }
+.hero-buttons { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+.hero-buttons .btn { min-height: var(--s-7); }
+.landing-proof { display: grid; gap: var(--s-5); }
+.proof { padding: var(--s-6); border-top: 2px solid var(--ink); transform: rotate(.6deg); }
+.receipt-heading { border-bottom: 1px dashed var(--rule); padding-bottom: var(--s-4); margin-bottom: var(--s-5); }
+.receipt-heading .eyebrow { color: var(--ink); }
+.receipt-heading .meta { letter-spacing: .1em; }
+.proof-figure { display: flex; flex-direction: column; gap: var(--s-2); margin-bottom: var(--s-5); }
+.proof-figure > span:first-child { color: var(--ink-2); font-size: var(--fs-sm); }
+.proof-gap { border-top: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); display: flex; justify-content: space-between; padding: var(--s-4) 0; margin-bottom: var(--s-4); font-weight: 650; }
+.proof p { font-size: var(--fs-sm); }
+.receipt-end { text-align: center; color: var(--ink-3); letter-spacing: .15em; margin-top: var(--s-5); font-family: var(--font-num); }
+@media (max-width: 767px) {
+.landing { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); padding-top: var(--s-4); }
+}
+@media (max-width: 767px) {
+.hero { padding-top: 0; }
+}
+@media (max-width: 767px) {
+.hero h1 { max-width: 15ch; }
+}
+@media (max-width: 767px) {
+.hero-sub { font-size: var(--fs-md); margin-bottom: var(--s-5); }
+}
+@media (max-width: 767px) {
+.hero-buttons { display: grid; margin-bottom: 0; }
+}
+@media (max-width: 767px) {
+.landing-source { display: none; }
+}
+@media (max-width: 767px) {
+.proof { transform: none; padding: var(--s-5); }
+}
+@media (max-width: 767px) {
+.proof-figure { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+@media (max-width: 767px) {
+.proof-figure .money--big { font-size: var(--fs-2xl); }
+}
+@media (max-width: 767px) {
+.landing-proof { gap: var(--s-5); }
+}

@@ -1,0 +1,47 @@
+.week-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); flex-wrap: wrap; margin-bottom: var(--s-6); }
+progress { width: 100%; height: var(--s-1); border: 0; background: var(--sunk); color: var(--save); accent-color: var(--save); }
+progress::-webkit-progress-bar { background: var(--sunk); }
+progress::-webkit-progress-value { background: var(--save); }
+.plan-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-5); align-items: start; }
+.day-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+.day-card { padding: 0; overflow: hidden; }
+.day-card summary { min-height: var(--s-8); padding: var(--s-4); cursor: pointer; }
+.day-card summary strong { font-family: var(--font-display); font-size: var(--fs-lg); }
+.day-totals { display: block; color: var(--ink-2); font-size: var(--fs-xs); margin-top: var(--s-2); white-space: normal; }
+.meal-row { border: 0; border-top: 1px dashed var(--rule); padding: var(--s-3); width: 100%; text-align: left; background: transparent; display: flex; align-items: center; gap: var(--s-3); }
+.meal-row:hover, .recipe-card:hover { background: var(--sunk); }
+.meal-row > span:nth-child(2) { flex: 1; min-width: 0; }
+.meal-row strong { font-size: var(--fs-sm); line-height: var(--lh-snug); display: block; margin: var(--s-1) 0; }
+.meal-row .num { white-space: normal; display: block; }
+.meal-thumb { flex-shrink: 0; width: calc(var(--s-7) + var(--s-2)); height: calc(var(--s-7) + var(--s-2)); border-radius: var(--r-md); object-fit: cover; background: var(--sunk); }
+.placeholder { display: inline-flex; align-items: center; justify-content: center; font: var(--fs-xl) var(--font-display); color: var(--ink-3); }
+.plan-aside { position: sticky; top: calc(var(--s-8) + var(--s-5)); display: grid; gap: var(--s-4); }
+.plan-aside .money--big { font-size: var(--fs-xl); }
+.plan-aside .section-top .eyebrow { display: none; }
+.plan-aside .receipt-row:last-child { flex-wrap: wrap; }
+.recipe-hero .meal-thumb { width: 100%; height: 100%; aspect-ratio: 16 / 9; }
+.recipe-card .meal-thumb { width: calc(var(--s-8) + var(--s-2)); height: calc(var(--s-8) + var(--s-2)); }
+@media (min-width: 768px) and (max-width: 1050px) {
+.plan-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+.plan-aside { display: none; }
+}
+@media (max-width: 767px) {
+.day-card summary { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); }
+}
+@media (max-width: 767px) {
+.day-card summary::after { content: '+'; }
+}
+@media (max-width: 767px) {
+.day-card[open] summary::after { content: '−'; }
+}
+@media (max-width: 767px) {
+.day-totals { font-size: var(--fs-xs); margin: 0; }
+}
+@media (max-width: 767px) {
+.recipe-card .meal-thumb { width: var(--s-8); height: var(--s-8); }
+}
+@media (max-width: 350px) {
+.day-totals { max-width: 21ch; }
+}

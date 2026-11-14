@@ -1,0 +1,6 @@
+.week-layout { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: var(--s-7); margin-bottom: var(--s-7); }
+.leftover-list { list-style: none; padding: 0; margin: 0; }
+.leftover-list .meta { display: block; margin-top: var(--s-1); }
+.waste { border-top: 2px solid var(--save); padding: var(--s-5); }
+.waste > .money { display: block; margin: var(--s-5) 0; }
+.waste p { margin-bottom: 0; }

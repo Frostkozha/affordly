@@ -1,0 +1,1 @@
+export { WasteAvoided } from './WeekTwo';

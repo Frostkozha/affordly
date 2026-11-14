@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { Plan } from '@affordly/engine';
 import { dayNames } from '../lib/config';
 import { getRecipes } from '../lib/engine';
@@ -12,10 +12,10 @@ const names = { kcal: 'Calories', protein: 'Protein', carbs: 'Carbs', fat: 'Fat'
 const units = { kcal: 'kcal', protein: 'g', carbs: 'g', fat: 'g' };
 const radii = [103, 85, 67, 49];
 
-function eatenTotals(plan: Plan, day: number, eaten: string[] | undefined, week: number) {
+function dayTotals(plan: Plan, day: number, eaten?: { keys: string[] | undefined; week: number }) {
   const totals = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
   const recipes = getRecipes();
-  const meals = plan.meals.filter(m => m.day === day && isEaten(eaten, week, m));
+  const meals = plan.meals.filter(m => m.day === day && (!eaten || isEaten(eaten.keys, eaten.week, m)));
   for (const meal of meals) {
     const recipe = recipes.find(r => r.id === meal.recipeId);
     if (!recipe) continue;
@@ -48,15 +48,13 @@ export function DayRings({ plan, picked, setPicked }: {
   picked: number | null;
   setPicked: (day: number) => void;
 }) {
-  const { inputs, state } = useStore();
-  const day = picked ?? firstOpenDay(plan, state.eaten, state.week);
-  const { totals, count } = eatenTotals(plan, day, state.eaten, state.week);
-  const targets = {
-    kcal: inputs.kcalPerDay,
-    protein: inputs.proteinPerDay,
-    carbs: inputs.carbsPerDay ?? plan.days[day].carbs,
-    fat: inputs.fatPerDay ?? plan.days[day].fat,
-  };
+  const { state } = useStore();
+  // Open on the first unfinished day, then stay there: a day that was just finished shows its full rings.
+  const [opened] = useState(() => firstOpenDay(plan, state.eaten, state.week));
+  const day = picked ?? opened;
+  const { totals, count } = dayTotals(plan, day, { keys: state.eaten, week: state.week });
+  // The goal is the day's own planned meals, so a day with every meal ticked reads exactly 100%.
+  const targets = dayTotals(plan, day).totals;
   const rows = keys.map((key, i) => {
     const pct = targets[key] > 0 ? totals[key] / targets[key] : 0;
     const text = `${names[key]} ${fmtNum(totals[key])} / ${fmtNum(targets[key])} ${units[key]}`;

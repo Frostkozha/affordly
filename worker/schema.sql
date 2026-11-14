@@ -5,3 +5,9 @@ CREATE TABLE IF NOT EXISTS accounts (
   updated_at TEXT,
   state TEXT
 );
+CREATE TABLE IF NOT EXISTS usage (
+  account_id TEXT,
+  day TEXT,
+  count INTEGER,
+  PRIMARY KEY(account_id, day)
+);

@@ -1,5 +1,6 @@
 import { account } from './account';
 import { kroger } from './kroger';
+import { assistant } from './assistant';
 import { HttpError, json, type Env } from './http';
 
 export default {
@@ -11,7 +12,7 @@ export default {
       else if (request.method === 'GET' && url.pathname === '/api/health') response = json({ ok: true });
       else {
         // assistant route is registered here
-        response = await account(request, env, url) ?? await kroger(request, env, url) ?? json({ error: 'Not found' }, 404);
+        response = await assistant(request, env, url) ?? await account(request, env, url) ?? await kroger(request, env, url) ?? json({ error: 'Not found' }, 404);
       }
     } catch (error) {
       response = error instanceof HttpError

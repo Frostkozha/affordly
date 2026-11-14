@@ -41,18 +41,18 @@ function solvedFacts(body: AssistantRequest, route: Route, asked: Inputs[],
     reply.result = results[0];
     reply.options = [];
     results.forEach((r, index) => {
-      const label = route.action === 'compare' ? `Scenario ${index + 1}` : 'this plan';
+      const label = route.action === 'compare' ? `Scenario ${index + 1}:` : 'This plan';
       if (r.ok) {
         const p = r.plan;
-        lines.push(`${label}: fits. Receipt ${money(p.basketCost)}; budget ${money(asked[index].budget)}; `
+        lines.push(`${label} fits. Receipt ${money(p.basketCost)}; budget ${money(asked[index].budget)}; `
           + `recipe price ${money(p.gramCost)}; Checkout Gap ${money(p.checkoutGap)}; `
           + `${Math.round(p.average.protein)} g protein and ${Math.round(p.average.kcal)} kcal daily.`);
-        reply.options!.push({ label: route.action === 'compare' ? `Apply ${label}` : 'Apply this plan',
+        reply.options!.push({ label: route.action === 'compare' ? `Apply Scenario ${index + 1}` : 'Apply this plan',
           inputs: asked[index] });
       } else {
-        lines.push(`${label}: does not fit. ${r.reason}`);
+        lines.push(`${label} does not fit. ${r.reason}`);
         const minimum = r.alternatives.find(x => x.kind === 'min-budget');
-        if (minimum) lines.push(`Solver minimum receipt: ${money(minimum.plan.basketCost)}.`);
+        if (minimum) lines.push(`Cheapest plan that fits: ${money(minimum.plan.basketCost)}.`);
       }
     });
     reply.refused = results.every(r => !r.ok);

@@ -116,7 +116,7 @@ describe('action facts and templates', () => {
     const data = await answer({ ...body, asked, results: [impossible, feasible] }, r);
     expect(data.reply.results).toEqual([impossible, feasible]);
     expect(data.reply.options).toEqual([{ label: 'Apply Scenario 2', inputs: asked[1] }]);
-    expect(data.facts).toContain('Solver minimum receipt: $71.40');
+    expect(data.facts).toContain('Cheapest plan that fits: $71.40');
     expect(data.facts).toContain('Scenario 2: fits. Receipt $71.40');
   });
   it('covers required local fallback questions without an AI binding', async () => {

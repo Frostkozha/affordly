@@ -77,8 +77,22 @@ footer { margin-bottom: calc(var(--s-8) + env(safe-area-inset-bottom)); align-it
 .device-banner { display: block; margin-bottom: var(--s-5); }
 }
 @media (max-width: 767px) {
-.sub-tabs { position: sticky; top: 0; justify-content: space-between; gap: 0; margin: 0 calc(-1 * var(--gutter)) var(--s-5); padding: 0 var(--gutter); }
+.sub-tabs { position: static; justify-content: space-between; gap: 0; margin: 0 calc(-1 * var(--gutter)) var(--s-5); padding: 0 var(--gutter); }
 }
 @media (max-width: 767px) {
 .sub-tabs a { flex: 1; text-align: center; }
+}
+/* Reserve scrolling clearance for Ask and the bottom navigation. */
+@media (max-width: 767px) {
+  body:has(.ask-float) {
+    padding-bottom: calc(var(--s-8) + var(--s-7) + var(--s-5) + env(safe-area-inset-bottom));
+  }
+  .ask-float {
+    right: var(--s-2);
+    bottom: calc(var(--s-7) + var(--s-2) + var(--s-3) + env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 767px) {
+  .plan-layout, .day-grid { grid-template-columns: minmax(0, 1fr); }
+  .plan-aside { display: none; }
 }

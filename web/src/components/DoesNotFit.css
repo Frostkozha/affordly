@@ -6,3 +6,7 @@
 .alternative h3, .alternative p { margin: 0; }
 .alternative .badge { justify-self: start; }
 .diff { white-space: normal; }
+
+@media (max-width: 767px) {
+  .not-fit { grid-template-columns: minmax(0, 1fr); }
+}

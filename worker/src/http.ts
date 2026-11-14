@@ -13,7 +13,11 @@ export interface Env {
   KROGER_CLIENT_SECRET: string;
 }
 export class HttpError extends Error {
-  constructor(public status: number, message: string) { super(message); }
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
 }
 export const json = (body: unknown, status = 200) => Response.json(body, { status });
 

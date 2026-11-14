@@ -1,7 +1,23 @@
 import './Paywall.css';
 import { useStore } from '../lib/store';
-import { demoTerms } from '../lib/config';
-import { Badge, Button, Money } from './shared';
-export function UnlockDemoButton({ unlocked }: { unlocked?: () => void }) { const { setPlus } = useStore(); return <div><Button primary onClick={() => { setPlus(true); unlocked?.(); }}>Unlock demo</Button><p className="meta">Demo unlock. No payment, nothing is charged.</p></div>; }
-export function PlanCompare({ unlocked }: { unlocked?: () => void }) { return <div className="compare"><article className="card plus-card"><Badge kind="plus">Best for repeat weeks</Badge><h3>Plus</h3><p className="plan-price"><Money value={demoTerms.monthly} />/month</p><p>or <Money value={demoTerms.yearly} />/year</p><p className="meta">Save <Money value={demoTerms.monthly * 12 - demoTerms.yearly} /> vs monthly</p><ul>{['Week two onward with leftover carry-over', 'History of every week', 'Training-aware meals', 'Unlimited swaps'].map(t => <li key={t}>{t}</li>)}</ul><UnlockDemoButton unlocked={unlocked} /></article><article className="card"><h3>Free</h3><p className="plan-price"><Money value={0} /></p><ul>{['Week one plan', 'Basket', 'Checkout Gap', '3 swaps'].map(t => <li key={t}>{t}</li>)}</ul></article></div>; }
-export function Paywall({ message, unlocked }: { message?: string; unlocked?: () => void }) { const { state } = useStore(); return state.plus ? <p className="card"><Badge kind="plus">Plus</Badge> Plus is on (demo).</p> : <section className="paywall"><h2>Plus keeps the savings going</h2>{message && <p>{message}</p>}<PlanCompare unlocked={unlocked} /><p className="meta">Sign-in and payment arrive in v2.</p></section>; }
+import { Badge } from './Badge';
+import { PlanCompare } from './PlanCompare';
+
+export function Paywall({ message, unlocked }: {
+  message?: string;
+  unlocked?: () => void;
+}) {
+  const { state } = useStore();
+  return state.plus ?
+    <p className="card"><Badge kind="plus">Plus</Badge>{' '}Plus is on (demo).</p>
+    :
+    <section className="paywall">
+      <h2>Plus keeps the savings going</h2>
+      {message &&
+        <p>{message}</p>
+      }
+      <PlanCompare unlocked={unlocked} />
+      <p className="meta">Sign-in and payment arrive in v2.</p>
+    </section>
+    ;
+}

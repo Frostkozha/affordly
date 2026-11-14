@@ -67,6 +67,7 @@ export interface Inputs {
   excludedProductIds: string[]; // set by "swap"
   excludedRecipeIds: string[]; // also holds recipes the user swiped left on in Discover
   likedRecipeIds?: string[]; // recipes the user swiped right on; the optimizer prefers them
+  maxRepeats?: 2 | 3 | 4; // variety: how often one recipe may appear in a week (default 3; 4 is cheapest)
 }
 
 export interface PantryItem {

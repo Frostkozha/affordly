@@ -39,3 +39,14 @@ it.each([null, [1], ['x'.repeat(81)]])('rejects invalid account likes %j', async
   await expect(account(request({ ...fixtureInputs, likedRecipeIds }), db.env, url))
     .rejects.toMatchObject({ status: 400 });
 });
+it('defaults eaten meals and keeps optional history budget', async () => {
+  const db = database();
+  const history = [{ week: 1, basketCost: 80, checkoutGap: 5, pantryUsedValue: 0 }, { week: 2, basketCost: 70, checkoutGap: 3, pantryUsedValue: 6, budget: 90 }];
+  const body = (extra: object) => new Request(url, { method: 'PUT', body: JSON.stringify({ ...state, history, ...extra }) });
+  expect((await account(body({}), db.env, url))?.status).toBe(200);
+  expect(db.saved().eaten).toEqual([]);
+  expect(db.saved().history).toEqual(history);
+  expect((await account(body({ eaten: ['1:0:breakfast'] }), db.env, url))?.status).toBe(200);
+  expect(db.saved().eaten).toEqual(['1:0:breakfast']);
+  await expect(account(body({ eaten: Array(401).fill('1:0:lunch') }), db.env, url)).rejects.toMatchObject({ status: 400 });
+});

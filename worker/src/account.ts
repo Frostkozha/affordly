@@ -1,9 +1,10 @@
 import type { AccountState, AccountResponse } from '../../packages/engine/src/api';
 import { HttpError, json, readJson, type Env } from './http';
 
-type Shape = 'string' | 'number' | 'boolean' | readonly string[] | { [key: string]: Shape } | { array: Shape } | { nullable: Shape };
+type Shape = 'string' | 'number' | 'boolean' | readonly string[] | { [key: string]: Shape } | { array: Shape } | { nullable: Shape } | { optional: Shape };
 const strings: Shape = { array: 'string' };
 const likedStrings: Shape = { array: 'string' };
+const eatenKeys: Shape = { array: 'string' };
 const macros: Shape = { kcal: 'number', protein: 'number', carbs: 'number', fat: 'number' };
 const pantry: Shape = { array: { productId: 'string', grams: 'number', daysLeft: { nullable: 'number' } } };
 const stateShape: Shape = {
@@ -12,8 +13,8 @@ const stateShape: Shape = {
     avoid: strings, excludedProductIds: strings, excludedRecipeIds: strings, likedRecipeIds: likedStrings, maxRepeats: 'number',
     workouts: { array: { day: 'number', start: 'string', kind: ['strength', 'cardio', 'mixed'], minutes: 'number' } },
   } },
-  pantry, week: 'number', plus: 'boolean',
-  history: { array: { week: 'number', basketCost: 'number', checkoutGap: 'number', pantryUsedValue: 'number' } },
+  pantry, week: 'number', plus: 'boolean', eaten: eatenKeys,
+  history: { array: { week: 'number', basketCost: 'number', checkoutGap: 'number', pantryUsedValue: 'number', budget: { optional: 'number' } } },
   currentPlan: { nullable: {
     meals: { array: { day: 'number', slot: ['breakfast', 'lunch', 'dinner', 'pre-workout', 'post-workout'], time: 'string', recipeId: 'string', servings: 'number' } },
     basket: { array: { productId: 'string', gramsNeeded: 'number', gramsFromPantry: 'number', packages: 'number', cost: 'number', gramCost: 'number', gramsLeft: 'number' } },
@@ -31,9 +32,12 @@ function clean(value: unknown, shape: Shape): unknown {
   if (Array.isArray(shape)) { if (!shape.includes(value as string)) invalid(); return value; }
   const spec = shape as Record<string, Shape>;
   if ('nullable' in spec) return value === null ? null : clean(value, spec.nullable!);
+  if ('optional' in spec) return value === undefined ? undefined : clean(value, spec.optional!);
   if ('array' in spec) {
     if (!Array.isArray(value)) return invalid();
-    if (spec.array === 'string' && value.length > 60) return invalid();
+    if (shape === eatenKeys) {
+      if (value.length > 400 || value.some(v => typeof v !== 'string' || v.length > 40)) return invalid();
+    } else if (spec.array === 'string' && value.length > 60) return invalid();
     if (shape === likedStrings && value.some(v => typeof v !== 'string' || v.length > 80)) {
       return invalid();
     }
@@ -43,7 +47,7 @@ function clean(value: unknown, shape: Shape): unknown {
   const object = value as Record<string, unknown>;
   return Object.fromEntries(Object.entries(spec).map(([key, type]) => {
     // Fields added after launch are optional in stored states: fill their defaults.
-    const defaults: Record<string, unknown> = { likedRecipeIds: [], maxRepeats: 3 };
+    const defaults: Record<string, unknown> = { likedRecipeIds: [], maxRepeats: 3, eaten: [] };
     const field = object[key] === undefined && key in defaults ? defaults[key] : object[key];
     return [key, clean(field, type)];
   }));

@@ -12,9 +12,10 @@ export interface AccountState {
   inputs: Inputs | null;
   pantry: PantryItem[];
   week: number; // 1 = first week
-  history: { week: number; basketCost: number; checkoutGap: number; pantryUsedValue: number }[];
+  history: { week: number; basketCost: number; checkoutGap: number; pantryUsedValue: number; budget?: number }[];
   plus: boolean;
   currentPlan: Plan | null;
+  eaten?: string[]; // meals marked "I ate this", keys "week:day:slot"
 }
 
 export interface AccountResponse {

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { AccountState, Inputs, PantryItem, SolveResult } from '@affordly/engine';
 import { emptyState, loadState, saveState } from './account';
 import { solvePlan } from './engine';
-import { defaultInputs } from './mock';
+import { defaultInputs } from './config';
 interface Store {
   state: AccountState; inputs: Inputs; result: SolveResult | null; ready: boolean; sample: boolean; swaps: number; recordSwap: () => void;
   setInputs: (inputs: Inputs) => void; run: (inputs?: Inputs, pantry?: PantryItem[], week?: number) => Promise<SolveResult>;

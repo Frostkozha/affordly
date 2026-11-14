@@ -9,7 +9,7 @@ import { dayNames } from './InputsForm';
 import { CheckoutGapCard } from './basket';
 export function MealThumb({ recipe }: { recipe: Recipe }) {
   const [failed, setFailed] = useState(false);
-  return failed ? <span className="meal-thumb placeholder" role="img" aria-label={recipe.name}>{recipe.name[0]}</span> : <img className="meal-thumb" src={recipe.photo} alt={recipe.name} loading="lazy" onError={() => setFailed(true)} />;
+  return failed ? <span className="meal-thumb placeholder" role="img" aria-label={recipe.name}>{recipe.name[0]}</span> : <img className="meal-thumb" src={import.meta.env.BASE_URL + recipe.photo.slice(1)} alt={recipe.name} loading="lazy" onError={() => setFailed(true)} />;
 }
 export function DayTotals({ plan, day }: { plan: Plan; day: number }) { return <span className="num day-totals">{fmtNum(plan.days[day].kcal)} kcal · {fmtNum(plan.days[day].protein)} g protein</span>; }
 export function MealRow({ meal, open }: { meal: PlannedMeal; open: (recipe: Recipe, servings?: number) => void }) {

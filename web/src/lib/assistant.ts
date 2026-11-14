@@ -1,9 +1,8 @@
 import type { AssistantResponse, Inputs, PantryItem } from '@affordly/engine';
 import { getRecipes, solvePlan } from './engine';
-import { demoTerms } from './mock';
 export async function ask(message: string, inputs: Inputs, pantry: PantryItem[]): Promise<AssistantResponse> {
   const amount = message.match(/\$\s*(\d+(?:\.\d{1,2})?)/);
-  if (amount && Number(amount[1]) < demoTerms.minimumBudget) {
+  if (amount) {
     const result = await solvePlan({ ...inputs, budget: Number(amount[1]) }, pantry);
     if (!result.ok) return { intent: 'budget', text: result.reason, refused: true, recipeIds: [], proposedInputs: result.alternatives.find(a => a.kind === 'min-budget')?.inputs, result, source: 'template' };
   }

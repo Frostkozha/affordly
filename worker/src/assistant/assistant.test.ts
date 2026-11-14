@@ -112,7 +112,7 @@ describe('route and retrieval', () => {
   it('returns step one without generation', async () => {
     ai.mockClear();
     const response = await assistant(request({ message: '$60', inputs, pantry: [] }), env, url);
-    expect(await response?.json()).toMatchObject({ needsSolve: { budget: 60 }, text: '', source: 'template' });
+    expect(await response?.json()).toMatchObject({ needsSolve: [{ budget: 60 }], text: '', source: 'template' });
     expect(ai).not.toHaveBeenCalled();
   });
   it('rejects oversized messages and malformed results', async () => {
@@ -140,7 +140,11 @@ describe('route and retrieval', () => {
         if (model.includes('bge')) throw new Error('No embeddings');
         return { response: text };
       } } } as Env;
-      const response = await assistant(request({ accountId: 'a'.repeat(32), message: '$80', inputs, pantry: [], asked: inputs, result: feasible }), generated, url);
+      const body = { accountId: 'a'.repeat(32), message: '$80', inputs, pantry: [] };
+      const first = await assistant(request(body), generated, url);
+      const step = await first!.json() as { ticket: string; route: unknown };
+      const response = await assistant(request({ ...body, ...step, asked: [inputs],
+        results: [feasible] }), generated, url);
       expect(await response?.json()).toMatchObject({ source, refused: false, proposedInputs: inputs, result: feasible });
     }
   });

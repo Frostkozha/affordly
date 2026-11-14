@@ -1,102 +1,38 @@
-import type { Plan } from '../../../packages/engine/src/types';
 import type { AssistantRequest } from '../../../packages/engine/src/api';
-import { HttpError, json, readJson, type Env } from '../http';
-import { classify } from './classify';
-import { parse, avoidTags } from './parse';
-import { retrieve } from './retrieve';
-import { facts, template } from './templates';
-import { generate } from './generate';
-import { verify } from './verify';
-
-type Shape = string | { [key: string]: Shape } | [Shape];
-const macros = { kcal: 'number', protein: 'number', carbs: 'number', fat: 'number' };
-const pantry: Shape = [{ productId: 'string', grams: 'number', daysLeft: 'nullable-number' }];
-const inputs: Shape = {
-  budget: 'number', kcalPerDay: 'number', proteinPerDay: 'number', maxCookMinutes: 'number',
-  avoid: ['string'], excludedProductIds: ['string'], excludedRecipeIds: ['string'],
-  workouts: [{ day: 'number', start: 'string', kind: 'string', minutes: 'number' }],
-};
-const plan: Shape = {
-  meals: [{ day: 'number', slot: 'string', time: 'string', recipeId: 'string', servings: 'number' }],
-  basket: [{ productId: 'string', gramsNeeded: 'number', gramsFromPantry: 'number', packages: 'number', cost: 'number', gramCost: 'number', gramsLeft: 'number' }],
-  basketCost: 'number', gramCost: 'number', checkoutGap: 'number', days: [macros], average: macros,
-  pantryAfter: pantry, perishableLeftValue: 'number', pantryUsedValue: 'number',
-};
-
-function matches(value: unknown, shape: Shape): boolean {
-  if (shape === 'nullable-number') return value === null || matches(value, 'number');
-  if (shape === 'number') return typeof value === 'number' && Number.isFinite(value) && value >= 0;
-  if (shape === 'string') return typeof value === 'string' && value.length <= 1000;
-  if (Array.isArray(shape)) return Array.isArray(value) && value.length <= 200 && value.every(v => matches(v, shape[0]));
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  return Object.entries(shape).every(([key, spec]) => matches((value as Record<string, unknown>)[key], spec));
-}
-
-function validInputs(value: unknown): boolean {
-  if (!matches(value, inputs)) return false;
-  const i = value as AssistantRequest['inputs'];
-  const likes = i.likedRecipeIds === undefined ? [] : i.likedRecipeIds;
-  const arrays = [i.avoid, i.excludedProductIds, i.excludedRecipeIds, likes];
-  if (!arrays.every(a => Array.isArray(a) && a.length <= 60)) return false;
-  if (!likes.every(s => typeof s === 'string' && s.length <= 80)) return false;
-  return i.budget >= 20 && i.budget <= 400 && i.kcalPerDay >= 1200 && i.kcalPerDay <= 4500 && i.proteinPerDay >= 40 && i.proteinPerDay <= 300 && i.maxCookMinutes >= 10 && i.maxCookMinutes <= 120 && i.avoid.every(t => avoidTags.includes(t)) && i.workouts.length <= 7 && i.workouts.every(w => Number.isInteger(w.day) && w.day <= 6 && /^([01]\d|2[0-3]):[0-5]\d$/.test(w.start) && ['strength', 'cardio', 'mixed'].includes(w.kind));
-}
-
-function validate(value: unknown): AssistantRequest {
-  const b = value as AssistantRequest | null;
-  if (!b || typeof b.message !== 'string' || !b.message.trim() || b.message.length > 500 || !validInputs(b.inputs) || !matches(b.pantry, pantry)) throw new HttpError(400, 'Invalid assistant request');
-  if (b.asked !== undefined && !validInputs(b.asked)) throw new HttpError(400, 'Invalid asked inputs');
-  if (b.result !== undefined) {
-    const r = b.result;
-    const valid = r?.ok === true ? matches(r.plan, plan) : r?.ok === false && typeof r.reason === 'string' && r.reason.length <= 1000 && Array.isArray(r.alternatives) && r.alternatives.length <= 3 && r.alternatives.every(a => a && ['min-budget', 'max-protein', 'more-cook-time'].includes(a.kind) && typeof a.headline === 'string' && a.headline.length <= 500 && validInputs(a.inputs) && matches(a.plan, plan));
-    if (!b.asked || !valid) throw new HttpError(400, 'Invalid solver result');
-    if (r.ok && !validReceipt(r.plan, b.asked.budget)) {
-      throw new HttpError(400, 'Invalid solver result');
-    }
-  }
-  return b;
-}
-
-function validReceipt(p: Plan, budget: number): boolean {
-  const cost = p.basket.reduce((sum, line) => sum + line.cost, 0);
-  const gramCost = p.basket.reduce((sum, line) => sum + line.gramCost, 0);
-  const near = (a: number, b: number) => Math.abs(a - b) <= .01 + 1e-7;
-  return near(p.basketCost, cost) && near(p.gramCost, gramCost)
-    && near(p.checkoutGap, p.basketCost - p.gramCost)
-    && p.basketCost <= budget && p.meals.length === 21;
-}
-
-async function modelAllowed(accountId: unknown, env: Env): Promise<boolean> {
-  if (typeof accountId !== 'string' || !/^[a-f0-9]{32}$/i.test(accountId)) return false;
-  try {
-    const row = await env.DB.prepare('INSERT INTO usage (account_id, day, count) VALUES (?, ?, 1) ON CONFLICT(account_id, day) DO UPDATE SET count = count + 1 WHERE count < 40 RETURNING count')
-      .bind(accountId.toLowerCase(), new Date().toISOString().slice(0, 10)).first<{ count: number }>();
-    return !!row && row.count <= 40;
-  } catch {
-    return false;
-  }
-}
+import { json, readJson, type Env } from '../http';
+import { route } from './route';
+import { answer } from './actions';
+import { writeAnswer } from './write';
+import { validate } from './validate';
+import { modelAllowed, proof } from './quota';
+import { verify, verifyComparison } from './verify';
 
 export async function assistant(request: Request, env: Env, url: URL): Promise<Response | null> {
   if (request.method !== 'POST' || url.pathname !== '/api/assistant') return null;
   const body = validate(await readJson(request));
-  const allowed = await modelAllowed(body.accountId, env);
-  const ai = allowed ? env : undefined;
-  const intent = await classify(body.message, ai);
-  const asked = body.asked ?? parse(body.message, body.inputs);
-  if ((intent === 'budget' || intent === 'plan-change') && !body.result) return json(template(intent, asked));
-  const recipes = intent === 'medical' || intent === 'off-topic' ? [] : await retrieve(body.message, asked, ai);
-  const fallback = template(intent, asked, body.result, recipes);
-  if (intent === 'medical' || intent === 'off-topic') return json(fallback);
-  if (!allowed) return json({ ...fallback, note: 'AI text is off for this session; this is the checked template answer.' });
-  const data = facts(asked, body.result, recipes);
+  const allowed = body.results
+    ? typeof body.ticket === 'string' && body.ticket === await proof(body, body.ticket)
+    : await modelAllowed(body.accountId, env);
+  const chosen = body.results && body.route ? body.route : await route(body, allowed ? env : undefined);
+  const data = await answer(body, chosen, allowed ? env : undefined);
+  const fallback = data.reply;
+  if (fallback.needsSolve) {
+    const next = { ...body, asked: fallback.needsSolve, route: chosen };
+    return json({ ...fallback, route: chosen, ticket: allowed ? await proof(next) : undefined });
+  }
+  if (chosen.action === 'medical' || chosen.action === 'off-topic' || fallback.paywall) return json(fallback);
+  if (!allowed) {
+    return json({ ...fallback, note: 'AI unavailable or daily limit reached; checked template.' });
+  }
   try {
-    const kind = !body.result ? 'recipe' : body.result.ok ? 'fits' : 'does-not-fit';
-    const text = await generate(body.message, data, kind, env);
-    if (verify(text, data, kind, recipes.map(r => r.name))) return json({ ...fallback, text, source: 'model' });
-    // The model wrote a number or a "yes" that the solver result does not support.
-    return json({ ...fallback, note: 'The AI draft failed the number check, so this is the checked template answer.' });
+    const text = await writeAnswer(body.message, chosen.action, data.facts, env, chosen.args.topic);
+    const kind = fallback.results?.length === 1
+      ? fallback.results[0].ok ? 'fits' : 'does-not-fit' : 'facts';
+    const checked = chosen.action === 'compare'
+      ? verifyComparison(text, data.facts) : verify(text, data.facts, kind, data.names);
+    if (checked) return json({ ...fallback, text, source: 'model' });
+    return json({ ...fallback, note: 'AI draft failed the fact check; checked template.' });
   } catch {
-    return json({ ...fallback, note: 'The AI model was unavailable, so this is the checked template answer.' });
+    return json({ ...fallback, note: 'AI model unavailable; checked template.' });
   }
 }

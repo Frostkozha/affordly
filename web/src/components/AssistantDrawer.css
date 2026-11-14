@@ -23,3 +23,47 @@
 @media (max-width: 767px) {
 @keyframes sheet-in { from { transform: translateY(100%); } to { transform: translateY(0); } }
 }
+.assistant-text {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.assistant-source {
+  color: var(--ink-3);
+  font-size: 0.85rem;
+  margin-bottom: var(--s-3);
+}
+.assistant-source summary {
+  cursor: pointer;
+  min-height: var(--tap, 44px);
+  align-content: center;
+}
+.assistant-comparison {
+  overflow-x: auto;
+  margin-bottom: var(--s-3);
+}
+.assistant-comparison table {
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.assistant-comparison th,
+.assistant-comparison td {
+  padding: var(--s-2);
+  border-bottom: 1px dashed var(--rule);
+  text-align: left;
+}
+.assistant-followups {
+  margin-top: var(--s-3);
+}
+.assistant-working {
+  color: var(--ink-2);
+  animation: assistant-appear var(--dur-base, 240ms) var(--ease-out);
+}
+@keyframes assistant-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawer[open], .assistant-working { animation: none; }
+}

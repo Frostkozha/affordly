@@ -13,3 +13,4 @@ binding = "AI"
 [vars]
 KROGER_BASE = "https://api-ce.kroger.com"
 ALLOWED_ORIGIN = "*"
+ASSISTANT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"

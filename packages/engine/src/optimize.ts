@@ -49,7 +49,7 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
     constraints[`r${i}`] = { max: maxRepeats };
     const v: Record<string, number> = { objective: 0, meals: 1, kcal: r.perServing.kcal, protein: r.perServing.protein, [`r${i}`]: 1 };
     if (!minimumCost && inputs.likedRecipeIds?.includes(r.id)) {
-      v.objective -= inputs.budget * .04 / 21 * r.portion;
+      v.objective -= inputs.budget * .15 / 21 * r.portion;
     }
     for (const ing of r.ingredients) {
       const j = catalog.products.findIndex(p => p.id === ing.productId), p = catalog.products[j], g = ing.grams / r.servings;

@@ -33,26 +33,44 @@ export interface AccountResponse {
 
 // Two steps, because the optimizer runs in the browser:
 //  1. The client sends the message. For a budget or plan-change question the reply carries
-//     `needsSolve` (the inputs the user is asking about) and no final text.
-//  2. The client solves those inputs and sends the same message again with `asked` and `result`.
-//     The reply is then written from that solver result only.
+//     `needsSolve` (the inputs the user is asking about) and no final text. Up to three scenarios may be priced.
+//  2. The client solves those inputs and sends the same message again with `asked` and `results` in the same order.
+//     The reply is then written from those solver results only.
 export interface AssistantRequest {
+  history?: { role: 'user' | 'assistant'; text: string }[];
+  plan?: Plan | null;
+  plus?: boolean;
+  results?: SolveResult[];
+  route?: { action: AssistantAction; args: Record<string, unknown> };
+  ticket?: string;
   accountId: string;
   message: string;
   inputs: Inputs;
   pantry: PantryItem[];
-  asked?: Inputs; // step 2: the inputs that were solved
+  asked?: Inputs[]; // step 2: the inputs that were solved
   result?: SolveResult; // step 2: what the solver returned for `asked`
 }
 
 export type AssistantIntent = 'budget' | 'plan-change' | 'recipe' | 'off-topic' | 'medical';
 
+export type AssistantAction =
+  | 'change-inputs' | 'compare' | 'swap-product' | 'like-recipe' | 'dislike-recipe'
+  | 'add-workout' | 'explain-plan' | 'price-lookup' | 'find-recipes' | 'how-to-cook'
+  | 'use-leftovers' | 'off-topic' | 'medical';
+
 export interface AssistantResponse {
+  action: AssistantAction;
+  suggestions: string[];
+  options?: { label: string; inputs: Inputs }[];
+  results?: SolveResult[];
+  route?: AssistantRequest['route'];
+  ticket?: string;
+  paywall?: boolean;
   intent: AssistantIntent;
   text: string;
   refused: boolean; // true when the request cannot be met as asked
   recipeIds: string[]; // recipe cards to show, with photos
-  needsSolve?: Inputs; // step 1 only: solve these and call again
+  needsSolve?: Inputs[]; // step 1 only: solve these and call again
   proposedInputs?: Inputs; // "apply this" button
   result?: SolveResult; // solver output the text is based on
   source: 'model' | 'template'; // template = fallback or verifier blocked the model text

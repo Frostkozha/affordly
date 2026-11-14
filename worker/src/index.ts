@@ -1,3 +1,4 @@
+import { creators } from './creators';
 import { account } from './account';
 import { kroger } from './kroger';
 import { assistant } from './assistant';
@@ -11,8 +12,12 @@ export default {
       if (request.method === 'OPTIONS') response = new Response(null, { status: 204 });
       else if (request.method === 'GET' && url.pathname === '/api/health') response = json({ ok: true });
       else {
-        // assistant route is registered here
-        response = await assistant(request, env, url) ?? await account(request, env, url) ?? await kroger(request, env, url) ?? json({ error: 'Not found' }, 404);
+        // API routes
+        response = await creators(request, env, url)
+          ?? await assistant(request, env, url)
+          ?? await account(request, env, url)
+          ?? await kroger(request, env, url)
+          ?? json({ error: 'Not found' }, 404);
       }
     } catch (error) {
       response = error instanceof HttpError

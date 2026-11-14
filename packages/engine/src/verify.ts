@@ -1,5 +1,7 @@
 import type { Catalog, Inputs, Macros, PantryItem, Plan, Recipe, VerifyReport } from './types';
 
+const MAX_PRODUCT_PACKAGES = 6;
+
 export function verify(plan: Plan, inputs: Inputs, catalog: Catalog, recipes: Recipe[], pantry: PantryItem[]): VerifyReport {
   const errors: string[] = [];
   const fail = (s: string) => { errors.push(s); };
@@ -29,7 +31,7 @@ export function verify(plan: Plan, inputs: Inputs, catalog: Catalog, recipes: Re
     nutrition.set(r.id, calculated);
     if (['breakfast', 'lunch', 'dinner'].includes(m.slot) && !r.mealTypes.includes(m.slot as 'breakfast')) fail('Meal type mismatch');
   }
-  if (plan.meals.length !== 21 || [...counts.values()].some(n => n > 4)) fail('Weekly meal count');
+  if (plan.meals.length !== 21 || [...counts.values()].some(n => n > (inputs.maxRepeats ?? 3))) fail('Weekly meal count');
   for (let d = 0; d < 7; d++) {
     const meals = plan.meals.filter(m => m.day === d).sort((a, b) => time(a.time) - time(b.time));
     if (meals.length !== 3 || new Set(meals.map(m => m.slot)).size !== 3) fail('Daily slots');
@@ -66,7 +68,10 @@ export function verify(plan: Plan, inputs: Inputs, catalog: Catalog, recipes: Re
     const p = catalog.products.find(p => p.id === line.productId);
     if (!p || ids.has(line.productId)) { fail('Invalid basket line'); continue; }
     ids.add(p.id);
-    if (!Number.isInteger(line.packages) || line.packages < 0 || (inputs.excludedProductIds.includes(p.id) && (line.packages > 0 || line.gramsNeeded > 0))) fail('Invalid purchase');
+    if (!Number.isInteger(line.packages) || line.packages < 0 || line.packages > MAX_PRODUCT_PACKAGES
+      || (inputs.excludedProductIds.includes(p.id) && (line.packages > 0 || line.gramsNeeded > 0))) {
+      fail('Invalid purchase');
+    }
     const stock = pantry.filter(x => x.productId === p.id && (x.daysLeft === null || x.daysLeft > 0));
     const available = stock.reduce((s, x) => s + x.grams, 0), need = used.get(p.id) ?? 0, from = Math.min(need, available), left = available + line.packages * p.packageGrams - need;
     if (left < -.5) fail('Insufficient product');

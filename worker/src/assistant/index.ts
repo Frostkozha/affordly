@@ -1,3 +1,4 @@
+import type { Plan } from '../../../packages/engine/src/types';
 import type { AssistantRequest } from '../../../packages/engine/src/api';
 import { HttpError, json, readJson, type Env } from '../http';
 import { classify } from './classify';
@@ -34,6 +35,10 @@ function matches(value: unknown, shape: Shape): boolean {
 function validInputs(value: unknown): boolean {
   if (!matches(value, inputs)) return false;
   const i = value as AssistantRequest['inputs'];
+  const likes = i.likedRecipeIds === undefined ? [] : i.likedRecipeIds;
+  const arrays = [i.avoid, i.excludedProductIds, i.excludedRecipeIds, likes];
+  if (!arrays.every(a => Array.isArray(a) && a.length <= 60)) return false;
+  if (!likes.every(s => typeof s === 'string' && s.length <= 80)) return false;
   return i.budget >= 20 && i.budget <= 400 && i.kcalPerDay >= 1200 && i.kcalPerDay <= 4500 && i.proteinPerDay >= 40 && i.proteinPerDay <= 300 && i.maxCookMinutes >= 10 && i.maxCookMinutes <= 120 && i.avoid.every(t => avoidTags.includes(t)) && i.workouts.length <= 7 && i.workouts.every(w => Number.isInteger(w.day) && w.day <= 6 && /^([01]\d|2[0-3]):[0-5]\d$/.test(w.start) && ['strength', 'cardio', 'mixed'].includes(w.kind));
 }
 
@@ -45,8 +50,20 @@ function validate(value: unknown): AssistantRequest {
     const r = b.result;
     const valid = r?.ok === true ? matches(r.plan, plan) : r?.ok === false && typeof r.reason === 'string' && r.reason.length <= 1000 && Array.isArray(r.alternatives) && r.alternatives.length <= 3 && r.alternatives.every(a => a && ['min-budget', 'max-protein', 'more-cook-time'].includes(a.kind) && typeof a.headline === 'string' && a.headline.length <= 500 && validInputs(a.inputs) && matches(a.plan, plan));
     if (!b.asked || !valid) throw new HttpError(400, 'Invalid solver result');
+    if (r.ok && !validReceipt(r.plan, b.asked.budget)) {
+      throw new HttpError(400, 'Invalid solver result');
+    }
   }
   return b;
+}
+
+function validReceipt(p: Plan, budget: number): boolean {
+  const cost = p.basket.reduce((sum, line) => sum + line.cost, 0);
+  const gramCost = p.basket.reduce((sum, line) => sum + line.gramCost, 0);
+  const near = (a: number, b: number) => Math.abs(a - b) <= .01 + 1e-7;
+  return near(p.basketCost, cost) && near(p.gramCost, gramCost)
+    && near(p.checkoutGap, p.basketCost - p.gramCost)
+    && p.basketCost <= budget && p.meals.length === 21;
 }
 
 async function modelAllowed(accountId: unknown, env: Env): Promise<boolean> {

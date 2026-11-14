@@ -4,8 +4,11 @@ import { fits, positions, schedule } from './schedule';
 import { verify } from './verify';
 import { infeasible } from './infeasible';
 
+const MAX_PRODUCT_PACKAGES = 6;
+
 const cents = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[], pantry: PantryItem[], minimumCost = false): Plan | null {
+  const maxRepeats = inputs.maxRepeats ?? 3; // variety setting: 2, 3 or 4
   const recipes = allRecipes.filter(r => r.cookMinutes <= inputs.maxCookMinutes && !inputs.excludedRecipeIds.includes(r.id) && !r.contains.some(t => inputs.avoid.includes(t)) && r.ingredients.every(i => !inputs.excludedProductIds.includes(i.productId) && catalog.products.some(p => p.id === i.productId))).map(r => {
     const perServing: Macros = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
     for (const ing of r.ingredients) {
@@ -18,7 +21,7 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
     return { ...r, servings: r.servings / portion, perServing, portion };
   });
   const ps = positions(inputs);
-  if (!ps || recipes.length < 6) return null;
+  if (!ps || recipes.length * maxRepeats < 21) return null;
   const constraints: Record<string, { min?: number; max?: number; equal?: number }> = { meals: { equal: 21 }, kcal: { min: inputs.kcalPerDay * 7 * .9, max: inputs.kcalPerDay * 7 * 1.1 }, protein: { min: inputs.proteinPerDay * 7 }, cost: { max: minimumCost ? Infinity : inputs.budget } };
   if (minimumCost) delete constraints.cost;
   const variables: Record<string, Record<string, number>> = {}, ints: Record<string, number> = {};
@@ -26,18 +29,28 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
   catalog.products.forEach((p, j) => {
     if (!recipes.some(r => r.ingredients.some(x => x.productId === p.id))) return;
     constraints[`g${j}`] = { max: stock(p.id) };
-    variables[`p${j}`] = { objective: p.price * (minimumCost || p.perishableDays === null ? 1 : 2), cost: p.price, [`g${j}`]: -p.packageGrams };
+    constraints[`packages${j}`] = { max: MAX_PRODUCT_PACKAGES };
+    variables[`p${j}`] = {
+      objective: p.price * (minimumCost || p.perishableDays === null ? 1 : 2),
+      cost: p.price, [`packages${j}`]: 1, [`g${j}`]: -p.packageGrams,
+    };
     ints[`p${j}`] = 1;
   });
   // Hall's capacity inequalities ensure the counts can fill all slot categories.
   const categories = [...new Map(ps.map(p => [`${p.type}:${p.slot}`, p])).values()];
   for (let mask = 1; mask < 1 << categories.length; mask++) {
     const subset = categories.filter((_, i) => mask & (1 << i));
-    constraints[`s${mask}`] = { min: ps.filter(p => subset.some(c => c.type === p.type && c.slot === p.slot)).length };
+    const needed = ps.filter(p => subset.some(c => c.type === p.type && c.slot === p.slot)).length;
+    const capacity = recipes.filter(r => subset.some(p => fits(r, p))).length * maxRepeats;
+    if (capacity < needed) return null;
+    constraints[`s${mask}`] = { min: needed };
   }
   recipes.forEach((r, i) => {
-    constraints[`r${i}`] = { max: 4 };
+    constraints[`r${i}`] = { max: maxRepeats };
     const v: Record<string, number> = { objective: 0, meals: 1, kcal: r.perServing.kcal, protein: r.perServing.protein, [`r${i}`]: 1 };
+    if (!minimumCost && inputs.likedRecipeIds?.includes(r.id)) {
+      v.objective -= inputs.budget * .04 / 21 * r.portion;
+    }
     for (const ing of r.ingredients) {
       const j = catalog.products.findIndex(p => p.id === ing.productId), p = catalog.products[j], g = ing.grams / r.servings;
       v[`g${j}`] = (v[`g${j}`] ?? 0) + g;
@@ -53,10 +66,12 @@ export function findPlan(inputs: Inputs, catalog: Catalog, allRecipes: Recipe[],
     variables[`r${i}`] = v; ints[`r${i}`] = 1;
   });
   // Equivalent recipes create symmetric branches; order their counts without
-  // removing any possible menu or changing the four-serving limit per recipe.
+  // removing any possible menu or changing the three-appearance limit per recipe.
   const previous = new Map<string, number>();
   recipes.forEach((r, i) => {
-    const signature = JSON.stringify([r.ingredients, r.servings, r.perServing, [...r.mealTypes].sort()]);
+    const signature = JSON.stringify([
+      r.ingredients, r.servings, r.perServing, [...r.mealTypes].sort(), variables[`r${i}`].objective,
+    ]);
     const prior = previous.get(signature);
     if (prior !== undefined) {
       constraints[`order${i}`] = { min: 0 };

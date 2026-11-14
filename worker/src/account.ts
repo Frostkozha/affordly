@@ -3,12 +3,13 @@ import { HttpError, json, readJson, type Env } from './http';
 
 type Shape = 'string' | 'number' | 'boolean' | readonly string[] | { [key: string]: Shape } | { array: Shape } | { nullable: Shape };
 const strings: Shape = { array: 'string' };
+const likedStrings: Shape = { array: 'string' };
 const macros: Shape = { kcal: 'number', protein: 'number', carbs: 'number', fat: 'number' };
 const pantry: Shape = { array: { productId: 'string', grams: 'number', daysLeft: { nullable: 'number' } } };
 const stateShape: Shape = {
   inputs: { nullable: {
     budget: 'number', kcalPerDay: 'number', proteinPerDay: 'number', maxCookMinutes: 'number',
-    avoid: strings, excludedProductIds: strings, excludedRecipeIds: strings,
+    avoid: strings, excludedProductIds: strings, excludedRecipeIds: strings, likedRecipeIds: likedStrings, maxRepeats: 'number',
     workouts: { array: { day: 'number', start: 'string', kind: ['strength', 'cardio', 'mixed'], minutes: 'number' } },
   } },
   pantry, week: 'number', plus: 'boolean',
@@ -30,10 +31,22 @@ function clean(value: unknown, shape: Shape): unknown {
   if (Array.isArray(shape)) { if (!shape.includes(value as string)) invalid(); return value; }
   const spec = shape as Record<string, Shape>;
   if ('nullable' in spec) return value === null ? null : clean(value, spec.nullable!);
-  if ('array' in spec) { if (!Array.isArray(value)) return invalid(); return value.map(v => clean(v, spec.array!)); }
+  if ('array' in spec) {
+    if (!Array.isArray(value)) return invalid();
+    if (spec.array === 'string' && value.length > 60) return invalid();
+    if (shape === likedStrings && value.some(v => typeof v !== 'string' || v.length > 80)) {
+      return invalid();
+    }
+    return value.map(v => clean(v, spec.array!));
+  }
   if (!value || typeof value !== 'object' || Array.isArray(value)) return invalid();
   const object = value as Record<string, unknown>;
-  return Object.fromEntries(Object.entries(spec).map(([key, type]) => [key, clean(object[key], type)]));
+  return Object.fromEntries(Object.entries(spec).map(([key, type]) => {
+    // Fields added after launch are optional in stored states: fill their defaults.
+    const defaults: Record<string, unknown> = { likedRecipeIds: [], maxRepeats: 3 };
+    const field = object[key] === undefined && key in defaults ? defaults[key] : object[key];
+    return [key, clean(field, type)];
+  }));
 }
 
 interface Row { id: string; restore_code: string; created_at: string; state: string }

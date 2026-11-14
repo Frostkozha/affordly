@@ -9,7 +9,14 @@ import { assistant } from './index';
 import { retrieve } from './retrieve';
 
 const inputs: Inputs = { budget: 80, kcalPerDay: 2000, proteinPerDay: 120, maxCookMinutes: 45, avoid: [], workouts: [], excludedProductIds: [], excludedRecipeIds: [] };
-const plan: Plan = { meals: [], basket: [], basketCost: 71.4, gramCost: 60, checkoutGap: 11.4, days: [], average: { kcal: 2001, protein: 123, carbs: 200, fat: 70 }, pantryAfter: [], perishableLeftValue: 0, pantryUsedValue: 0 };
+const meals: Plan['meals'] = Array.from({ length: 21 }, (_, i) => ({
+  day: Math.floor(i / 3), slot: 'dinner', time: '19:00', recipeId: 'test', servings: 1,
+}));
+const basket: Plan['basket'] = [{
+  productId: 'test', gramsNeeded: 100, gramsFromPantry: 0, packages: 1,
+  cost: 71.4, gramCost: 60, gramsLeft: 0,
+}];
+const plan: Plan = { meals, basket, basketCost: 71.4, gramCost: 60, checkoutGap: 11.4, days: [], average: { kcal: 2001, protein: 123, carbs: 200, fat: 70 }, pantryAfter: [], perishableLeftValue: 0, pantryUsedValue: 0 };
 const feasible: SolveResult = { ok: true, plan };
 const infeasible: SolveResult = { ok: false, reason: 'No plan fits $60.', alternatives: [{ kind: 'min-budget', headline: 'Raise the budget to $71.40', inputs: { ...inputs, budget: 71.4 }, plan }] };
 const ai = vi.fn(async () => ({ response: 'off-topic' }));
@@ -68,6 +75,40 @@ describe('templates and verifier', () => {
 describe('route and retrieval', () => {
   const url = new URL('https://example.com/api/assistant');
   const request = (body: unknown) => new Request(url, { method: 'POST', body: JSON.stringify(body) });
+  it.each([
+    { ...plan, basketCost: 72 },
+    { ...plan, gramCost: 59 },
+    { ...plan, checkoutGap: 10 },
+    { ...plan, meals: plan.meals.slice(1) },
+    { ...plan, basketCost: 81, checkoutGap: 21, basket: [{ ...basket[0], cost: 81 }] },
+  ])('rejects inconsistent receipts, budget excess, and missing meals', async changed => {
+    const body = { message: '$80', inputs, pantry: [], asked: inputs, result: { ok: true, plan: changed } };
+    await expect(assistant(request(body), env, url)).rejects.toMatchObject({
+      status: 400, message: 'Invalid solver result',
+    });
+  });
+  it('accepts a one-cent arithmetic tolerance', async () => {
+    const changed = { ...plan, checkoutGap: plan.checkoutGap + .01 };
+    const body = { message: '$80', inputs, pantry: [], asked: inputs, result: { ok: true, plan: changed } };
+    expect((await assistant(request(body), env, url))?.status).toBe(200);
+  });
+  it.each(['avoid', 'excludedProductIds', 'excludedRecipeIds', 'likedRecipeIds'])(
+    'caps the %s input array', async key => {
+      const changed = { ...inputs, [key]: Array(61).fill('fish') };
+      await expect(assistant(request({ message: '$80', inputs: changed, pantry: [] }), env, url))
+        .rejects.toMatchObject({ status: 400 });
+    },
+  );
+  it('rejects malformed likes and accepts missing or valid likes', async () => {
+    for (const likedRecipeIds of [null, [1], ['x'.repeat(81)]]) {
+      await expect(assistant(request({ message: '$80', inputs: { ...inputs, likedRecipeIds }, pantry: [] }),
+        env, url)).rejects.toMatchObject({ status: 400 });
+    }
+    const response = await assistant(request({
+      message: '$80', inputs: { ...inputs, likedRecipeIds: ['test'] }, pantry: [],
+    }), env, url);
+    expect(response?.status).toBe(200);
+  });
   it('returns step one without generation', async () => {
     ai.mockClear();
     const response = await assistant(request({ message: '$60', inputs, pantry: [] }), env, url);

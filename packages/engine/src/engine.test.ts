@@ -1,3 +1,6 @@
+import catalogJson from '../../../data/catalog.json';
+import recipesJson from '../../../data/recipes.json';
+import type { Catalog, Recipe } from './types';
 import { beforeAll } from 'vitest';
 import { initEngine } from './lp';
 beforeAll(() => initEngine());
@@ -30,11 +33,11 @@ describe('meal engine', () => {
     expect(solve({ ...inputs, budget: alternative.inputs.budget - 1 }, catalog, recipes, []).ok).toBe(false);
   });
   it('swaps a product without mutating inputs', () => {
-    const changed = swapProduct(inputs, 'chicken-breast');
-    const result = solve(changed, catalog, recipes, []);
+    const changed = swapProduct({ ...inputs, budget: 100 }, 'ground-beef');
+    const result = solve(changed, catalogJson as Catalog, recipesJson as Recipe[], []);
     expect(inputs.excludedProductIds).toEqual([]);
     expect(result.ok).toBe(true);
-    if (result.ok) expect(result.plan.basket.some(l => l.productId === 'chicken-breast')).toBe(false);
+    if (result.ok) expect(result.plan.basket.some(l => l.productId === 'ground-beef')).toBe(false);
   });
   it('carries leftovers into a cheaper next week', () => {
     const first = solve(inputs, catalog, recipes, []);
@@ -67,6 +70,36 @@ describe('meal engine', () => {
     expect(verify({ ...p, basket: p.basket.map((l,i) => i ? l : { ...l, gramsFromPantry: 9999 }) }, inputs, catalog, recipes, []).ok).toBe(false);
     expect(verify({ ...p, meals: p.meals.map(m => ({ ...m, recipeId: p.meals[0].recipeId })) }, inputs, catalog, recipes, []).ok).toBe(false);
     expect(verify(p, { ...inputs, excludedRecipeIds: [p.meals[0].recipeId] }, catalog, recipes, []).ok).toBe(false);
+  });
+  it('enforces three appearances and six packages independently', () => {
+    const result = solve(inputs, catalog, recipes, []);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const plan = result.plan;
+    const counts = new Map<string, number>();
+    for (const meal of plan.meals) {
+      counts.set(meal.recipeId, (counts.get(meal.recipeId) ?? 0) + 1);
+    }
+    expect(Math.max(...counts.values())).toBeLessThanOrEqual(3);
+    expect(plan.basket.every(line => line.packages <= 6)).toBe(true);
+    const repeated = plan.meals.map((meal, i) => i < 4
+      ? { ...meal, recipeId: plan.meals[0].recipeId } : meal);
+    expect(verify({ ...plan, meals: repeated }, inputs, catalog, recipes, []).errors)
+      .toContain('Weekly meal count');
+    const basket = plan.basket.map((line, i) => i === 0 ? { ...line, packages: 7 } : line);
+    expect(verify({ ...plan, basket }, inputs, catalog, recipes, []).errors)
+      .toContain('Invalid purchase');
+  });
+  it.each([0, 2])('explains insufficient breakfast variety with %i recipes', count => {
+    const breakfasts = recipes.filter(r => r.mealTypes.includes('breakfast'));
+    const changed = {
+      ...inputs, excludedRecipeIds: breakfasts.slice(count).map(r => r.id),
+    };
+    const result = solve(changed, catalog, recipes, []);
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.reason).toContain(count === 0 ? 'No breakfast recipes are left' : 'Only 2 breakfast');
+    expect(result.reason).toContain('at least 3');
   });
   it('finds cooking and protein alternatives when those limits block', () => {
     const result = solve({ ...inputs, maxCookMinutes: 5 }, catalog, recipes, []);

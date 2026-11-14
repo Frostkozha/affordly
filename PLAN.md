@@ -26,6 +26,11 @@ packages a store actually sells, not by recipe grams.
    says so and offers the three nearest plans that work.
 5. One-click product swap with a full recalculation.
 6. **Leftover carry-over:** what is left goes into next week's plan.
+7. **Training-aware meals (Plus):** the user enters the week's workouts (day,
+   start time, type). On a training day the plan places a carbohydrate-rich
+   meal 2–3 hours before the session and a protein-dense meal after it, and
+   raises that day's calories. Rest days stay lighter. All of it still has to
+   fit the budget.
 
 ## Changes from the first plan
 
@@ -36,6 +41,21 @@ packages a store actually sells, not by recipe grams.
 | 3 | Paywall on week two onward (carry-over, history); week one is free | Every user reaches it, and the reason to return is the reason to pay |
 | 4 | Plus costs $7.99 a month or $59.99 a year | Value-based price; makes LTV exceed CAC |
 | 5 | Deck shows the path from Alex to couples and families | The brief names working adults with families and bills |
+| 6 | Training-aware meals from a workout schedule the user enters | A second reason to pay and to return each week, since the schedule changes |
+
+### Sports app integrations: roadmap, not in this build
+
+Strava, Garmin and Apple Health sync goes on the roadmap slide. It is not built
+now, for three reasons:
+
+- **Apple Health** has no web access at all; it only works from an iPhone app,
+  and mobile apps fail the web-only rule.
+- **Garmin** gives API access only after a business application that takes days.
+- **Strava** needs a server, a login, and approval before more than one athlete
+  can connect. The jury must be able to use the product without any login.
+
+The product takes the same information by hand: a short workout schedule. No
+"Connect" button is shown, because a button that does nothing costs points.
 
 ## How it is built
 
@@ -47,6 +67,10 @@ packages a store actually sells, not by recipe grams.
   result. A mismatch is never shown to the user.
 - **"Does not fit" mode:** three extra solves — minimum budget, maximum protein
   for this budget, cooking time that unlocks a plan.
+- **Training-aware meals:** each recipe gets a tag from its own nutrients
+  (carbohydrate-rich and low in fat, or protein-dense). The optimizer must pick
+  at least one of each per training day; a scheduler then places them around
+  the workout time. The verifier checks the placement too.
 - **State:** localStorage (pantry, week history, Plus flag). No accounts.
 - **Data:** about 40 products and 20 recipes in JSON; nutrients from USDA
   FoodData Central. Any price can be edited and everything recalculates.
@@ -62,7 +86,9 @@ packages a store actually sells, not by recipe grams.
 3. Plan and basket with the Checkout Gap card.
 4. Lower the budget from $80 to $60: "does not fit" and three working options.
 5. Swap chicken for eggs or tofu: totals recalculate.
-6. "Simulate next week": leftovers enter week two, and the paywall appears.
+6. Add a workout (for example Tuesday 18:00, strength): that day shows a
+   carbohydrate-rich meal at about 15:30 and a protein-dense dinner after.
+7. "Simulate next week": leftovers enter week two, and the paywall appears.
 
 ## Schedule (Almaty time)
 
@@ -73,13 +99,15 @@ packages a store actually sells, not by recipe grams.
 | 17:30–23:00 | Optimizer, Checkout Gap, verifier, tests | Numbers match hand calculation on 5 inputs |
 | 20:00–01:00 | Onboarding, plan, basket, swap, "does not fit" | Main path works end to end |
 | 01:00–02:30 | Paywall, carry-over, "Simulate next week" | Return loop and unlock work |
+| 02:30–04:00 | Workout schedule, recipe tags, meal placement around training | A training day shows the right meals at the right times |
 | 06:30–09:30 | Phone layout, full run as the jury, bug fixes | Checklist below passes |
 | 09:30–10:45 | Deck PDF, README, secret scan | All three items ready |
 | 10:45–11:30 | Captain submits | Sent 30 minutes early |
 
 ## Cut order if time runs out
 
-Stripe test link → "Skip a dinner" → copy summary → calendar reminder.
+Stripe test link → "Skip a dinner" → copy summary → calendar reminder →
+training-aware meals (cut last, and only if the main path is not solid).
 
 Never cut: optimizer with Checkout Gap, paywall, carry-over, sample entry,
 live deploy, deck.

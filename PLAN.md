@@ -43,6 +43,46 @@ packages a store actually sells, not by recipe grams.
 | 5 | Deck shows the path from Alex to couples and families | The brief names working adults with families and bills |
 | 6 | Training-aware meals from a workout schedule the user enters | A second reason to pay and to return each week, since the schedule changes |
 
+| 7 | Strict AI assistant built on the tutor's pipeline | Answers with recipes and photos tied to the user's plan, and never pretends an impossible budget works |
+
+### Strict AI assistant
+
+The assistant never says yes just to please. If the budget cannot meet the
+needs, it says so and gives the minimum weekly price that does.
+
+> "Your $60 can't cover 150 g of protein a day with these foods. The cheapest
+> plan that does costs $71.40. Or keep $60 and get 118 g a day."
+
+Rules:
+
+- **Numbers come only from the optimizer.** The minimum budget, the best
+  protein for this budget and every price are solver results. The model only
+  explains them.
+- **A verifier checks every answer.** Any number in the reply that is not in
+  the solver result blocks the reply, and a template answer is shown instead
+  (the same idea as the tutor's hard-fact check).
+- **It stays on topic.** The classifier sends off-topic questions to a short
+  refusal, and medical questions to "Planning tool, not medical or dietary
+  advice".
+
+Pipeline, reusing the medical tutor code from `D:\Projects-main`:
+
+| Stage | Tutor part reused | NutriCart job |
+|---|---|---|
+| 1. Classifier | gate classifier | Sort the question: plan change, recipe or meal question, budget question, off-topic, medical |
+| 2. Retriever (text) | E5-small-v2 vectors + SQLite BM25, fused, then MiniLM reranker | Find recipes and food facts |
+| 3. Retriever (figures) | figure search | Find the photo for each recipe |
+| 4. Solver call | new | Run the optimizer for budget and plan questions |
+| 5. Generator | Qwen3.5-9B on llama.cpp | Write the answer from the solver result and retrieved recipes |
+| 6. Verifier | hard-fact check | Block any number or recipe not in the sources |
+
+Corpus: USDA MyPlate Kitchen recipes, which are public domain, come with
+nutrition facts and have photos. Each recipe card in the answer shows its photo
+and source link.
+
+The product still works if the assistant is down: the optimizer, plan, basket
+and "does not fit" mode run in the browser without it.
+
 ### Sports app integrations: roadmap, not in this build
 
 Strava, Garmin and Apple Health sync goes on the roadmap slide. It is not built
@@ -77,7 +117,9 @@ The product takes the same information by hand: a short workout schedule. No
 - **Hosting:** GitHub Pages. No server and no secret keys.
 - **Paywall:** Free and Plus side by side, "Unlock demo" button. A Stripe test
   payment link is optional.
-- **No AI text layer.** The form covers all inputs.
+- **Assistant server:** Python FastAPI service built from the tutor code, on a
+  port other than 8000 (the live tutor uses 8000). It runs on this PC with the
+  local Qwen model and is reached by the site through a tunnel.
 
 ## Jury path (two minutes, no login)
 
@@ -99,6 +141,8 @@ The product takes the same information by hand: a short workout schedule. No
 | 17:30–23:00 | Optimizer, Checkout Gap, verifier, tests | Numbers match hand calculation on 5 inputs |
 | 20:00–01:00 | Onboarding, plan, basket, swap, "does not fit" | Main path works end to end |
 | 01:00–02:30 | Paywall, carry-over, "Simulate next week" | Return loop and unlock work |
+| 20:00–23:00 | Recipe corpus with photos, retriever index | Search returns the right recipe and photo |
+| 23:00–02:00 | Assistant service: classifier, solver call, generator, verifier, chat panel | "$60 with 150 g protein" gets a refusal with the minimum price |
 | 02:30–04:00 | Workout schedule, recipe tags, meal placement around training | A training day shows the right meals at the right times |
 | 06:30–09:30 | Phone layout, full run as the jury, bug fixes | Checklist below passes |
 | 09:30–10:45 | Deck PDF, README, secret scan | All three items ready |
@@ -107,7 +151,8 @@ The product takes the same information by hand: a short workout schedule. No
 ## Cut order if time runs out
 
 Stripe test link → "Skip a dinner" → copy summary → calendar reminder →
-training-aware meals (cut last, and only if the main path is not solid).
+training-aware meals → assistant falls back to template answers (the
+optimizer's refusal and minimum price still show).
 
 Never cut: optimizer with Checkout Gap, paywall, carry-over, sample entry,
 live deploy, deck.

@@ -17,6 +17,13 @@ type Decision = {
   skipped: boolean
 };
 const sessionHistory: Decision[] = [];
+// Likes are a preference, not a rule: say honestly how many made it into the week.
+function rebuiltMessage(liked: string[], planned: string[]) {
+  const used = liked.filter(id => planned.includes(id)).length;
+  if (liked.length === 0 || used === liked.length)
+    return 'Week rebuilt with your taste.';
+  return `Week rebuilt. ${used} of ${liked.length} liked meals fit your limits this week.`;
+}
 export function SwipeDeck({ open }: {
   open: (recipe: Recipe) => void
 }) {
@@ -71,7 +78,7 @@ export function SwipeDeck({ open }: {
     try {
       const result = await run(inputs);
       if (result.ok)
-        notify('Week rebuilt with your taste.');
+        notify(rebuiltMessage(liked, result.plan.meals.map(meal => meal.recipeId)));
       location.hash = '/plan#plan';
     } catch {
       setError('Could not rebuild your week. Your taste is saved. Try again.');

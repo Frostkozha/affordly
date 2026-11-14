@@ -113,3 +113,4 @@ Same method as above: USDA MyPlate Kitchen pages and photos (public domain) read
 | taco-soup | Scaled to 5 servings; black beans for kidney; frozen vegetables for corn. |
 
 Oats are tagged gluten (not certified gluten-free).
+- Fonts (self-hosted woff2, latin subset, web/public/fonts): Fraunces, Geist and Geist Mono from Google Fonts (fonts.google.com), SIL Open Font License 1.1, free for commercial use.

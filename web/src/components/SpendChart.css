@@ -15,7 +15,7 @@
 .sc-hatch-line { stroke: var(--save); stroke-width: 2; }
 .sc-grid, .sc-base { stroke: var(--rule); stroke-width: 1; }
 .sc-grid { stroke-opacity: 0.6; }
-.sc-axis, .sc-label { font-family: var(--font-num); font-size: 11px; fill: var(--ink-2); }
+.sc-axis, .sc-label { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: 11px; fill: var(--ink-2); }
 .sc-label { fill: var(--ink); font-weight: 600; paint-order: stroke; stroke: var(--card); stroke-width: 3px; }
 .sc-label--save { fill: var(--save-deep); }
 .sc-label--on-spent { fill: var(--over-ink); stroke: none; }

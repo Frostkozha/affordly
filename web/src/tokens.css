@@ -1,3 +1,7 @@
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fonts/fraunces-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Geist'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/fonts/geist-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Geist Mono'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(/fonts/geist-mono-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 /* Affordly design tokens. Light theme is the default; the dark "night receipt" overrides sit at the end.
    Receipt-on-paper look. Run web/scripts/contrast.mjs for the WCAG table of both themes. */
 :root {
@@ -35,9 +39,9 @@
   --accent-deep: #561c24;
 
   /* type */
-  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  --font-num: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, Menlo, monospace;
+  --font-ui: "Geist", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Fraunces", Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-num: "Geist Mono", ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Consolas, Menlo, monospace;
 
   --fs-xs: 0.8125rem;      /* 13 */
   --fs-sm: 0.9375rem;      /* 15 */
@@ -66,6 +70,11 @@
   --shadow-1: 0 1px 0 rgba(26, 18, 14, 0.06), 0 1px 2px rgba(26, 18, 14, 0.08);
   --shadow-2: 0 2px 4px rgba(26, 18, 14, 0.08), 0 12px 28px rgba(26, 18, 14, 0.12);
 
+  --shadow-card: 0 10px 24px -14px rgba(26, 18, 14, 0.18);   /* second card layer */
+  --glow: color-mix(in srgb, var(--accent) 7%, transparent);  /* faint warm crimson top glow */
+  --grain-opacity: 0.07; --grain-blend: multiply;
+  --btn-sheen: rgba(255, 255, 255, 0.2);
+
   --dur: 160ms;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
@@ -89,7 +98,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: var(--lh-tight); letter-spacing: -0.01em; margin: 0 0 var(--s-3); text-wrap: balance; }
+/* paper grain + one soft top glow: fixed, non-interactive, below all content */
+body::before, body::after { content: ""; position: fixed; pointer-events: none; z-index: -1; }
+body::before { inset: 0 0 auto 0; height: 80vh; background: radial-gradient(ellipse 70% 60% at 50% 0%, var(--glow), transparent 70%); }
+body::after { inset: 0; opacity: var(--grain-opacity); mix-blend-mode: var(--grain-blend);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; font-optical-sizing: auto; line-height: var(--lh-tight); letter-spacing: -0.015em; margin: 0 0 var(--s-3); text-wrap: balance; }
 h1 { font-size: var(--fs-3xl); }
 h2 { font-size: var(--fs-xl); }
 h3 { font-size: var(--fs-lg); line-height: var(--lh-snug); }
@@ -140,6 +155,9 @@ label { display: block; font-size: var(--fs-sm); font-weight: 600; margin-bottom
 .btn[disabled], .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
 
 .card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-lg); box-shadow: var(--shadow-1); padding: var(--s-4); }
+.card { box-shadow: var(--shadow-1), var(--shadow-card); }
+a.card, button.card, .card[role="button"], .card[role="link"] { transition: transform var(--dur-spring) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out); }
+@media (hover: hover) { a.card:hover, button.card:hover, .card[role="button"]:hover, .card[role="link"]:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); } }
 .chip {
   display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 var(--s-4);
   border: 1px solid var(--ink-3); border-radius: var(--r-pill); background: var(--card);
@@ -177,12 +195,14 @@ td.num, th.num { text-align: right; }
   --dur-reveal: 700ms;     /* one-time hero reveals, count-up in app */
   --dur-print: 1400ms;     /* receipt print reveal (hero, solving) */
   --stagger: 60ms;         /* per-child delay step, capped at 8 steps */
+  --dur-spring: 180ms;     /* button press and lift */
 
   /* motion: easings */
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);       /* same curve as --ease */
   --ease-in: cubic-bezier(0.5, 0, 0.9, 0.4);        /* things leaving */
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);    /* progress bars, ken burns */
   --ease-snap: cubic-bezier(0.34, 1.35, 0.5, 1);    /* card snap-back, slight overshoot, never on money */
+  --ease-spring: cubic-bezier(0.3, 1.5, 0.5, 1);    /* buttons: quick overshoot */
   --ease-linear: linear;                             /* reel progress, spinner */
   --ease-step: steps(1, end);                        /* print lines */
 
@@ -270,6 +290,19 @@ td.num, th.num { text-align: right; }
 .btn--quiet:hover { background: var(--sunk); }
 .btn--quiet:active { background: var(--rule); }
 .btn[disabled], .btn[aria-disabled="true"] { opacity: var(--btn-disabled-opacity); cursor: not-allowed; transform: none; box-shadow: none; }
+/* responsive feel: springy lift and press, pointer sheen on primary, icons slide (enabled buttons only) */
+.btn { transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    transform var(--dur-spring) var(--ease-spring), box-shadow var(--dur-spring) var(--ease-spring); }
+.btn > svg { transition: transform var(--dur-spring) var(--ease-spring); }
+.btn--primary::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle 90px at var(--mx, 50%) var(--my, 50%), var(--btn-sheen), transparent); transition: opacity var(--dur-fast) var(--ease-out); }
+.btn:not([disabled]):not([aria-disabled="true"]):active { transform: scale(0.97); }
+@media (hover: hover) {
+  .btn:not([disabled]):not([aria-disabled="true"]):not([aria-busy="true"]):hover { transform: translateY(-1px); box-shadow: var(--elev-2); }
+  .btn:not([disabled]):not([aria-disabled="true"]):not([aria-busy="true"]):hover > svg { transform: translateX(3px); }
+  .btn--primary:not([disabled]):not([aria-disabled="true"]):not([aria-busy="true"]):hover::before { opacity: 1; }
+  .btn--quiet:not([disabled]):hover { box-shadow: none; }
+}
 .btn[aria-busy="true"] { cursor: progress; color: transparent; pointer-events: none; }
 .btn[aria-busy="true"]::after { content: ""; position: absolute; width: 18px; height: 18px; inset: 0; margin: auto;
   border: 2px solid var(--ink); border-right-color: transparent; border-radius: 50%; animation: a-spin 700ms var(--ease-linear) infinite; }
@@ -286,7 +319,7 @@ td.num, th.num { text-align: right; }
 .btn-round--over { color: var(--over); border-color: var(--over); }
 
 /* ---- chips, inputs, steppers, toast ---- */
-.chip { transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-instant) var(--ease-out); }
+.chip { transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-spring) var(--ease-spring); }
 .chip:active { transform: scale(0.97); }
 input:hover, select:hover, textarea:hover { border-color: var(--ink); }
 input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; }
@@ -313,10 +346,12 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-instant: 0ms; --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --dur-reveal: 0ms; --dur-print: 0ms; --stagger: 0ms; --dur: 0ms;
+    --dur-instant: 0ms; --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; --dur-reveal: 0ms; --dur-print: 0ms; --stagger: 0ms; --dur: 0ms; --dur-spring: 0ms;
   }
   .reveal, .reveal-stagger > *, .page-enter, .print-in, .toast { animation: none !important; }
-  .btn:active, .btn-round:active, .chip:active { transform: none; }
+  .btn:active, .btn-round:active, .chip:active, .btn:not([disabled]):hover, a.card:hover, button.card:hover { transform: none !important; }
+  .btn > svg { transform: none !important; }
+  .btn--primary::before { display: none; }
   .btn[aria-busy="true"]::after { animation: none; border-right-color: var(--ink); } /* static ring, label stays hidden */
 }
 
@@ -353,6 +388,10 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--
   --btn-primary-bg-active: #d6d3cc;
   --btn-danger-bg-active: #fbdcbb;
   --backdrop: rgba(0, 0, 0, 0.62);
+  --shadow-card: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+  --glow: rgba(242, 241, 237, 0.06);
+  --grain-opacity: 0.1; --grain-blend: soft-light;
+  --btn-sheen: rgba(0, 0, 0, 0.1);
   --ring-surface: #262625;
   --ring-border: #3d3b38;
 }
@@ -386,6 +425,10 @@ input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--
     --btn-primary-bg-active: #d6d3cc;
     --btn-danger-bg-active: #fbdcbb;
     --backdrop: rgba(0, 0, 0, 0.62);
+    --shadow-card: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+    --glow: rgba(242, 241, 237, 0.06);
+    --grain-opacity: 0.1; --grain-blend: soft-light;
+    --btn-sheen: rgba(0, 0, 0, 0.1);
     --ring-surface: #262625;
     --ring-border: #3d3b38;
   }

@@ -4,17 +4,21 @@ import type { Plan } from '@affordly/engine';
 import { getCatalog } from '../lib/engine';
 import { fmtMoney } from '../lib/fmtMoney';
 import { Perforation } from './art/Perforation';
+import { useTilt } from '../lib/useTilt';
 let printed = false;
 export function HeroReceipt({ plan }: {
   plan: Plan
 }) {
+  const tilt = useTilt<HTMLDivElement>();
   const [print] = useState(!printed);
   useEffect(() => {
     printed = true;
   }, []);
   const products = getCatalog().products;
   const lines = [...plan.basket].sort((a, b) => b.cost - a.cost);
-  return <div className="hero-receipt">
+  return <div className="hero-receipt" ref={tilt}>
+    <div className="receipt-3d">
+    <span className="receipt-ground" aria-hidden="true" />
     <section className={'card proof tear-bottom' + (print ? ' print-in' : '')}>
       <div className="receipt-heading num"><span>AFFORDLY</span><span>SAMPLE WEEK</span></div>
       <Perforation />
@@ -38,6 +42,7 @@ export function HeroReceipt({ plan }: {
       </svg>
       {print && <span className="print-head" aria-hidden="true" />}
     </section>
+    </div>
     <p className="meta checkout-gap-def">Checkout Gap: what you pay for package leftovers the recipes do not use.</p>
     <p className="meta">Same week, same food. The {fmtMoney(plan.checkoutGap)} gap is packages
       you cannot half-buy.</p>

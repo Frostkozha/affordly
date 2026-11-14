@@ -2,7 +2,7 @@
 .input-layout form { min-width: 0; }
 .input-layout form section { margin: var(--s-7) 0; }
 .field { margin-bottom: var(--s-5); }
-.budget-input { display: flex; align-items: center; font-family: var(--font-num); font-size: var(--fs-money); border-bottom: 2px solid var(--ink); margin-bottom: var(--s-2); }
+.budget-input { display: flex; align-items: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: var(--fs-money); border-bottom: 2px solid var(--ink); margin-bottom: var(--s-2); }
 .budget-input input { font-size: inherit; background: transparent; border: 0; width: 100%; padding-left: var(--s-2); min-width: 0; }
 .target-fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
 .target-fields input { display: block; width: 100%; margin: var(--s-2) 0; }

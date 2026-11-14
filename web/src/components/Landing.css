@@ -232,3 +232,158 @@
 .print-head {
   display: none;
 }
+
+/* ---- Premium motion ---- */
+/* Hero entrance: eyebrow, headline words, sub, buttons rise in on first paint. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+}
+@keyframes word-rise {
+  from { transform: translateY(105%); }
+}
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+@keyframes step-pop {
+  from { opacity: 0; transform: scale(.6); }
+}
+@keyframes receipt-float {
+  50% { translate: 0 -5px; rotate: .3deg; }
+}
+.hl {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: .12em;
+  margin-bottom: -.12em;
+}
+.hl > span {
+  display: inline-block;
+}
+
+/* 3D receipt. The card is masked (torn edge), which flattens its own children,
+   so the tilt lives on .receipt-3d and layer depth is a 2D parallax. */
+.hero-receipt {
+  perspective: 1100px;
+  --tilt-t: 450ms cubic-bezier(.34, 1.56, .64, 1);
+  --rest-x: 0deg;
+  --rest-y: 0deg;
+}
+.hero-receipt[data-tilt] { --tilt-t: 90ms ease-out; }
+.receipt-3d {
+  position: relative;
+  transform-style: preserve-3d;
+}
+.receipt-3d > .proof { transform: none; }
+.receipt-ground, .proof::after { display: none; }
+.proof-gap { position: relative; }
+
+@media (min-width: 900px) {
+  .hero-receipt { --rest-x: 4deg; --rest-y: -9deg; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero > .eyebrow,
+  .hero > h1,
+  .hero > .hero-sub,
+  .hero > .hero-buttons,
+  .hero > .landing-source {
+    animation: hero-rise 600ms var(--ease-out) backwards;
+    animation-delay: calc(var(--h, 0) * 90ms);
+  }
+  .hero > .eyebrow { --h: 0; }
+  .hero > h1 { animation: none; }
+  .hero > .hero-sub { --h: 4; }
+  .hero > .hero-buttons { --h: 5; }
+  .hero > .landing-source { --h: 6; }
+  .hl > span {
+    animation: word-rise 650ms var(--ease-out) backwards;
+    animation-delay: calc(90ms + var(--w, 0) * 55ms);
+  }
+
+  /* Scroll reveal: hidden only once the hook set reveal-ready. */
+  .reveal-ready [data-reveal]:not(.is-in) { opacity: 0; }
+  .reveal-ready [data-reveal].is-in {
+    animation: reveal-in 500ms var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+  .reveal-ready .number-steps li.is-in::before {
+    animation: step-pop 500ms var(--ease-snap) backwards;
+    animation-delay: calc(150ms + var(--i, 0) * 90ms);
+  }
+  .number-steps li::before {
+    transition: background var(--dur-base, 200ms) var(--ease-out), color var(--dur-base, 200ms) var(--ease-out), transform 300ms var(--ease-snap);
+  }
+
+  .receipt-3d {
+    animation: receipt-float 6.5s ease-in-out infinite;
+  }
+  .hero-receipt[data-tilt] .receipt-3d { animation-play-state: paused; }
+  .receipt-ground {
+    display: block;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -14px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .28);
+    filter: blur(14px);
+    opacity: .7;
+    pointer-events: none;
+    transform: translate(calc(var(--nx, 0) * -16px), calc(var(--ny, 0) * -4px));
+    transition: transform var(--tilt-t);
+  }
+  .proof::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--px, 50%) var(--py, 30%), rgba(255, 255, 255, .55), transparent 55%);
+    mix-blend-mode: soft-light;
+    opacity: 0;
+    transition: opacity 250ms var(--ease-out);
+  }
+  .hero-receipt[data-tilt] .proof::after { opacity: .6; }
+}
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .receipt-3d {
+    transform: rotateX(calc(var(--rest-x) + var(--ny, 0) * -7deg)) rotateY(calc(var(--rest-y) + var(--nx, 0) * 7deg));
+    transition: transform var(--tilt-t);
+  }
+  .hero-receipt[data-tilt] .receipt-3d { will-change: transform; }
+  .receipt-heading, .proof .money, .proof-gap {
+    transition: transform var(--tilt-t);
+  }
+  .receipt-heading { transform: translate(calc(var(--nx, 0) * 3px), calc(var(--ny, 0) * 2px)); }
+  .proof .receipt-row .money, .proof-figure .money {
+    transform: translate(calc(var(--nx, 0) * 5px), calc(var(--ny, 0) * 3px));
+  }
+  .proof-gap {
+    transform: translate(calc(var(--nx, 0) * 9px), calc(var(--ny, 0) * 6px)) scale(1.015);
+    box-shadow: var(--shadow-1);
+  }
+}
+/* Static resting pose when motion is reduced, still desktop only. */
+@media (min-width: 900px) and (prefers-reduced-motion: reduce) {
+  .receipt-3d { transform: rotateX(var(--rest-x)) rotateY(var(--rest-y)); }
+}
+
+/* Discover teaser: small 3D fan that spreads on hover. */
+.teaser-thumbs { perspective: 600px; }
+.teaser-thumbs > div {
+  transform: rotateY(calc(var(--i, 0) * -10deg)) rotateZ(calc(var(--i, 0) * 4deg));
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .teaser-thumbs > div { transition: transform 400ms var(--ease-snap); }
+  .discover-teaser:hover .teaser-thumbs > div {
+    transform: translate(calc(var(--i, 0) * 14px), -4px) rotateY(calc(var(--i, 0) * -16deg)) rotateZ(calc(var(--i, 0) * 7deg));
+  }
+  .number-steps li:hover::before {
+    background: var(--ink);
+    color: var(--card);
+    transform: scale(1.08) rotate(-6deg);
+  }
+}

@@ -1,7 +1,8 @@
 import { Icon } from './art/Icons';
 import { DiscoverTeaser } from './DiscoverTeaser';
 import './Landing.css';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import type { Plan, SolveResult } from '@affordly/engine';
 import { solvePlan } from '../lib/engine';
 import { defaultInputs } from '../lib/config';
@@ -12,6 +13,9 @@ import { ProofRow } from './ProofRow';
 import { HowItWorks } from './HowItWorks';
 import { PriceBadge } from './PriceBadge';
 import { ReceiptSkeleton } from './ReceiptSkeleton';
+import { useReveal } from '../lib/useReveal';
+
+const HEADLINE = 'Plan the week you can actually afford.';
 
 export function Landing({ go }: {
   go: (tab: string) => void;
@@ -34,11 +38,21 @@ export function Landing({ go }: {
       active = false;
     };
   }, []);
+  const rootRef = useReveal<HTMLDivElement>();
   return (
-    <div className="landing">
+    <div className="landing" ref={rootRef}>
       <section className="hero">
         <span className="eyebrow">Affordly</span>
-        <h1>Plan the week you can actually afford.</h1>
+        <h1 aria-label={HEADLINE}>
+          {HEADLINE.split(' ').map((w, i) => (
+            <Fragment key={i}>
+              {i > 0 && ' '}
+              <span className="hl" aria-hidden="true">
+                <span style={{ '--w': i } as CSSProperties}>{w}</span>
+              </span>
+            </Fragment>
+          ))}
+        </h1>
         <p className="hero-sub">
           Other planners price your recipes. Affordly prices your receipt:
           the whole packages a store really sells,

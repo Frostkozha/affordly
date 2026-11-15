@@ -12,7 +12,7 @@ export function PriceSourceLine() {
     <p className="meta">
       {catalog.priceSource === 'kroger'
         ?
-        `Prices: ${catalog.store.name}, updated ${date}`
+        `Prices: ${catalog.store.name}, updated ${date}. One store for now; cheapest basket across several stores is planned.`
         :
         `Estimated demo prices, ${date}`}
     </p>

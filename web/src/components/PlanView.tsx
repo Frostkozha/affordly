@@ -61,6 +61,9 @@ export function PlanView({ plan, go, open }: {
             {' '}
             <span className="meta">of{' '}<Money value={inputs.budget} />{' '}budget</span>
           </h2>
+          <p className="meta num gap-line">
+            Recipe <Money value={plan.gramCost} /> → Receipt <Money value={plan.basketCost} /> · Checkout Gap <Money value={plan.checkoutGap} gap />
+          </p>
         </div>
         {plan.basketCost > inputs.budget && <Badge kind="over">Over budget</Badge>}
         <FitsBanner budget={inputs.budget} cost={plan.basketCost} />

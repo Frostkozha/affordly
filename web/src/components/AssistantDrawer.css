@@ -3,7 +3,7 @@
 .messages { flex: 1; min-height: 0; overflow: auto; padding: var(--s-2) 0; }
 .user-message { border-radius: var(--r-md); background: var(--sunk); padding: var(--s-3); margin-left: var(--s-6); }
 .assistant-message { border: 1px solid var(--rule); border-radius: var(--r-md); padding: var(--s-4); margin-bottom: var(--s-5); }
-.refusal { background: var(--over-tint); border-left: 3px solid var(--over); }
+.refusal { background: var(--over-tint); border-color: var(--over); }
 .refusal .badge { margin-bottom: var(--s-3); }
 .assistant-message > small { display: block; margin-bottom: var(--s-3); }
 .recipe-card { display: flex; width: 100%; gap: var(--s-3); align-items: center; padding: var(--s-3) 0; border: 0; border-top: 1px dashed var(--rule); text-align: left; background: transparent; }

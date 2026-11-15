@@ -1,4 +1,4 @@
-.landing { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s-8); padding-top: var(--s-7); align-items: start; }
+.landing { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s-8); padding-top: var(--s-2); align-items: start; }
 .hero { padding-top: var(--s-7); }
 .hero h1 { max-width: 12ch; margin-bottom: var(--s-5); }
 .hero-sub { font-size: var(--fs-lg); color: var(--ink-2); line-height: var(--lh-body); margin-bottom: var(--s-6); }

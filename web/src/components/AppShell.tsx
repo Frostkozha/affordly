@@ -115,6 +115,7 @@ export function AppShell() {
                       <h1>
                         {tab === 'inputs' ?
                           'Let’s price your week.' :
+                          result && !result.ok && !solving ? 'This week does not fit yet.' :
                           tab === 'basket' ? 'What you’ll actually pay.' : 'Your week, within reach.'}
                       </h1>
                     </div>

@@ -79,6 +79,7 @@ progress::-webkit-progress-value { background: var(--save); }
 }
 
 .week-eaten { flex-basis: 100%; margin: 0; }
+.gap-line { margin: var(--s-2) 0 0; white-space: normal; }
 .day-eaten { display: block; margin-top: var(--s-1); }
 .meal-line { display: flex; align-items: center; border-top: 1px dashed var(--rule); }
 .meal-line .meal-row { border-top: 0; flex: 1; min-width: 0; width: auto; }

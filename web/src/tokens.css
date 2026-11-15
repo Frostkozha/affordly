@@ -326,7 +326,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
 input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--over); border-width: 2px; }
 .field-error { color: var(--over-deep); font-size: var(--fs-sm); margin: var(--s-1) 0 0; }
 .stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--ink-3); border-radius: var(--r-md); background: var(--card); overflow: hidden; }
-.stepper input { border: 0; border-radius: 0; width: 7ch; text-align: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.stepper input { border: 0; border-radius: 0; width: 9ch; padding-inline: var(--s-1); text-align: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; }
 .stepper button { min-width: var(--tap); min-height: var(--tap); border: 0; background: var(--sunk); font-size: var(--fs-lg); transition: background var(--dur-fast) var(--ease-out); }
 .stepper button:hover { background: var(--rule); }
 .stepper button:active { background: var(--ink-3); color: var(--paper); }

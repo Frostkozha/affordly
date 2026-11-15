@@ -9,6 +9,6 @@ export function SolveStatus() {
   return <div className="solving-receipt">
     <span className="num">AFFORDLY</span>
     <ReceiptSkeleton />
-    {slow && <p role="status">Still working. This can take a moment on a slow connection.</p>}
+    {slow && <p role="status">Still working. The solver is checking many meal combinations against your budget.</p>}
   </div>;
 }

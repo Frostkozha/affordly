@@ -12,7 +12,8 @@
 }
 
 .not-fit {
-  border-left: 4px solid var(--over);
+  border: 1px solid var(--over);
+  border-radius: var(--r-md);
   padding: var(--s-4);
   animation: a-fade var(--dur-base);
 }
